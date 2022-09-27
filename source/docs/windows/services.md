@@ -3,8 +3,8 @@
 ## Attack tree
 
 ```text
-1 Escalate through insecure permissions on service executable (misconfigured Service executable DACL) (OR)
-    1.1 Service with modifiable permissions on the executable (AND)
+1 Escalate through insecure permissions on service executable (OR)
+    1.1 Misconfigured Service executable DACL (modifiable permissions on the executable) (AND)
     1.2 Reverse shell payload replacing service executable (AND)
     1.2 Listener on attack machine
 2 Escalate through unquoted service path (OR)
@@ -12,7 +12,10 @@
     2.2 BUILTIN\\Users group has AD and WD privileges (AND)
     2.3 Reverse shell exe-service payload (AND)
     2.4 Listener on attack machine
-3 Escalate through insecure service permissions (misconfigured Service DACL)
+3 Escalate through insecure service permissions 
+    3.1 Misconfigured Service DACL (AND)
+    3.2 Reverse shell exe-service payload (AND)
+    3.3 Listener on attack machine
 ```
 
 ## Examples
