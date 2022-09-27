@@ -4,7 +4,7 @@ Monkeys know what tree to climb
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Linux escalation
+   :caption: Payloads
 
    docs/payloads/README.md
    docs/payloads/shells.md

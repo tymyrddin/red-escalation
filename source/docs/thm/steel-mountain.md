@@ -10,3 +10,9 @@
     1.4 Create payload
     1.5 Exploit
 ```
+
+## Initial access
+
+## Privilege escalation with metasploit
+
+## Access and escalation without metasploit
