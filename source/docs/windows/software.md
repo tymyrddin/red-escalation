@@ -4,7 +4,7 @@
 
 ```text
 1 Abuse vulnerable software
-    1.1 Vulenrability in software
+    1.1 Vulnerability in software
     1.2 Available exploit
 ```
 

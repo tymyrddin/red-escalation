@@ -6,6 +6,16 @@ Monkeys know what tree to climb
    :includehidden:
    :caption: Linux escalation
 
+   docs/payloads/README.md
+   docs/payloads/shells.md
+   docs/payloads/oneliners.md
+   docs/payloads/payloads.md
+
+.. toctree::
+   :maxdepth: 1
+   :includehidden:
+   :caption: Linux escalation
+
    docs/linux/README.md
    docs/linux/kernel.md
    docs/linux/sudo.md
