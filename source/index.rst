@@ -22,6 +22,12 @@ Monkeys know what tree to climb
    :caption: Windows escalation
 
    docs/windows/README.md
+   docs/windows/passwords.md
+   docs/windows/quick.md
+   docs/windows/services.md
+   docs/windows/privileges.md
+   docs/windows/software.md
+   docs/windows/resources.md
 
 .. toctree::
    :maxdepth: 1
