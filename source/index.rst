@@ -7,8 +7,8 @@ Monkeys know what tree to climb
    :caption: Payloads
 
    docs/payloads/README.md
+   docs/payloads/types.md
    docs/payloads/shells.md
-   docs/payloads/oneliners.md
    docs/payloads/payloads.md
 
 .. toctree::

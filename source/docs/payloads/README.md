@@ -21,6 +21,6 @@ resources of the target system.
 
 ## How?
 
-* [Bind and reverse shells](shells.md)
-* [One liners](oneliners.md)
+* [Types of shells](types.md)
+* [Common shells](shells.md)
 * [Common payloads](payloads.md)
