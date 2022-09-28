@@ -13,11 +13,10 @@ options for persistence and may reveal information stored locally that can furth
 
 ## How?
 
+* [Reuseful escalation commands](escalation.md)
+* [Windows escalation tools](tools.md)
 * [Harvesting passwords](passwords.md)
 * [Quick misconfiguration wins](quick.md)
 * [Abusing service misconfigurations](services.md)
 * [Abusing dangerous privileges](privileges.md)
 * [Abusing vulnerable software](software.md)
-* [Windows escalation resources](resources.md)
-
-

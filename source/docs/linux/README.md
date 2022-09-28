@@ -13,6 +13,8 @@ having been there, etc.
 
 ## How?
 
+* [Reuseful escalation commands](escalation.md)
+* [Linux escalation tools](tools.md)
 * [Kernel vulnerability exploits](kernel.md)
 * [Exploit sudo misconfigurations](sudo.md)
 * [SUID and SGID exploits](suid.md)
@@ -20,10 +22,3 @@ having been there, etc.
 * [Cron jobs exploits](cron.md)
 * [Path exploits](path.md)
 * [NFS exploits](nfs.md)
-* [Linux escalation resources](resources.md)
-
- 
-
-
-
-

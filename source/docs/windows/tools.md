@@ -1,4 +1,4 @@
-# Windows escalation resources
+# Windows escalation tools
 
 * [WinPEAS](https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS) enumerates a target system to uncover privilege escalation paths. You can also download the precompiled 
 executable or a `.bat` script. The output can be lengthy and sometimes difficult to read. It is recommended to always 

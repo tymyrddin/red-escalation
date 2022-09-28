@@ -1,4 +1,4 @@
-# Linux escalation resources
+# Linux escalation tools
 
 ## Tools
 
