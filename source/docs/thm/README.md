@@ -12,3 +12,4 @@ To build experience with which tree climbing and monkeying about.
 ## How?
 
 * [Steel Mountain](steel-mountain.md)
+* [Alfred](alfred.md)

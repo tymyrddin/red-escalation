@@ -48,6 +48,7 @@ Monkeys know what tree to climb
 
    docs/thm/README.md
    docs/thm/steel-mountain.md
+   docs/thm/alfred.md
 
 .. toctree::
    :caption: Links
