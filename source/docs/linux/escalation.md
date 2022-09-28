@@ -1,4 +1,4 @@
-# Reuseful escalation commands
+# Reuseful escalation patterns
 
 ## Shell
 

@@ -17,8 +17,8 @@ Monkeys know what tree to climb
    :caption: Linux escalation
 
    docs/linux/README.md
-   docs/linux/escalation.md
    docs/linux/tools.md
+   docs/linux/escalation.md
    docs/linux/kernel.md
    docs/linux/sudo.md
    docs/linux/suid.md
@@ -33,8 +33,8 @@ Monkeys know what tree to climb
    :caption: Windows escalation
 
    docs/windows/README.md
-   docs/windows/escalation.md
    docs/windows/tools.md
+   docs/windows/escalation.md
    docs/windows/passwords.md
    docs/windows/quick.md
    docs/windows/services.md
