@@ -48,3 +48,8 @@ Monkeys know what tree to climb
 
    docs/thm/README.md
    docs/thm/steel-mountain.md
+
+.. toctree::
+   :caption: Links
+
+   Red Team <https://tymyrddin.github.io/red/>
