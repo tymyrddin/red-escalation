@@ -49,6 +49,8 @@ Monkeys know what tree to climb
    docs/thm/README.md
    docs/thm/steel-mountain.md
    docs/thm/alfred.md
+   docs/thm/hackpark.md
+   docs/thm/game-zone.md
 
 .. toctree::
    :caption: Links

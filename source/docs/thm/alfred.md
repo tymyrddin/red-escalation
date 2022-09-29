@@ -88,7 +88,7 @@ window that allows for executing Windows batch commands.
 
 | ![Windows batch commands window in project configuration](../../_static/images/build.png)
 |:--:|
-| Windows batch commands window in project configuration|
+| Windows batch commands window in project configuration |
 
 Test with: `whoami`.
 
