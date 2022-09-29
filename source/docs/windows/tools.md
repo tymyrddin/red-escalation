@@ -8,16 +8,5 @@ It is an alternative to WinPEAS without having to execute a binary file. It may 
 policy restrictions with the `Set-ExecutionPolicy` cmdlet.
 * [Windows Exploit Suggester - Next Generation (WES-NG)](https://github.com/bitsadmin/wesng) will run on the attack 
 machine, making way less noise. You run the `systeminfo` command on the target system, directing the output to a 
-`.txt` file that you will need to move to your attacking machine.
-
-Before using it, update the database:
-
-```text
-# python -m wes.py --update
-```
-
-Then use it on the downloaded `.txt` file:
-
-```text
-# wes.py systeminfo.txt
-```
+`.txt` file that you will need to move to your attacking machine. Before using it, update the database with 
+`# python -m wes.py --update`, then use it on the downloaded `.txt` file: `# wes.py systeminfo.txt`
