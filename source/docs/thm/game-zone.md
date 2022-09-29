@@ -1,15 +1,16 @@
 # Game Zone
 
-
 | [![Jenkins](../../_static/images/suit.png)](https://tryhackme.com/room/gamezone) |
 |:--:|
 | [https://tryhackme.com/room/gamezone](https://tryhackme.com/room/gamezone) |
 
+Bruteforce a websites login with Hydra, identify and use a public exploit, then escalate privileges.
+
 ## Obtain access via SQLi 
 
-### Exploration
+### Exploring
 
-| ![Game Zone](../../_static/images/suit.png)
+| ![Game Zone](../../_static/images/screenshot-game-zone.png)
 |:--:|
 | Welcome page clues |
 

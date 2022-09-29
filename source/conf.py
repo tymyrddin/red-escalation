@@ -20,6 +20,7 @@ extensions = [
     'myst_parser',
     'sphinx_markdown_tables',
     'sphinx.ext.intersphinx',
+    'sphinx_copybutton',
 ]
 
 source_suffix = ['.rst', '.md']
