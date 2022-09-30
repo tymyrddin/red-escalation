@@ -152,6 +152,34 @@ Logged in as admin, click on the "About" link from the menu.
 |:--:|
 | About page with version information |
 
+    # searchsploit blogengine 3.3.6
+    ------------------------------------------------------------------------------- ---------------------------------
+     Exploit Title                                                                 |  Path
+    ------------------------------------------------------------------------------- ---------------------------------
+    BlogEngine.NET 3.3.6 - Directory Traversal / Remote Code Execution             | aspx/webapps/46353.cs
+    BlogEngine.NET 3.3.6/3.3.7 - 'dirPath' Directory Traversal / Remote Code Execu | aspx/webapps/47010.py
+    BlogEngine.NET 3.3.6/3.3.7 - 'path' Directory Traversal                        | aspx/webapps/47035.py
+    BlogEngine.NET 3.3.6/3.3.7 - 'theme Cookie' Directory Traversal / Remote Code  | aspx/webapps/47011.py
+    BlogEngine.NET 3.3.6/3.3.7 - XML External Entity Injection                     | aspx/webapps/47014.py
+    ------------------------------------------------------------------------------- ---------------------------------
+    Shellcodes: No Results
+    Papers: No Results
+
+More on that:
+
+    # searchsploit -m aspx/webapps/46353.cs
+      Exploit: BlogEngine.NET 3.3.6 - Directory Traversal / Remote Code Execution
+          URL: https://www.exploit-db.com/exploits/46353
+         Path: /usr/share/exploitdb/exploits/aspx/webapps/46353.cs
+    File Type: HTML document, ASCII text
+    
+    Copied to: /home/nina/Downloads/46353.cs
+
+Get the CVE:
+                                                                                                                 
+    # grep CVE 46353.cs
+    # CVE : CVE-2019-6714
+
 ## Privilege escalation
 
 ## Privilege escalation without Metasploit 
