@@ -104,6 +104,10 @@ Type of request:
 Using Burpsuite Intruder, try a brute-force on that `admin` user. Fire up Burpsuite, go to login page, 
 set Burpsuite to intercept, and try to log in. Catch the `__VIEWSTATE` for use in Hydra.
 
+| ![Burpsuite proxy intercept](../../_static/images/screenshot-intercept.png)
+|:--:|
+| Burpsuite intercepted failed login attempt |
+
 Mini hydra cheatsheet:
 
 | Command                                                                                                                                                | Description                                                                                                                                                                       |
@@ -143,6 +147,10 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2022-09-30 05:12:
 ## Compromise the machine 
 
 Logged in as admin, click on the "About" link from the menu.
+
+| ![About](../../_static/images/about.png)
+|:--:|
+| About page with version information |
 
 ## Privilege escalation
 
