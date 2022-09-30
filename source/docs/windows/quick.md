@@ -81,7 +81,7 @@ C:\> msiexec /quiet /qn /i C:\Windows\Temp\evil.msi
 
 ## Notes
 
-These to belong more to the realm of CTF events rather than real world scenarios.
+These belong more to the realm of CTF events rather than real world scenarios.
 
 * Looking into scheduled tasks on the target system, you may see a scheduled task that either lost its binary or 
 it's using a binary you can modify.
