@@ -12,6 +12,8 @@ First run a simple port scan (without Ping)
 
 	nmap -Pn -p- <IP address target machine> -oN portscan
 
+portscan:
+
     # Nmap 7.92 scan initiated Thu Sep 29 17:51:07 2022 as: nmap -Pn -p- -oN portscan 10.10.184.145
     Nmap scan report for 10.10.184.145
     Host is up, received user-set (0.043s latency).
@@ -30,7 +32,9 @@ Three open ports: Two http (websites?) on port 80 and 8080, and a Remote Desktop
 Run an `-A` scan on the three open ports:
 
 	nmap -Pn -T4 -A -p80,3389,8080 <IP address target machine> -oN servicescan
-    
+
+servicescan:
+
     # Nmap 7.92 scan initiated Thu Sep 29 17:57:00 2022 as: nmap -Pn -T4 -A -p80,3389,8080 -oN servicescan 10.10.184.145
     Nmap scan report for 10.10.184.145
     Host is up (0.042s latency).
