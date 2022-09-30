@@ -4,6 +4,8 @@
 |:--:|
 | [https://tryhackme.com/room/alfred](https://tryhackme.com/room/alfred) |
 
+Gain an initial shell, escalate privilegesby exploiting Windows authentication tokens.
+
 ## Inititial access
 
 ### Scanning

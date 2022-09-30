@@ -4,20 +4,12 @@
 |:--:|
 | [https://tryhackme.com/room/steelmountain](https://tryhackme.com/room/steelmountain) |
 
-## Attack tree
-
-```text
-1 Hack steel mountain
-    1.1 Investigate site
-    1.2 Scan
-    1.3 Find vulnerability
-    1.4 Create payload
-    1.5 Exploit
-```
+Use Metasploit for initial access, Powershell for Windows privilege escalation enumeration, and gain 
+Administrator access.
 
 ## Initial access
 
-### Browsing around
+### Exploring
 
 Looking in web developer tools that employee of the months name is Bill Harper. Not much more to find.
 
