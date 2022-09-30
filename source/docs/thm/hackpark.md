@@ -28,7 +28,7 @@ portscan:
 
 Run an `-A` scan on the open ports:
 
-	nmap -Pn -T4 -A -p,,, <IP address target machine> -oN servicescan
+	nmap -Pn -T4 -A -p80,3389 <IP address target machine> -oN servicescan
 
 servicescan:
 
