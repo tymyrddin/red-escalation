@@ -186,12 +186,7 @@ Get the CVE:
 
 With possible exploit [BlogEngine.NET 3.3.6 - Directory Traversal / Remote Code Execution](https://www.exploit-db.com/exploits/46353)
 
-1. Download and modify the IP and port values in the script:
-
-```text
-
-```
-
+1. Download and modify the IP and port values in the script.
 2. Save and rename script to `PostView.ascx`
 3. Go to posts (`http://IP address target machine/admin/#/content/posts`) and click on "Welcome to HackPark" to edit it.
 4. On the edit bar on top of the post, click on the "File Manager" icon.
@@ -200,10 +195,10 @@ With possible exploit [BlogEngine.NET 3.3.6 - Directory Traversal / Remote Code 
 7. Start a listener
 
 ```text
-rlwrap nc -nlvp 442
+# rlwrap nc -nlvp 442
 ```
 
-8. Go to http://IP address target machine/?theme=../../App_Data/files
+8. Go to `http://IP address target machine/?theme=../../App_Data/files`
 
 ```text
 whoami
