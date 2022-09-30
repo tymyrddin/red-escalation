@@ -2,12 +2,12 @@
 
 ## What?
 
-Not an exhaustive list of all escalation methods, but does include some "edge-case" tactics that may be seen in a 
-Capture the Flag (CTF) exercise.
+Not an exhaustive list of escalation methods, but does include some "edge-case" tactics that may be seen in 
+Capture the Flag (CTF) exercises.
 
 ## Why?
 
-To build experience with which tree climbing and monkeying about.
+To build experience with tree climbing and monkeying about.
 
 ## How?
 
