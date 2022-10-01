@@ -6,7 +6,7 @@
 
 Gain an initial shell, escalate privileges by exploiting Windows authentication tokens.
 
-## Inititial access
+## Gaining a foothold
 
 ### Scanning
 

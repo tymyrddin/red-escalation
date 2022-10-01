@@ -1,6 +1,6 @@
 # Skynet
 
-| [![Jenkins](../../_static/images/skynet.png)](https://tryhackme.com/room/skynet) |
+| [![Skynet](../../_static/images/skynet.png)](https://tryhackme.com/room/skynet) |
 |:--:|
 | [https://tryhackme.com/room/skynet](https://tryhackme.com/room/skynet) |
 

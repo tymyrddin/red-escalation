@@ -52,6 +52,7 @@ Monkeys know what tree to climb
    docs/thm/hackpark.md
    docs/thm/game-zone.md
    docs/thm/skynet.md
+   docs/thm/bugle.md
 
 .. toctree::
    :caption: Links

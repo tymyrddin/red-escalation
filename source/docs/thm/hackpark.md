@@ -1,6 +1,6 @@
 # HackPark
 
-| [![Jenkins](../../_static/images/it.png)](https://tryhackme.com/room/hackpark) |
+| [![HackPark](../../_static/images/it.png)](https://tryhackme.com/room/hackpark) |
 |:--:|
 | [https://tryhackme.com/room/hackpark](https://tryhackme.com/room/hackpark) |
 

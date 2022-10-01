@@ -1,6 +1,6 @@
 # Game Zone
 
-| [![Jenkins](../../_static/images/suit.png)](https://tryhackme.com/room/gamezone) |
+| [![Game Zone](../../_static/images/suit.png)](https://tryhackme.com/room/gamezone) |
 |:--:|
 | [https://tryhackme.com/room/gamezone](https://tryhackme.com/room/gamezone) |
 
@@ -18,7 +18,7 @@ A [reverse image search](https://www.reverseimagesearch.com/) gave the name of t
 
 ### Scanning
 
-First run a simple port scan (without Ping)
+Run a simple port scan (without Ping)
 
 	# nmap -Pn -p- <IP address target machine> -oN portscan
 
@@ -38,7 +38,7 @@ PORT   STATE SERVICE
 
 Run an `-A` scan on the open ports:
 
-	nmap -Pn -T4 -A -p22,80 <IP address target machine> -oN servicescan
+	# nmap -Pn -T4 -A -p22,80 <IP address target machine> -oN servicescan
 
 servicescan:
 

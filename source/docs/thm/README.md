@@ -16,3 +16,4 @@ To build experience with tree climbing and monkeying about.
 * [HackPark](hackpark.md)
 * [Game Zone](game-zone.md)
 * [Skynet](skynet.md)
+* [The Daily Bugle](bugle.md)

@@ -7,7 +7,7 @@
 Use Metasploit for initial access, Powershell for Windows privilege escalation enumeration, and gain 
 Administrator access.
 
-## Initial access
+## Gaining a foothold
 
 ### Exploring
 
