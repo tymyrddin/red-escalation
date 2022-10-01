@@ -439,6 +439,10 @@ And connection:
 
 ### Privilege escalation
 
+A better shell:
+
+    $ python -c 'import pty; pty.spawn("/bin/bash")'
+
 Explore:
 
     $ cat /etc/crontab
@@ -459,4 +463,3 @@ Explore:
     52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
     #
 
-See [Cron job exploits](https://tymyrddin.github.io/red-escalation/docs/linux/cron.html)
