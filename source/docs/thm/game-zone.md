@@ -38,7 +38,7 @@ PORT   STATE SERVICE
 
 Run an `-A` scan on the open ports:
 
-	nmap -Pn -T4 -A -p,,, <IP address target machine> -oN servicescan
+	nmap -Pn -T4 -A -p22,80 <IP address target machine> -oN servicescan
 
 servicescan:
 
