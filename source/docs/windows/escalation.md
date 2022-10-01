@@ -51,6 +51,26 @@ List scheduled tasks:
 
     schtasks /query /fo LIST /v
 
+## Firewall and AV information
+
+Check Windows defender:
+
+    sc query windefend
+
+View all services running on the machine:
+
+    sc queryex type= service
+    sc = service control
+
+Firewall settings:
+
+    netsh advfirewall firewall dump
+    netsh firewall show state
+
+Show firewall config:
+
+    netsh firewall show config
+
 ## Services
 
 List Windows services:
