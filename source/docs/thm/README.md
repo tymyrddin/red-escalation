@@ -15,3 +15,4 @@ To build experience with tree climbing and monkeying about.
 * [Alfred](alfred.md)
 * [HackPark](hackpark.md)
 * [Game Zone](game-zone.md)
+* [Skynet](skynet.md)
