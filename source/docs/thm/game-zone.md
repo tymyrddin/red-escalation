@@ -229,7 +229,7 @@ Table: users
 We already have the password, but do again:
 
     # echo "ab5db915fc9cea6c78df88106c6500c57f2b52901ca6c0c6218f04122c3efd14" > agent47.txt
-    # john agent47.txt --wordlist=/data/src/wordlists/rockyou.txt --format=Raw-SHA256
+    # john agent47.txt --wordlist=/usr/share/wordlists/rockyou.txt --format=Raw-SHA256
 
 With username and password known, `ssh` into the target:
 
