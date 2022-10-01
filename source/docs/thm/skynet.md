@@ -94,3 +94,94 @@ HOP RTT      ADDRESS
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 # Nmap done at Sat Oct  1 02:02:55 2022 -- 1 IP address (1 host up) scanned in 17.78 seconds
 ```
+
+### Investigating SMB
+
+    # smbclient -L 10.10.62.253
+    Password for [WORKGROUP\root]:
+    
+        Sharename       Type      Comment
+        ---------       ----      -------
+        print$          Disk      Printer Drivers
+        anonymous       Disk      Skynet Anonymous Share
+        milesdyson      Disk      Miles Dyson Personal Share
+        IPC$            IPC       IPC Service (skynet server (Samba, Ubuntu))
+    Reconnecting with SMB1 for workgroup listing.
+    
+        Server               Comment
+        ---------            -------
+    
+        Workgroup            Master
+        ---------            -------
+        WORKGROUP            SKYNET
+
+Aha, there's an anonymous share. Connect:
+
+    # smbclient //10.10.62.253/anonymous
+    Password for [WORKGROUP\root]:
+    Try "help" to get a list of possible commands.
+    smb: \>  
+
+Explore the anonymous share:
+
+    smb: \> dir
+      .                                   D        0  Thu Nov 26 16:04:00 2020
+      ..                                  D        0  Tue Sep 17 08:20:17 2019
+      attention.txt                       N      163  Wed Sep 18 04:04:59 2019
+      logs                                D        0  Wed Sep 18 05:42:16 2019
+    
+            9204224 blocks of size 1024. 5831512 blocks available
+    smb: \> get attention.txt
+    getting file \attention.txt of size 163 as attention.txt (1.0 KiloBytes/sec) (average 1.0 KiloBytes/sec)
+    smb: \> cd logs
+    smb: \logs\> dir
+      .                                   D        0  Wed Sep 18 05:42:16 2019
+      ..                                  D        0  Thu Nov 26 16:04:00 2020
+      log2.txt                            N        0  Wed Sep 18 05:42:13 2019
+      log1.txt                            N      471  Wed Sep 18 05:41:59 2019
+      log3.txt                            N        0  Wed Sep 18 05:42:16 2019
+    
+            9204224 blocks of size 1024. 5831512 blocks available
+    smb: \logs\> mget *
+    Get file log2.txt? y
+    getting file \logs\log2.txt of size 0 as log2.txt (0.0 KiloBytes/sec) (average 0.6 KiloBytes/sec)
+    Get file log1.txt? y
+    getting file \logs\log1.txt of size 471 as log1.txt (2.8 KiloBytes/sec) (average 1.4 KiloBytes/sec)
+    Get file log3.txt? y
+    getting file \logs\log3.txt of size 0 as log3.txt (0.0 KiloBytes/sec) (average 1.1 KiloBytes/sec)
+    smb: \logs\> exit
+
+Find hidden files or directories using gobuster:
+
+    # gobuster dir -u http://10.10.62.253/ -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -x php,html,txt -t 50
+    ===============================================================
+    Gobuster v3.1.0
+    by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+    ===============================================================
+    [+] Url:                     http://10.10.62.253/
+    [+] Method:                  GET
+    [+] Threads:                 50
+    [+] Wordlist:                /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt
+    [+] Negative Status codes:   404
+    [+] User Agent:              gobuster/3.1.0
+    [+] Extensions:              php,html,txt
+    [+] Timeout:                 10s
+    ===============================================================
+    2022/10/01 02:21:00 Starting gobuster in directory enumeration mode
+    ===============================================================
+    /index.html           (Status: 200) [Size: 523]
+    /admin                (Status: 301) [Size: 312] [--> http://10.10.62.253/admin/]
+    /css                  (Status: 301) [Size: 310] [--> http://10.10.62.253/css/]  
+    /js                   (Status: 301) [Size: 309] [--> http://10.10.62.253/js/]   
+    /config               (Status: 301) [Size: 313] [--> http://10.10.62.253/config/]
+    /ai                   (Status: 301) [Size: 309] [--> http://10.10.62.253/ai/]    
+    /squirrelmail         (Status: 301) [Size: 319] [--> http://10.10.62.253/squirrelmail/]
+    /server-status        (Status: 403) [Size: 277]                                        
+                                                                                           
+    ===============================================================
+    2022/10/01 02:33:34 Finished
+    ===============================================================
+
+A squirrelmail entry. 
+
+### Brute-forcing squirrelmail
