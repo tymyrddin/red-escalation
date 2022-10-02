@@ -4,11 +4,9 @@
 |:--:|
 | [https://tryhackme.com/room/skynet](https://tryhackme.com/room/skynet) |
 
-A vulnerable Terminator themed Linux machine. 
+A vulnerable Terminator themed Linux machine.
 
-## Deploy and compromise
-
-### Scanning
+## Scanning
 
 First run a simple port scan (without Ping)
 
@@ -95,7 +93,7 @@ OS and Service detection performed. Please report any incorrect results at https
 # Nmap done at Sat Oct  1 02:02:55 2022 -- 1 IP address (1 host up) scanned in 17.78 seconds
 ```
 
-### Investigating SMB
+## Investigating SMB
 
     # smbclient -L 10.10.62.253
     Password for [WORKGROUP\root]:
@@ -231,7 +229,7 @@ Find hidden files or directories using gobuster:
 
 A SquirrelMail entry. 
 
-### Brute-forcing SquirrelMail
+## Brute-forcing SquirrelMail
 
 Using that loglist of possible passwords, try a 
 [brute-forcing attack in Burpsuite](https://portswigger.net/burp/documentation/desktop/tools/intruder/attack-types) 
@@ -258,7 +256,7 @@ interesting content:
 |:--:|
 | Samba password reset |
 
-### SMB again
+## SMB again
 
 Use the password found to log in to the `milesdyson` share found earlier:
 
@@ -399,7 +397,7 @@ Confirm the [25971 exploit](https://www.exploit-db.com/exploits/25971)
 
 It is vulnerable to Remote File Inclusion. 
 
-### Exploit Remote File Inclusion
+## Exploit Remote File Inclusion
 
 Use a reverse shell.
 
@@ -437,7 +435,7 @@ And connection:
     /bin/sh: 0: can't access tty; job control turned off
     $
 
-### Privilege escalation
+## Privilege escalation
 
 A better shell:
 

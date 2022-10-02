@@ -6,9 +6,7 @@
 
 Bruteforce a websites login with Hydra, identify and use a public exploit, then escalate privileges.
 
-## Obtain access via SQLi 
-
-### Exploring
+## Exploring
 
 | ![Game Zone](../../_static/images/screenshot-game-zone.png)
 |:--:|
@@ -16,7 +14,7 @@ Bruteforce a websites login with Hydra, identify and use a public exploit, then 
 
 A [reverse image search](https://www.reverseimagesearch.com/) gave the name of the agent (47).
 
-### Scanning
+## Scanning
 
 Run a simple port scan (without Ping)
 
@@ -239,7 +237,6 @@ With username and password known, `ssh` into the target:
     agent47@gamezone:~$ ls
     user.txt
     agent47@gamezone:~$ cat user.txt
-    649ac17b1480ac13ef1e4fa579dac95c
 
 ## Exposing services with reverse SSH tunnels 
 
@@ -319,4 +316,3 @@ And get flag:
     whoami
     root
     cat /root/root.txt
-    a4b945830144bdd71908d12d902adeee

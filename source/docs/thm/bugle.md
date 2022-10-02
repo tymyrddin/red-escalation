@@ -5,11 +5,9 @@
 | [https://tryhackme.com/room/dailybugle](https://tryhackme.com/room/dailybugle) |
 
 Compromise a Joomla CMS account via SQLi, practise cracking hashes and escalate your privileges by taking advantage 
-of yum. 
+of yum.
 
-## Obtain user and root 
-
-### Scanning
+## Scanning
 
 Run a simple port scan (without Ping)
 
@@ -70,7 +68,7 @@ OS and Service detection performed. Please report any incorrect results at https
 # Nmap done at Sat Oct  1 22:51:44 2022 -- 1 IP address (1 host up) scanned in 19.41 seconds
 ```
 
-### Exploring
+## Exploring
 
 | ![The Bugle](../../_static/images/Screenshot from 2022-10-01 22-55-47.png) |
 |:--:|
@@ -114,7 +112,7 @@ In browser, run the payloaod provided by SQLMap to confirm the endpoint is vulne
 |:--:|
 | http://10.10.38.105/index.php?option=com_fields&view=fields&layout=<br>modal&list[fullordering]=(SELECT * FROM (SELECT(SLEEP(5)))GDiu) |
 
-### Gaining a foothold
+## Gaining a foothold
 
 Run SQLMap using the arguments specified in the exploit:
 
@@ -147,7 +145,7 @@ Put hash in a file named `hash.txt` and crack the hash:
     Use the "--show" option to display all of the cracked passwords reliably
     Session completed.
 
-### Privilege escalation
+## Privilege escalation
 
 Log in with the found username and password.
 

