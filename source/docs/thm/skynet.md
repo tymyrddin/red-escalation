@@ -476,7 +476,7 @@ in the form of a binary or script, whenever a checkpoint is reached.
 
 The wildcard used in the script will execute a given command against all files and folders in the `/var/www/html` 
 directory, and this can be exploited by adding a `–checkpoint=1` file (to enable the checkpoint function) and a 
-`–checkpoint-action=exec=/tmp/hack.sh` file (to specify the action to perform) which will be effectively treated 
+`–checkpoint-action=exec=/tmp/shell.sh` file (to specify the action to perform) which will be effectively treated 
 as arguments when tar comes across them.
 
 Create a `bash` script which will create SUID binary of bash, naming it `shell.sh`:
