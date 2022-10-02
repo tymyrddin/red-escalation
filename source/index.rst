@@ -53,6 +53,9 @@ Monkeys know what tree to climb
    docs/thm/game-zone.md
    docs/thm/skynet.md
    docs/thm/bugle.md
+   docs/thm/overpass2.md
+   docs/thm/relevant.md
+   docs/thm/internal.md
 
 .. toctree::
    :caption: Links

