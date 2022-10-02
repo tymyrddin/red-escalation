@@ -101,8 +101,13 @@ Download the backdoor to figure out the default hash for the backdoor:
         -f --fingerprint   SSH Fingerprint, excluding the SSH-2.0- prefix (default: OpenSSH_8.2p1 Debian-4)
         -a --hash          Hash for backdoor (default: bdd04d9bb7621687f5df9001f5098eb22bf19eac4c2c30b6f23efed4d24807277d0f8bfccb9e77659103d78c56e66d2d7d8391dfc885d0e9b68acd01fc2170e3)
 
-The [source code of the backdoor on Github](https://raw.githubusercontent.com/NinjaJc01/ssh-backdoor/master/main.go)
-shows the hardcoded SALT (bottom of file): `1c362db832f3f864c8c2fe05f2002a05`
+The source code of the backdoor (`main.go`) shows the hardcoded SALT (bottom of file):
+
+```text
+func passwordHandler(_ ssh.Context, password string) bool {
+	return verifyPass(hash, "1c362db832f3f864c8c2fe05f2002a05", password)
+}
+```
 
 | ![Hash](../../_static/images/Screenshot from 2022-10-02 01-09-12.png) |
 |:--:|
