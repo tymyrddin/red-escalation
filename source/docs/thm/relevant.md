@@ -4,6 +4,9 @@
 |:--:|
 | [https://tryhackme.com/room/relevant](https://tryhackme.com/room/relevant) |
 
+A test of the ability to enumerate fully before exploiting. It teaches that the most seemingly obvious finding we 
+see cannot always be exploited, and that we have to know when to quit and try something else. 
+
 ## Scanning
 
 Run a simple port scan (without Ping)
