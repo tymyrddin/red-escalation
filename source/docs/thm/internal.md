@@ -68,6 +68,9 @@ OS and Service detection performed. Please report any incorrect results at https
 
 ## Exploring
 
+| ![Ubuntu](../../_static/images/Screenshot from 2022-10-03 02-23-38.png) |
+|:--:|
+| http://internal.thm |
 
 ## Find files and folders
 
@@ -272,16 +275,27 @@ Trying admin / bratz1 Time: 00:01:52 <                                          
 [+] Elapsed time: 00:01:59
 ```
 
+| ![Wordpress](../../_static/images/Screenshot from 2022-10-03 02-29-26.png) |
+|:--:|
+| http://internal.thm/blog |
+
 ## Reverse shell
 
-Log into WordPress as the admin user.
+| ![Wordpress login succeed](../../_static/images/Screenshot from 2022-10-03 02-30-05.png) |
+|:--:|
+| Log into WordPress as the admin user. |
 
 Copy and adapt the Laudanum PHP Reverse Shell found in `/usr/share/laudanum/php/php-reverse-shell.php` or the 
 [PentestMonkey php-reverse-shell](http://pentestmonkey.net/tools/web-shells/php-reverse-shell).
 
+| ![Wordpress login succeed](../../_static/images/Screenshot from 2022-10-03 02-33-24.png) |
+|:--:|
+| Change IP address and port |
+
 1. Use "Appearance > Theme Editor > 404.php" and replace the PHP code with the PHP reverse shell.
 2. Open a listener
-3. Call the template in browser http://internal.thm/blog/wp-content/themes/twentyseventeen/404.php
+3. Call the template in browser 
+[http://internal.thm/blog/wp-content/themes/twentyseventeen/404.php](http://internal.thm/blog/wp-content/themes/twentyseventeen/404.php)
 
 A shell as the `www-data` user is granted on the box.
 
@@ -354,12 +368,17 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 7.51 seconds
 ```
 
-Jenkins is now available on `127.0.0.1:1234/login?from=%2F` from the attack machine.
+| ![Jenkins login page](../../_static/images/Screenshot from 2022-10-03 03-23-51.png) |
+|:--:|
+| Jenkins is now available on `127.0.0.1:1234/login?from=%2F` from the attack machine. |
 
 ## Jenkins' admin password
 
-Default credentials do not seem to work. Intercept the POST request in Burpsuite to be able to 
-build the hydra command.
+Default credentials do not seem to work. 
+
+| ![Burpsuite post intercept](../../_static/images/Screenshot from 2022-10-03 03-26-59.png) |
+|:--:|
+| Intercept the POST request in Burpsuite to be able to build the hydra command. |
 
 Hydra:
 
