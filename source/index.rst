@@ -4,6 +4,17 @@ Monkeys know what tree to climb
 .. toctree::
    :maxdepth: 1
    :includehidden:
+   :caption: Common exploits
+
+   docs/exploits/README.md
+   docs/exploits/systems.md
+   docs/exploits/wireless.md
+   docs/exploits/app.md
+
+
+.. toctree::
+   :maxdepth: 1
+   :includehidden:
    :caption: Payloads
 
    docs/payloads/README.md
