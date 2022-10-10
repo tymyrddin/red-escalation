@@ -11,7 +11,6 @@ Monkeys know what tree to climb
    docs/exploits/wireless.md
    docs/exploits/app.md
 
-
 .. toctree::
    :maxdepth: 1
    :includehidden:
