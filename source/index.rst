@@ -54,18 +54,18 @@ Monkeys know what tree to climb
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: THM Capture The Flag
+   :caption: Capture The Flag
 
-   docs/thm/README.md
-   docs/thm/steel-mountain.md
-   docs/thm/alfred.md
-   docs/thm/hackpark.md
-   docs/thm/game-zone.md
-   docs/thm/skynet.md
-   docs/thm/bugle.md
-   docs/thm/overpass2.md
-   docs/thm/relevant.md
-   docs/thm/internal.md
+   docs/ctf/README.md
+   docs/ctf/steel-mountain.md
+   docs/ctf/alfred.md
+   docs/ctf/hackpark.md
+   docs/ctf/game-zone.md
+   docs/ctf/skynet.md
+   docs/ctf/bugle.md
+   docs/ctf/overpass2.md
+   docs/ctf/relevant.md
+   docs/ctf/internal.md
 
 .. toctree::
    :caption: Links
