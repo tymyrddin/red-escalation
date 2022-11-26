@@ -1,8 +1,8 @@
-# HackPark
-
 | [![HackPark](../../_static/images/it.png)](https://tryhackme.com/room/hackpark) |
 |:--:|
 | [https://tryhackme.com/room/hackpark](https://tryhackme.com/room/hackpark) |
+
+# THM: HackPark
 
 SQLMap, crack some passwords, reveal services using a reverse SSH tunnel and escalate privileges to root.
 

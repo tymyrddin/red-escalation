@@ -57,6 +57,8 @@ Monkeys know what tree to climb
    :caption: Capture The Flag
 
    docs/ctf/README.md
+   docs/ctf/win-privesc.md
+   docs/ctf/linux-privesc.md
    docs/ctf/steel-mountain.md
    docs/ctf/alfred.md
    docs/ctf/hackpark.md

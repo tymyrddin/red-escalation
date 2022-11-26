@@ -11,12 +11,14 @@ To build experience with tree climbing and monkeying about.
 
 ## How?
 
-* [Steel Mountain](steel-mountain.md)
-* [Alfred](alfred.md)
-* [HackPark](hackpark.md)
-* [Game Zone](game-zone.md)
-* [Skynet](skynet.md)
-* [The Daily Bugle](bugle.md)
-* [Overpass 2 hacked](overpass2.md)
-* [Relevant](relevant.md)
-* [Internal](internal.md)
+* [THM: Windows PrivEsc](win-privesc.md)
+* [THM: Linux PrivEsc](linux-privesc.md)
+* [THM: Steel Mountain](steel-mountain.md)
+* [THM: Alfred](alfred.md)
+* [THM: HackPark](hackpark.md)
+* [THM: Game Zone](game-zone.md)
+* [THM: Skynet](skynet.md)
+* [THM: The Daily Bugle](bugle.md)
+* [THM: Overpass 2 hacked](overpass2.md)
+* [THM: Relevant](relevant.md)
+* [THM: Internal](internal.md)

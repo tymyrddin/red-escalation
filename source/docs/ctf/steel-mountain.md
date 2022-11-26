@@ -1,8 +1,8 @@
-# Steel Mountain
-
 | [![Steel Mountain](../../_static/images/steel-mountain.png)](https://tryhackme.com/room/steelmountain) |
 |:--:|
 | [https://tryhackme.com/room/steelmountain](https://tryhackme.com/room/steelmountain) |
+
+# THM: Steel Mountain
 
 Use Metasploit for initial access, Powershell for Windows privilege escalation enumeration, and gain 
 Administrator access.

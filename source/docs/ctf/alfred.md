@@ -1,8 +1,8 @@
-# Alfred
-
 | [![Jenkins](../../_static/images/jenkins.png)](https://tryhackme.com/room/alfred) |
 |:--:|
 | [https://tryhackme.com/room/alfred](https://tryhackme.com/room/alfred) |
+
+# THM: Alfred
 
 Gain an initial shell, escalate privileges by exploiting Windows authentication tokens.
 

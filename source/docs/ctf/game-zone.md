@@ -1,8 +1,8 @@
-# Game Zone
-
 | [![Game Zone](../../_static/images/suit.png)](https://tryhackme.com/room/gamezone) |
 |:--:|
 | [https://tryhackme.com/room/gamezone](https://tryhackme.com/room/gamezone) |
+
+# THM: Game Zone
 
 Bruteforce a websites login with Hydra, identify and use a public exploit, then escalate privileges.
 
