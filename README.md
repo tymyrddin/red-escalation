@@ -1,7 +1,4 @@
-# Monkeys
-
-![Publish Monkeys using Sphinx](https://github.com/tymyrddin/red-escalation/workflows/Publish%20Monkeys%20using%20Sphinx/badge.svg?branch=main)
- Deployed: https://tymyrddin.github.io/red-escalation/
+# Escalation
 
 Built with [Sphinx](https://www.sphinx-doc.org) using a [theme](https://github.com/readthedocs/sphinx_rtd_theme) provided
 by [Read the Docs](https://readthedocs.org/).

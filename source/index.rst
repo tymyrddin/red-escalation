@@ -72,4 +72,4 @@ Monkeys know what tree to climb
 .. toctree::
    :caption: Links
 
-   Red Team <https://tymyrddin.github.io/red/>
+   Red Team <https://red.tymyrddin.dev/>
