@@ -68,6 +68,7 @@ Monkeys know what tree to climb
    docs/ctf/overpass2.md
    docs/ctf/relevant.md
    docs/ctf/internal.md
+   docs/ctf/mr-robot.md
 
 .. toctree::
    :caption: Links
