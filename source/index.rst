@@ -54,7 +54,7 @@ Monkeys know what tree to climb
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Capture The Flag
+   :caption: Capture the flag
 
    docs/ctf/README.md
    docs/ctf/win-privesc.md
@@ -69,8 +69,3 @@ Monkeys know what tree to climb
    docs/ctf/relevant.md
    docs/ctf/internal.md
    docs/ctf/mr-robot.md
-
-.. toctree::
-   :caption: Links
-
-   Red Team <https://red.tymyrddin.dev/>
