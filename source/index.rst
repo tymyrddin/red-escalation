@@ -1,8 +1,7 @@
 Monkeys know what tree to climb
 ===========================================================
 
-Privilege escalation is a vital element of the attack life cycle and is a major determinant in
-the overall success of a penetration test.
+While privilege escalation is not the end goal, it is a key element of the attack life cycle and a major determinant in the overall success of a penetration test.
 
 .. image:: _static/images/in-progress.png
   :alt: Forever in progress ...
@@ -12,12 +11,12 @@ the overall success of a penetration test.
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Preparation
+   :caption: Testlab
 
-   Testlab: Assemblers and compilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dev/README.html>
-   Testlab: Disssemblers and decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
-   Testlab: Shellcoding tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/shellcoding/README.html>
-   Testlab: Exploitation tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/exploitation/README.html>
+   Assemblers and compilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dev/README.html>
+   Disssemblers and decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
+   Shellcoding tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/shellcoding/README.html>
+   Exploitation tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/exploitation/README.html>
 
 .. toctree::
    :maxdepth: 1
@@ -59,25 +58,26 @@ the overall success of a penetration test.
    docs/windows/privileges.md
    docs/windows/software.md
 
+----
+
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: CTFs and challenges
+   :caption: TryHackMe CTFs
 
-   docs/ctf/README.md
-   docs/ctf/win-privesc.md
-   docs/ctf/linux-privesc.md
-   docs/ctf/steel-mountain.md
-   docs/ctf/alfred.md
-   docs/ctf/hackpark.md
-   docs/ctf/game-zone.md
-   docs/ctf/skynet.md
-   docs/ctf/bugle.md
-   docs/ctf/overpass2.md
-   docs/ctf/relevant.md
-   docs/ctf/internal.md
-   docs/ctf/mr-robot.md
-
+   docs/thm/README.md
+   docs/thm/win-privesc.md
+   docs/thm/linux-privesc.md
+   docs/thm/steel-mountain.md
+   docs/thm/alfred.md
+   docs/thm/hackpark.md
+   docs/thm/game-zone.md
+   docs/thm/skynet.md
+   docs/thm/bugle.md
+   docs/thm/overpass2.md
+   docs/thm/relevant.md
+   docs/thm/internal.md
+   docs/thm/mr-robot.md
 
 ----
 

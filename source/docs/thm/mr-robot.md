@@ -1,4 +1,4 @@
-# THM: Mr Robot
+# Mr Robot
 
 ## Key 1
 

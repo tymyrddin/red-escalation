@@ -2,7 +2,7 @@
 |:--:|
 | [https://tryhackme.com/room/relevant](https://tryhackme.com/room/relevant) |
 
-# THM: Relevant
+# Relevant
 
 A test of the ability to enumerate fully before exploiting. It teaches that the most seemingly obvious finding we 
 see cannot always be exploited, and that we have to know when to quit and try something else. 

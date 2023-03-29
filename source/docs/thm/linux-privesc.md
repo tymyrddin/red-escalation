@@ -2,7 +2,7 @@
 |:--:|
 | [https://tryhackme.com/room/linuxprivesc](https://tryhackme.com/room/linuxprivesc) |
 
-# THM: Linux PrivEsc
+# Linux PrivEsc
 
 This room is excellent for reinforcement of the most common Linux privilege escalation techniques. 
 After each technique, exit out of the `root` shell gained, and/or re-establish a session as the `user` account 

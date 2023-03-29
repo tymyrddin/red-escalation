@@ -2,7 +2,7 @@
 |:--:|
 | [https://tryhackme.com/room/windows10privesc](https://tryhackme.com/room/windows10privesc) |
 
-# THM: Windows PrivEsc
+# Windows PrivEsc
 
 This room is excellent for reinforcement of the most common Windows privilege escalation techniques. 
 

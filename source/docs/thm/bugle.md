@@ -2,7 +2,7 @@
 |:--:|
 | [https://tryhackme.com/room/dailybugle](https://tryhackme.com/room/dailybugle) |
 
-# THM: The Daily Bugle
+# The Daily Bugle
 
 Compromise a Joomla CMS account via SQLi, practise cracking hashes and escalate your privileges by taking advantage 
 of yum.

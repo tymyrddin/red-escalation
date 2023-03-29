@@ -2,7 +2,7 @@
 |:--:|
 | [https://tryhackme.com/room/skynet](https://tryhackme.com/room/skynet) |
 
-# THM: Skynet
+# Skynet
 
 A vulnerable Terminator themed Linux machine.
 

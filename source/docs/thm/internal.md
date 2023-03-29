@@ -2,7 +2,7 @@
 |:--:|
 | [https://tryhackme.com/room/internal](https://tryhackme.com/room/internal) |
 
-# THM: Internal
+# Internal
 
 The lead is a straight forward exploit of Wordpress, followed by exploitation that requires manual enumeration of 
 the host file system. A Jenkins server is found running internally that leads to a Docker container, to a ...

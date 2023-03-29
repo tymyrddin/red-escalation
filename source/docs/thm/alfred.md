@@ -2,7 +2,7 @@
 |:--:|
 | [https://tryhackme.com/room/alfred](https://tryhackme.com/room/alfred) |
 
-# THM: Alfred
+# Alfred
 
 Gain an initial shell, escalate privileges by exploiting Windows authentication tokens.
 
