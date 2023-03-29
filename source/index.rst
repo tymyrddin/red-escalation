@@ -18,6 +18,8 @@ While privilege escalation is not the end goal, it is a key element of the attac
    Shellcoding tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/shellcoding/README.html>
    Exploitation tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/exploitation/README.html>
 
+----
+
 .. toctree::
    :maxdepth: 1
    :includehidden:
@@ -63,6 +65,16 @@ While privilege escalation is not the end goal, it is a key element of the attac
 .. toctree::
    :maxdepth: 1
    :includehidden:
+   :caption: Coding
+
+   Windows <https://github.com/tymyrddin/codes-exploits/tree/main/windows>
+   Linux <https://github.com/tymyrddin/codes-exploits/tree/main/linux>
+
+----
+
+.. toctree::
+   :maxdepth: 1
+   :includehidden:
    :caption: TryHackMe
 
    docs/thm/README.md
@@ -78,6 +90,14 @@ While privilege escalation is not the end goal, it is a key element of the attac
    docs/thm/relevant.md
    docs/thm/internal.md
    docs/thm/mr-robot.md
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+   :includehidden:
+   :caption: Root-me
+
+   docs/root-me/README.md
 
 ----
 
