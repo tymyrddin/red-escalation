@@ -14,7 +14,7 @@ While privilege escalation is not the end goal, it is a key element of the attac
    :caption: Testlab
 
    Assemblers and compilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dev/README.html>
-   Disssemblers and decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
+   Disassemblers and decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
    Shellcoding tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/shellcoding/README.html>
    Exploitation tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/exploitation/README.html>
 
@@ -63,7 +63,7 @@ While privilege escalation is not the end goal, it is a key element of the attac
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: TryHackMe CTFs
+   :caption: TryHackMe
 
    docs/thm/README.md
    docs/thm/win-privesc.md
