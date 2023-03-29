@@ -13,7 +13,6 @@ options for persistence and may reveal information stored locally that can furth
 
 ## How?
 
-* [Windows escalation tools](tools.md)
 * [Reuseful escalation patterns](escalation.md)
 * [Harvesting passwords](passwords.md)
 * [Quick misconfiguration wins](quick.md)

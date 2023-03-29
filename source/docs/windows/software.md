@@ -1,12 +1,7 @@
 # Abusing vulnerable software
 
-## Attack tree
-
-```text
-1 Abuse vulnerable software
-    1.1 Vulnerability in software
-    1.2 Available exploit
-```
+1. Vulnerability in software
+2. Available exploit
 
 ## Example
 

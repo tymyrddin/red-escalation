@@ -13,7 +13,6 @@ having been there, etc.
 
 ## How?
 
-* [Linux escalation tools](tools.md)
 * [Reuseful escalation patterns](escalation.md)
 * [Kernel vulnerability exploits](kernel.md)
 * [Exploit sudo misconfigurations](sudo.md)

@@ -1,25 +1,35 @@
 Monkeys know what tree to climb
 ===========================================================
 
-.. toctree::
-   :maxdepth: 1
-   :includehidden:
-   :caption: Common exploits
+Privilege escalation is a vital element of the attack life cycle and is a major determinant in
+the overall success of a penetration test.
 
-   docs/exploits/README.md
-   docs/exploits/systems.md
-   docs/exploits/wireless.md
-   docs/exploits/app.md
+.. image:: _static/images/in-progress.png
+  :alt: Forever in progress ...
+
+----
 
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Payloads
+   :caption: Preparation
 
-   docs/payloads/README.md
-   docs/payloads/types.md
-   docs/payloads/shells.md
-   docs/payloads/payloads.md
+   Testlab: Assemblers and compilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dev/README.html>
+   Testlab: Disssemblers and decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
+   Testlab: Shellcoding tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/shellcoding/README.html>
+   Testlab: Exploitation tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/exploitation/README.html>
+
+.. toctree::
+   :maxdepth: 1
+   :includehidden:
+   :caption: Notes on techniques
+
+   docs/notes/README.md
+   docs/notes/types.md
+   docs/notes/shells.md
+   docs/notes/systems.md
+   docs/notes/wireless.md
+   docs/notes/app.md
 
 .. toctree::
    :maxdepth: 1
@@ -27,7 +37,6 @@ Monkeys know what tree to climb
    :caption: Linux escalation
 
    docs/linux/README.md
-   docs/linux/tools.md
    docs/linux/escalation.md
    docs/linux/kernel.md
    docs/linux/sudo.md
@@ -43,7 +52,6 @@ Monkeys know what tree to climb
    :caption: Windows escalation
 
    docs/windows/README.md
-   docs/windows/tools.md
    docs/windows/escalation.md
    docs/windows/passwords.md
    docs/windows/quick.md
@@ -54,7 +62,7 @@ Monkeys know what tree to climb
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Capture the flag
+   :caption: CTFs and challenges
 
    docs/ctf/README.md
    docs/ctf/win-privesc.md
@@ -69,3 +77,9 @@ Monkeys know what tree to climb
    docs/ctf/relevant.md
    docs/ctf/internal.md
    docs/ctf/mr-robot.md
+
+
+----
+
+.. image:: _static/images/books.png
+  :alt: Useful books

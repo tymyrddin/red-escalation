@@ -2,8 +2,7 @@
 
 ## What?
 
-Not an exhaustive list of escalation methods, but does include some "edge-case" tactics that may be seen in 
-Capture the Flag (CTF) exercises.
+Not an exhaustive list of escalation methods, but does include some "edge-case" tactics that may be seen in CTF exercises and challenges.
 
 ## Why?
 

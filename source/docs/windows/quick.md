@@ -1,12 +1,9 @@
 # Quick misconfiguration wins
 
-## Attack tree
+Escalate through misconfigurations
 
-```text
-1 Escalate through misconfigurations
-    1.1 Scheduled tasks (OR)
-    1.2 AlwaysInstallElevated
-```
+1. Scheduled tasks
+2. AlwaysInstallElevated
 
 ## Examples
 

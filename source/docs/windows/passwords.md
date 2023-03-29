@@ -1,15 +1,12 @@
 # Harvesting passwords
 
-## Attack tree
+Escalate using found credentials in
 
-```text
-1 Escalate using found credentials in
-    1.1 Unattended Windows installations
-    1.2 Powershell history
-    1.3 Saved Windows credentials
-    1.4 IIS configuration
-    1.5 Retrieve credentials from software, for example PuTTY
-```
+1. Unattended Windows installations
+2. Powershell history
+3. Saved Windows credentials
+4. IIS configuration
+5. Retrieve credentials from software, for example PuTTY
 
 ## Examples
 

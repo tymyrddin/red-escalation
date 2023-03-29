@@ -1,4 +1,4 @@
-# Systems
+# Common systems exploits
 
 Common types of exploits performed to gain access to systems.
 

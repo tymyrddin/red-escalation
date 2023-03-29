@@ -1,6 +1,4 @@
-# Application-based
-
-Common application-based attacks.
+# Common application-based attacks
 
 ## Injection attacks
 

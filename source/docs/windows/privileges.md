@@ -1,13 +1,8 @@
 # Abusing dangerous privileges 
 
-## Attack tree
-
-```text
-1 Abusing dangerous privileges
-   1.1 SeBackup/SeRestore abuse (OR)
-   1.2 SeTakeOwnership abuse (OR)
-   1.3 SeImpersonate/SeAssignPrimaryToken abuse
-```
+1. SeBackup/SeRestore abuse
+2. SeTakeOwnership abuse
+3. SeImpersonate/SeAssignPrimaryToken abuse
 
 ## Examples
 
