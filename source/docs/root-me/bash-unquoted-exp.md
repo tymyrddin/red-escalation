@@ -4,15 +4,10 @@
 
 ----
 
-```text
-./somescript "0 -o foo"
-```
-
-This makes any condition become
+`./somescript "0 -o foo"` makes any condition become
 
     test 1234 -eq 0 -o foo
 
 This is the equivalent of `1234 == 0 || "foo"` in other languages, with one irrelevant comparison `OR`'d with the truth value of the string `foo`.
 
-Since test considers all non-empty strings to be true, this expression is always true.
-```
+All non-empty strings are considered to be true, so this expression is always true.

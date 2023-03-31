@@ -106,6 +106,7 @@ While privilege escalation is not the end goal, it is a key element of the attac
    docs/root-me/bash-unquoted-exp.md
    docs/root-me/perl-cmd-injection.md
    docs/root-me/bash-cron.md
+   docs/root-me/python-input.md
 
 ----
 

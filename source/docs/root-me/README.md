@@ -18,5 +18,6 @@ Practice exploiting environment weaknesses, configuration mistakes and vulnerabi
 * [Bash: unquoted expression injection](bash-unquoted-exp.md)
 * [Perl: Command injection](perl-cmd-injection.md)
 * [Bash: cron](bash-cron.md)
+* [Python input()](python-input.md)
 
 
