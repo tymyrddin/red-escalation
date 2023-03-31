@@ -98,6 +98,14 @@ While privilege escalation is not the end goal, it is a key element of the attac
    :caption: Root-me
 
    docs/root-me/README.md
+   docs/root-me/bash1.md
+   docs/root-me/sudo-weak-config.md
+   docs/root-me/bash2.md
+   docs/root-me/latex.md
+   docs/root-me/powershell-cmd-injection.md
+   docs/root-me/bash-unquoted-exp.md
+   docs/root-me/perl-cmd-injection.md
+   docs/root-me/bash-cron.md
 
 ----
 

@@ -14,5 +14,9 @@ Practice exploiting environment weaknesses, configuration mistakes and vulnerabi
 * [sudo: weak configuration](sudo-weak-config.md)
 * [Bash: System 2](bash2.md)
 * [LaTeX: Input](latex.md)
+* [Powershell: Command Injection](powershell-cmd-injection.md)
+* [Bash: unquoted expression injection](bash-unquoted-exp.md)
+* [Perl: Command injection](perl-cmd-injection.md)
+* [Bash: cron](bash-cron.md)
 
 
