@@ -1,7 +1,7 @@
 Monkeys know what tree to climb
 ===========================================================
 
-While privilege escalation is not the end goal, it is a key element of the attack life cycle and a major determinant in the success of a penetration test.
+While exploitation and privilege escalation is not the end goal, it is a key element of the attack life cycle and a major determinant in the success of a penetration test.
 
 .. image:: _static/images/in-progress.png
   :alt: Forever in progress ...
@@ -13,6 +13,7 @@ While privilege escalation is not the end goal, it is a key element of the attac
    :includehidden:
    :caption: Testlab
 
+   Virtual machines <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/vm/README.html>
    Assemblers and compilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dev/README.html>
    Disassemblers and decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
    Shellcoding tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/shellcoding/README.html>
@@ -35,7 +36,7 @@ While privilege escalation is not the end goal, it is a key element of the attac
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Linux escalation
+   :caption: Linux
 
    docs/linux/README.md
    docs/linux/escalation.md
@@ -51,7 +52,7 @@ While privilege escalation is not the end goal, it is a key element of the attac
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Windows escalation
+   :caption: Windows
 
    docs/windows/README.md
    docs/windows/escalation.md
@@ -67,13 +68,10 @@ While privilege escalation is not the end goal, it is a key element of the attac
 .. image:: _static/images/coding.png
   :alt: coding
 
-Coding
--------------------------------------
-
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Exploits
+   :caption: Coding shells and exploits
 
    Windows <https://github.com/tymyrddin/codes-exploits/tree/main/windows>
    Linux <https://github.com/tymyrddin/codes-exploits/tree/main/linux>
@@ -83,13 +81,10 @@ Coding
 .. image:: _static/images/try-hack-me.png
   :alt: try hack me rooms
 
-TryHackMe rooms
--------------------------------------
-
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: CTF
+   :caption: TryHackMe rooms
 
    docs/thm/README.md
    docs/thm/win-privesc.md
@@ -110,16 +105,11 @@ TryHackMe rooms
 .. image:: _static/images/root-me.png
   :alt: root-me challenges
 
-Root-me challenges
--------------------------------------
-
-Exploit environment weaknesses, configuration mistakes and vulnerability patterns in scripts and systems.
-
 .. toctree::
    :glob:
    :maxdepth: 1
    :includehidden:
-   :caption: App Script
+   :caption: Root-me App-Script
 
    docs/root-me/README.md
    docs/root-me/bash1.md
