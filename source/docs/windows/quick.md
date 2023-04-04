@@ -21,8 +21,7 @@ Run As User:                          taskusr1
 ...
 ```
 
-The `Task To Run` is of interest. If the current user can modify or overwrite the executable, we can control what 
-gets executed by the `taskusr1` user, giving a simple privilege escalation.
+The `Task To Run` is of interest. If the current user can modify or overwrite the executable, we can control what gets executed by the `taskusr1` user, giving a simple privilege escalation.
 
 2. Check the file permissions on the executable:
 
@@ -33,8 +32,7 @@ c:\tasks\schtask.bat NT AUTHORITY\SYSTEM:(I)(F)
                     BUILTIN\Users:(I)(F)
 ```
 
-In this case, the `BUILTIN\Users` group has full access (F) over the task's binary. This means we can modify the 
-`.bat` file and insert any payload.
+In this case, the `BUILTIN\Users` group has full access (F) over the task's binary. This means we can modify the `.bat` file and insert any payload.
 
 Change the `.bat` file to spawn a reverse shell:
 
@@ -48,8 +46,7 @@ And start a listener on the attack machine:
 nc -lvp 4444
 ```
 
-The next time the scheduled task runs, you should receive the reverse shell with `taskusr1` privileges. Depending on 
-when the task is scheduled to run, this may take a looong time. 
+The next time the scheduled task runs, you should receive the reverse shell with `taskusr1` privileges. Depending on when the task is scheduled to run, this may take a looong time. 
 
 ### AlwaysInstallElevated
 
@@ -80,9 +77,5 @@ C:\> msiexec /quiet /qn /i C:\Windows\Temp\evil.msi
 
 These belong more to the realm of CTF events rather than real world scenarios.
 
-* Looking into scheduled tasks on the target system, you may see a scheduled task that either lost its binary or 
-it's using a binary you can modify.
-* Windows installer files (`.msi` files) are used to install applications on the system. They usually run with the 
-privilege level of the user that starts it. And they can be configured to run with higher privileges from any 
-user account (even unprivileged ones). This could potentially allow for generating a malicious `.msi` file that 
-would run with admin privileges.
+* Looking into scheduled tasks on the target system, you may see a scheduled task that either lost its binary or it is using a modifiable binary.
+* Windows installer files (`.msi` files) are used to install applications on the system. They usually run with the privilege level of the user that starts it. And they can be configured to run with higher privileges from any user account (even unprivileged ones). This could potentially allow for generating a malicious `.msi` file that would run with admin privileges.

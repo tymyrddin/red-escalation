@@ -2,14 +2,11 @@
 
 ## What?
 
-Windows presents an enormous attack surface and most companies run Windows hosts, so we will often find ourselves 
-gaining access to Windows machines. These are all methods on common real-world misconfigurations and flaws 
-in modern and legacy Windows Server and Desktop versions that may be present in a client environment.
+Windows presents an enormous attack surface and most companies run Windows hosts, so we will often find ourselves gaining access to Windows machines. These are all methods on common real-world misconfigurations and flaws in modern and legacy Windows Server and Desktop versions that may be present in a client environment.
 
 ## Why?
 
-After gaining a foothold, enumeration is the key to privilege escalation. Elevating privileges will provide more 
-options for persistence and may reveal information stored locally that can further our access in the environment.
+After gaining a foothold, enumeration is the key to privilege escalation. Elevating privileges will provide more options for persistence and may reveal information stored locally that can further our access in the environment.
 
 ## How?
 
@@ -19,3 +16,4 @@ options for persistence and may reveal information stored locally that can furth
 * [Abusing service misconfigurations](services.md)
 * [Abusing dangerous privileges](privileges.md)
 * [Abusing vulnerable software](software.md)
+* [Shellcode techniques](shellcode.md)

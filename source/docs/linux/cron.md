@@ -1,13 +1,10 @@
 # Cron jobs exploits
 
-## Attack tree
+Become root on Linux using cron jobs: 
 
-```text
-1 Become root on Linux using cron jobs
-    1.1 Find cron jobs from current user that run as root and may be exploited
-    1.2 Change the script or program to start a reverse shell as root
-    1.3 Listen and wait for it
-```
+1. Find cron jobs from current user that run as root and may be exploited
+2. Change the script or program to start a reverse shell as root
+3. Listen and wait for it
 
 ## Example: Backup script
 
@@ -80,7 +77,7 @@ cat /etc/passwd | grep matt
 matt:x:1002:1002::/home/matt:/bin/sh
 ```
 
-On the attack machine, copy matt's shadow in `shadow.txt` and matt's password in `password.txt`. Crack.
+On the attack machine, copy matt's shadow in `shadow.txt` and matt's password in `password.txt`. 
 
 ```text
 $ unshadow passwd.txt shadow.txt > crackmatt.txt

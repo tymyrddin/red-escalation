@@ -1,15 +1,12 @@
 # Kernel vulnerability exploits
 
-## Attack tree
+Become root on Linux via kernel exploit:
 
-```text
-1 Become root on Linux via kernel exploit
-    1.1 Identify the kernel version (AND)
-    1.2 Detect vulnerabilities (AND)
-    1.3 Develop or acquire exploit code (AND)
-    1.4 Transfer the exploit to the target machine (AND)
-    1.5 Execute the exploit on the target
-```
+1. Identify the kernel version
+2. Detect vulnerabilities
+3. Develop or acquire exploit code 
+4. Transfer the exploit to the target machine
+5. Execute the exploit on the target
 
 ## Example: CVE-2015-1328
 
@@ -60,8 +57,6 @@ have a higher chance of working successfully.
 
 ## Notes
 
-A failed kernel exploit can lead to a system crash. Make sure this potential outcome is acceptable within the scope of 
-the penetration testing engagement before attempting a kernel exploit.
+A failed kernel exploit can lead to a system crash. Make sure this potential outcome is acceptable within the scope of the penetration testing engagement before attempting a kernel exploit.
 
-You can transfer the exploit code from your machine to the target system using the SimpleHTTPServer Python module and 
-wget respectively. 
+You can transfer the exploit code from your machine to the target system using the `SimpleHTTPServer` Python module and `wget` respectively. 

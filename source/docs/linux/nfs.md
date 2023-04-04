@@ -1,17 +1,14 @@
 # NFS exploits
 
-## Attack tree
+Become root on Linux via NFS exploits:
 
-```text
-1 Become root on Linux via NFS exploits
-    1.1 Look for no_root_squash shares
-    1.2 Mount share
-    1.3 Create a payload
-        1.3.1 Bash binary with an SUID bit
-        1.3.2 C binary with an SUID bit
-    1.4 Execute the payload on the target machine to escalate privileges
-    1.5 Unmount the shared directory in the attacker machine
-```
+1. Look for no_root_squash shares
+2. Mount share
+3. Create a payload
+   * Bash binary with an SUID bit
+   * C binary with an SUID bit
+4. Execute the payload on the target mac hine to escalate privileges
+5. Unmount the shared directory in the attacker machine
 
 ## Example: /tmp share
 
@@ -45,8 +42,7 @@ Bash binary with an SUID bit:
 sudo cp /bin/bash /tmp/nfs/bash && sudo chmod u+s /tmp/nfs/bash
 ```
 
-C binary with an SUID bit - you may need to change the `/usr/bin/bash` to `/bin/bash`, depending on location of `bash` 
-in the target machine:
+C binary with an SUID bit - you may need to change the `/usr/bin/bash` to `/bin/bash`, depending on location of `bash` in the target machine:
 
 ```text
 #include <stdio.h>
@@ -98,7 +94,5 @@ sudo umount /tmp/nfs
 
 The NFS configuration file is `/etc/exports`:
 
-* `no_root_squash`: This option basically gives authority to the root user on the client (us, our attacker host) 
-to access files on the NFS server as root. This is bad, as we can create malicious files on the NFS share as the 
-root user.
+* `no_root_squash`: This option basically gives authority to the root user on the client (us, our attacker host) to access files on the NFS server as root. This is bad, as we can create malicious files on the NFS share as the root user.
 * `no_all_squash`: This is similar to no_root_squash option but applies to non-root users.

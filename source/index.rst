@@ -46,6 +46,7 @@ While privilege escalation is not the end goal, it is a key element of the attac
    docs/linux/cron.md
    docs/linux/path.md
    docs/linux/nfs.md
+   docs/linux/shellcode.md
 
 .. toctree::
    :maxdepth: 1
@@ -59,6 +60,9 @@ While privilege escalation is not the end goal, it is a key element of the attac
    docs/windows/services.md
    docs/windows/privileges.md
    docs/windows/software.md
+   docs/windows/shellcode.md
+
+----
 
 .. image:: _static/images/coding.png
   :alt: coding
@@ -69,10 +73,12 @@ Coding
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Shells
+   :caption: Exploits
 
    Windows <https://github.com/tymyrddin/codes-exploits/tree/main/windows>
    Linux <https://github.com/tymyrddin/codes-exploits/tree/main/linux>
+
+----
 
 .. image:: _static/images/try-hack-me.png
   :alt: try hack me rooms

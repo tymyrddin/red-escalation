@@ -11,5 +11,4 @@
 
 ## Notes
 
-Software installed on the target system can present various privilege escalation opportunities. As with drivers, 
-organisations and users may not update them as often as they update the operating system. 
+Software installed on the target system can present various privilege escalation opportunities. As with drivers, organisations and users may not update them as often as they update the operating system. 

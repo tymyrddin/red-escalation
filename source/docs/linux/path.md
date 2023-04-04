@@ -1,13 +1,10 @@
 # Path exploits
 
-## Attack tree
+Become root on Linux using path:
 
-```text
-1 Become root on Linux
-    1.1 Search for files with incorrectly installed authorities that are on PATH (OR)
-    1.2 Change PATH
-    1.3 Use script or program
-```
+1. Search for files with incorrectly installed authorities that are on `PATH`
+2. Change `PATH`
+3. Use script or program
 
 ## Example
 

