@@ -19,5 +19,6 @@ Practice exploiting environment weaknesses, configuration mistakes and vulnerabi
 * [Perl: Command injection](perl-cmd-injection.md)
 * [Bash: cron](bash-cron.md)
 * [Python input()](python-input.md)
+* [Python pickle](python-pickle.md)
 
 

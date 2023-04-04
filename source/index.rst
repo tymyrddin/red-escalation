@@ -1,7 +1,7 @@
 Monkeys know what tree to climb
 ===========================================================
 
-While privilege escalation is not the end goal, it is a key element of the attack life cycle and a major determinant in the overall success of a penetration test.
+While privilege escalation is not the end goal, it is a key element of the attack life cycle and a major determinant in the success of a penetration test.
 
 .. image:: _static/images/in-progress.png
   :alt: Forever in progress ...
@@ -60,22 +60,30 @@ While privilege escalation is not the end goal, it is a key element of the attac
    docs/windows/privileges.md
    docs/windows/software.md
 
-----
+.. image:: _static/images/coding.png
+  :alt: coding
+
+Coding
+-------------------------------------
 
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: Coding
+   :caption: Shells
 
    Windows <https://github.com/tymyrddin/codes-exploits/tree/main/windows>
    Linux <https://github.com/tymyrddin/codes-exploits/tree/main/linux>
 
-----
+.. image:: _static/images/try-hack-me.png
+  :alt: try hack me rooms
+
+TryHackMe rooms
+-------------------------------------
 
 .. toctree::
    :maxdepth: 1
    :includehidden:
-   :caption: TryHackMe
+   :caption: CTF
 
    docs/thm/README.md
    docs/thm/win-privesc.md
@@ -91,11 +99,21 @@ While privilege escalation is not the end goal, it is a key element of the attac
    docs/thm/internal.md
    docs/thm/mr-robot.md
 
+----
+
+.. image:: _static/images/root-me.png
+  :alt: root-me challenges
+
+Root-me challenges
+-------------------------------------
+
+Exploit environment weaknesses, configuration mistakes and vulnerability patterns in scripts and systems.
+
 .. toctree::
    :glob:
    :maxdepth: 1
    :includehidden:
-   :caption: Root-me
+   :caption: App Script
 
    docs/root-me/README.md
    docs/root-me/bash1.md
@@ -107,6 +125,7 @@ While privilege escalation is not the end goal, it is a key element of the attac
    docs/root-me/perl-cmd-injection.md
    docs/root-me/bash-cron.md
    docs/root-me/python-input.md
+   docs/root-me/python-pickle.md
 
 ----
 
