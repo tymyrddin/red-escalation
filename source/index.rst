@@ -73,8 +73,7 @@ While exploitation and privilege escalation is not the end goal, it is a key ele
    :includehidden:
    :caption: Coding shells and exploits
 
-   Windows <https://github.com/tymyrddin/codes-exploits/tree/main/windows>
-   Linux <https://github.com/tymyrddin/codes-exploits/tree/main/linux>
+   Windows malware basics <https://github.com/tymyrddin/codes-exploits/tree/main/malware-basics>
 
 ----
 
