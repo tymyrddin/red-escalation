@@ -68,12 +68,19 @@ While exploitation and privilege escalation is not the end goal, it is a key ele
 .. image:: _static/images/coding.png
   :alt: coding
 
+Coding for better understanding of concepts, and for some hands-on. **Malware included.**
+
 .. toctree::
    :maxdepth: 1
    :includehidden:
    :caption: Coding shells and exploits
 
-   Windows malware basics <https://github.com/tymyrddin/codes-exploits/tree/main/malware-basics>
+   Basic TCP reverse shell <https://github.com/tymyrddin/codes-exploits/tree/main/tcp-reverse-shell>
+   File interceptor <https://github.com/tymyrddin/codes-exploits/tree/main/file_interceptor>
+   Execute system commands <https://github.com/tymyrddin/codes-exploits/tree/main/execute_commands>
+   Keylogger <https://github.com/tymyrddin/codes-exploits/tree/main/keylogger>
+   Backdoor <https://github.com/tymyrddin/codes-exploits/tree/main/backdoor>
+   Bypasses <https://github.com/tymyrddin/codes-exploits/tree/main/bypasses>
 
 ----
 
