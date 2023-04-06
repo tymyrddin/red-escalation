@@ -76,7 +76,6 @@ Coding for better understanding of concepts, and for some hands-on. **Malware in
    :caption: Coding shells and exploits
 
    Basic TCP reverse shell <https://github.com/tymyrddin/codes-exploits/tree/main/tcp-reverse-shell>
-   File interceptor <https://github.com/tymyrddin/codes-exploits/tree/main/file_interceptor>
    Execute system commands <https://github.com/tymyrddin/codes-exploits/tree/main/execute_commands>
    Keylogger <https://github.com/tymyrddin/codes-exploits/tree/main/keylogger>
    Backdoor <https://github.com/tymyrddin/codes-exploits/tree/main/backdoor>
