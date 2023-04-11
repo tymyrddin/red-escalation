@@ -27,11 +27,9 @@ While exploitation and privilege escalation is not the end goal, it is a key ele
    :caption: Notes on techniques
 
    docs/notes/README.md
-   docs/notes/types.md
+   docs/notes/common.md
+   docs/notes/infrastructure.md
    docs/notes/shells.md
-   docs/notes/systems.md
-   docs/notes/wireless.md
-   docs/notes/app.md
 
 .. toctree::
    :maxdepth: 1

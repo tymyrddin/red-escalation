@@ -13,8 +13,7 @@ An exploit is a piece of code, a program or data which takes advantage of a vuln
 
 ## How?
 
-* [Types of shells](types.md)
+* [Exploiting vulnerabilities](common.md)
+* [Attack infrastructures](infrastructure.md)
 * [Common shells](shells.md)
-* [Common systems exploits](systems.md)
-* [Common attack vectors wireless](wireless.md)
-* [Common application-based attacks](app.md)
+
