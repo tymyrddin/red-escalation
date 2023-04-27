@@ -106,7 +106,7 @@ Coding for better understanding of concepts, and for some hands-on. **Malware in
    :glob:
    :maxdepth: 1
    :includehidden:
-   :caption: Root-me App-Script challenges
+   :caption: Root-me app-script challenges
 
    docs/root-me/README.md
    docs/root-me/bash1.md
