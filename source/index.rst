@@ -66,9 +66,6 @@ While exploitation and privilege escalation is not the end goal, it is a key ele
 
 ----
 
-.. image:: _static/images/coding.png
-  :alt: coding
-
 Coding for better understanding of concepts, and for some hands-on. **Malware included.**
 
 .. toctree::
@@ -83,9 +80,6 @@ Coding for better understanding of concepts, and for some hands-on. **Malware in
    Bypasses <https://github.com/tymyrddin/codes-exploits/tree/main/bypasses>
 
 ----
-
-.. image:: _static/images/try-hack-me.png
-  :alt: try hack me rooms
 
 .. toctree::
    :maxdepth: 1
@@ -107,9 +101,6 @@ Coding for better understanding of concepts, and for some hands-on. **Malware in
    docs/thm/mr-robot.md
 
 ----
-
-.. image:: _static/images/root-me.png
-  :alt: root-me challenges
 
 .. toctree::
    :glob:
