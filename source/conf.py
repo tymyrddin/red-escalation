@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Monkeys know what tree to climb'
+project = 'Smithing'
 copyright = '2022, Ty Myrddin'
 author = 'Ty Myrddin'
 release = '0.1'
@@ -54,7 +54,7 @@ html_theme_options = {
     'titles_only': False
 }
 
-html_title = "Monkeys know what tree to climb"
+html_title = "Smithing"
 html_logo = "img/logo.png"
 html_favicon = "img/favicon.ico"
 

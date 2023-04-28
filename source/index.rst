@@ -1,4 +1,4 @@
-Monkeys know what tree to climb
+Smithing
 ===========================================================
 
 While exploitation and privilege escalation is not the end goal, it is a key element of the attack life cycle and a major determinant in the success of a penetration test.
