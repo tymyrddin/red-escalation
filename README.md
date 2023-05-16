@@ -3,7 +3,7 @@
 Built with [Sphinx](https://www.sphinx-doc.org) using a [theme](https://github.com/readthedocs/sphinx_rtd_theme) provided
 by [Read the Docs](https://readthedocs.org/).
 
-[![Documentation Status](https://readthedocs.org/projects/red-escalation/badge/?version=latest)](https://red.tymyrddin.dev/projects/escalation/en/latest/?badge=latest)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/50641bdd-9a79-4406-ab2c-44b3d51e6a7a/deploy-status)](https://app.netlify.com/sites/incredible-chebakia-ec5882/deploys)
 
 ## Requirements
 
