@@ -13,14 +13,14 @@ While exploitation and privilege escalation is not the end goal, it is a key ele
    :includehidden:
    :caption: Testlab
 
-   Virtual machines <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/vm/README.html>
-   Assemblers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/asm/README.html>
-   Compilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/com/README.html>
-   Disassemblers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dis/README.html>
-   Debuggers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/deb/README.html>
-   Decompilers <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/dec/README.html>
-   Exploit development <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/edt/README.html>
-   Exploitation tools <https://red.tymyrddin.dev/projects/testlab/en/latest/docs/exploitation/README.html>
+   Virtual machines <https://testlab.tymyrddin.dev/docs/vm/README>
+   Assemblers <https://testlab.tymyrddin.dev/docs/asm/README>
+   Compilers <https://testlab.tymyrddin.dev/docs/com/README>
+   Disassemblers <https://testlab.tymyrddin.dev/docs/dis/README>
+   Debuggers <https://testlab.tymyrddin.dev/docs/deb/README>
+   Decompilers <https://testlab.tymyrddin.dev/docs/dec/README>
+   Exploit development <https://testlab.tymyrddin.dev/docs/edt/README>
+   Exploitation tools <https://testlab.tymyrddin.dev/docs/exploitation/README>
 
 ----
 

@@ -79,7 +79,7 @@ html_show_copyright = False
 
 # Intersphinx
 intersphinx_mapping = {
-    "red-hurdles": ("https://red.tymyrddin.dev/projects/fire/en/latest/", None),
-    "red-iac": ("https://red.tymyrddin.dev/projects/iac/en/latest/", None),
+    "red-hurdles": ("https://fire.tymyrddin.dev/", None),
+    "red-iac": ("https://iac.tymyrddin.dev/", None),
 }
 myst_url_schemes = ["http", "https", ]
